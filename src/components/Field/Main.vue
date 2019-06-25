@@ -2,8 +2,8 @@
   <section>
     <field-field/>
     <field-uploader/>
-    <field-onboadring/>
     <field-signer/>
+    <field-onboadring/>
   </section>
 </template>
 
