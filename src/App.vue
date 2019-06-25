@@ -1,19 +1,38 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld/>
+  <div 
+    id="container" 
+    class="container">
+    <div id="center">
+      <div id="content">
+        <span id="ctl00_Content_ctl00_PageText">
+          <modal-info/>
+          <how-to-use/>
+          <field-main/>
+          <table-main/>
+          <modal-error/>
+        </span>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
+import modalInfo from './components/Modal/Info';
+import howToUse from './components/HowToUse';
+import modalError from './components/Modal/Error';
+import fieldMain from './components/Field/Main';
+import tableMain from './components/Table/Table';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    'modal-info': modalInfo,
+    'how-to-use': howToUse,
+    'field-main': fieldMain,
+    'table-main': tableMain,
+    'modal-error': modalError,
   }
-}
+};
 </script>
 
 <style>
