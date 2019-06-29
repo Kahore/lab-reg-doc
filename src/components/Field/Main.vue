@@ -1,5 +1,10 @@
 <template>
   <section>
+    <div
+      v-show="loading"
+      id="myAwaitLoad"
+      class="awaitLoad"
+    > Some text </div>
     <field-field/>
     <field-uploader/>
     <field-signer/>
@@ -20,6 +25,14 @@ import fieldSigner from './Signer';
       'field-onboadring': fieldOnboadring,
       'field-signer': fieldSigner,
 
-    }
+    },
+    computed: {
+      loading () {
+        return this.$store.getters.isFieldLoading;
+      }
+    },
+    created() {
+       this.$store.dispatch( 'LOAD_DOCUMENT_INFO' );
+     }
   };
 </script>
