@@ -1,0 +1,34 @@
+{
+  "documents": [
+    {
+      "CanIUploadFileToDocument": "true",
+      "DocDescribe": "Протокол контрольного испытания полочного барабана КП-123Р",
+      "DocNum": "NK19/RegN0047",
+      "DocType": "Протокол аттестации испытательного оборудования",
+      "DocumentDate": "19/06/2019",
+      "ID": "020BDDF7-594F-41AA-B07A-F2536D1A5C38",
+      "LastChangeInfo": "19/06/2019 10:17 Y_Vasyuchenko",
+      "RegInfo": "19/06/2019 10:14 Y_Vasyuchenko"
+    },
+    {
+      "CanIUploadFileToDocument": "true",
+      "DocDescribe": "Протокол аттестации БРИКЕТ-400 №10",
+      "DocNum": "NK19/RegN0046",
+      "DocType": "Протокол аттестации испытательного оборудования",
+      "DocumentDate": "14/05/2019",
+      "ID": "37CC3A6D-9983-4EAE-87AB-E8BCE059BB01",
+      "LastChangeInfo": "29/05/2019 09:46 maxim_bordunov",
+      "RegInfo": "29/05/2019 09:40 maxim_bordunov"
+    },
+    {
+      "CanIUploadFileToDocument": "true",
+      "DocDescribe": "Протокол аттестации БРИКЕТ-400 №9",
+      "DocNum": "NK19/RegN0045",
+      "DocType": "Протокол аттестации испытательного оборудования",
+      "DocumentDate": "14/05/2019",
+      "ID": "41D40DB6-5D93-4DF3-8F3E-3427C8C1D72C",
+      "LastChangeInfo": "29/05/2019 09:43 maxim_bordunov",
+      "RegInfo": "29/05/2019 09:42 maxim_bordunov"
+      }
+    ]
+}

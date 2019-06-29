@@ -165,6 +165,38 @@
   height: initial;
 }
 
+.tbl-block {
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  padding: 2px;
+  word-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+  min-width: 100px;
+  max-width: 100px;
+}
+
+.tbl-block_lit {
+  min-width: 25px;
+  max-width: 25px;
+}
+
+.tbl-block_sm {
+  min-width: 68px;
+  max-width: 68px;
+}
+
+.tbl-block_huge {
+  min-width: 120px;
+  max-width: 120px;
+}
+
+.tbl-block_lg {
+  min-width: 190px;
+  max-width: 190px;
+}
+
 .tbl-noCenterBlock {
   text-align: initial;
   padding-left: 20px;

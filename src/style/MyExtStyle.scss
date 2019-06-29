@@ -140,6 +140,33 @@ $info-color: #ff9900;
       height: initial;
     }
   }
+  &-block {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    padding: 2px;
+    word-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+    min-width: 100px;
+    max-width: 100px;
+    &_lit {
+      min-width: 25px;
+      max-width: 25px;  
+    }
+    &_sm {
+      min-width: 68px;
+      max-width: 68px;  
+    }
+    &_huge {
+      min-width: 120px;
+      max-width: 120px;   
+    }
+    &_lg {
+      min-width: 190px;
+      max-width: 190px;        
+    }
+  }
   &-noCenterBlock {
     text-align: initial;
     padding-left: 20px;
