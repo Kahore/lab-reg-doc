@@ -53,12 +53,9 @@
 <script>
   export default {
     name: 'TableMain',
-    created() {
-      this.$store.dispatch( 'LOAD_DOCUMENTS' );
-    },
     computed: {
       documents() {
-        if (this.$store.getters.GET_DOCUMENTS.length !== 0 ) {
+        if ( this.$store.getters.GET_DOCUMENTS.length !== 0 ) {
           return this.$store.getters.GET_DOCUMENTS;
         }
       },
@@ -68,6 +65,9 @@
       allElemIsLoadNow(){
         return this.$store.getters.IsAllElemIsLoadNow;
       },
-    }
+    },
+    created() {
+      this.$store.dispatch( 'LOAD_DOCUMENTS' );
+    },
   };
 </script>

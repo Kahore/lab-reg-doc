@@ -27,7 +27,7 @@ const mutations = {
 };
 
 const actions = {
-  LOAD_DOCUMENTS( { commit }, payload ) {
+  LOAD_DOCUMENTS( { commit } ) {
     
     $.ajax( {
       url: 'http://localhost:3000/documents',
