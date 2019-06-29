@@ -31,7 +31,7 @@
           <div class="tbl-3Block">Удалить</div>
         </div>
         <div 
-          v-for="(dataFile, index) in DataFiles"
+          v-for="(dataFile, index) in dataFiles"
           :key="index"
           class="tbl-row">
           <div class="tbl-3Block tbl-noCenterBlock">
@@ -67,6 +67,12 @@
 
 <script>
   export default {
-    name: 'FieldUpload'
+    name: 'FieldUpload',
+    props: {
+      dataFiles: {
+        type: Array,
+        default: () => [],
+      },
+    },
   };
 </script>

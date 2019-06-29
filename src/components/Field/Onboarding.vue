@@ -22,7 +22,7 @@
               name="lineItTo"/>
           </div>
         </div><!-- .field-block -->
-
+        <br>
         <div class="tbl-container">
           <div class="tbl-header">
             <div class="tbl-3Block">Имя</div>
@@ -75,6 +75,23 @@
 
 <script>
   export default {
-    name: 'FieldOnboarding'
+    name: 'FieldOnboarding',
+    props: {
+      onboardingPersons: {
+        type: Array,
+        default: () => [],
+      },
+    },
+    computed:{
+      isOnboardingInDocument () {
+        if ( !this.$store.getters.isFieldLoading ) {
+          if ( this.onboardingPersons.length !== 0 ) {
+            return true;
+          } else {
+             return false;
+          }
+        }
+      }
+    }
   };
 </script>

@@ -127,14 +127,20 @@
 <script>
   export default {
     name: 'FieldField',
-    computed: {
-      fieldPrep() {
-        if ( Object.keys( this.$store.getters.documentInfo ).length === 0 ) {
-          return this.$store.getters.defaultInfo;
-        } else {
-          return this.$store.getters.documentInfo;
-        }
+    props: {
+      fieldPrep: {
+        type: Object,
+        default: () => {},
       },
+    },
+    computed: {
+      // fieldPrep() {
+      //   if ( Object.keys( this.$store.getters.documentInfo ).length === 0 ) {
+      //     return this.$store.getters.defaultInfo;
+      //   } else {
+      //     return this.$store.getters.documentInfo;
+      //   }
+      // },
       documentTypes() {
         if ( this.$store.getters.GET_LIST.length !== 0 ) {
           return this.$store.getters.GET_DD_DocumentTypes;

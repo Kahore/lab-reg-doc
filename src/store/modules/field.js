@@ -11,10 +11,13 @@ const state = () => ( {
     docDescribe: '',
     note: '',
     regInfo: '',
-    lastChangeInfo: ''
+    lastChangeInfo: '',
+    DataFiles:[],
+    Signers:[],
+    OnboardingPersons:[]
   },
   Lists: [],
-  loading: false
+  loadingField: false
 } );
 
 const getters = {
@@ -25,7 +28,7 @@ const getters = {
     return state.DefaultInfo;
   },
   isFieldLoading: state => {
-    return state.loading;
+    return state.loadingField;
   },
   GET_LIST: state => {
     return state.Lists;
