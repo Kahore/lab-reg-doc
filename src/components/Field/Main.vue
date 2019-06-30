@@ -1,14 +1,18 @@
 <template>
   <section>
+    <!-- <template v-if="loading"> -->
     <div
       v-show="loading"
       id="myAwaitLoad"
       class="awaitLoad"
     > Some text </div>
-    <field-field :field-prep="fieldPrep"/>
+     <!-- </template>
+     <template v-else> -->
+    <field-field :field="fieldPrep.Field"/>
     <field-uploader :data-files="fieldPrep.DataFiles"/>
-    <field-signer :signers="fieldPrep.Signers"/>
-    <field-onboadring :onboarding-persons="fieldPrep.OnboardingPersons"/>
+    <field-signer :signers="fieldPrep.SignerData"/>
+    <field-onboadring :onboarding-persons="fieldPrep.OnboardingData"/>
+    <!-- </template> -->
   </section>
 </template>
 
@@ -33,7 +37,9 @@ import fieldSigner from './Signer';
           } else {
             return this.$store.getters.documentInfo;
           }   
-        }
+        } else {
+          return {};
+        } 
       },
       loading () {
         return this.$store.getters.isFieldLoading;

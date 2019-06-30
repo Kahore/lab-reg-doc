@@ -3,15 +3,15 @@ const state = () => ( {
   DocumentInfo: {},
   DefaultInfo: {
     unid: '@' + 'unid' + '@',
-    docNum: '',
-    documentDate: '',
-    currentType: '',
-    currentlocation: '',
-    currentDivCode: '',
-    docDescribe: '',
-    note: '',
-    regInfo: '',
-    lastChangeInfo: '',
+    DocNum: '',
+    DocumentDate: '',
+    DocType: '',
+    Location: '',
+    DivCode: '',
+    DocDescribe: '',
+    Note: '',
+    RegInfo: '',
+    LastChangeInfo: '',
     DataFiles:[],
     Signers:[],
     OnboardingPersons:[]
@@ -56,16 +56,16 @@ const mutations = {
     window.history.pushState( '', '', './Default?Id=@Nav_Document@' );
   },
   InProgress_Field: ( state ) => {
-    state.loading = !state.payload;
+    state.loadingField = !state.loadingField;
   },
   loadField: ( state, payload ) => {
     if ( typeof payload[0].ListData !== 'undefined' ) {
       state.Lists = payload[0].ListData[0];
     }
-    // if ( typeof payload[0].Vessel !== 'undefined' ) {
-    //   state.VesselInfo = payload[0].Vessel[0];
-    //   window.history.pushState( '', '', './Default?Id=@NavID@&unid=' + payload[0].Vessel[0].Field[0].ID );
-    // }
+    if ( typeof payload[0].Document !== 'undefined' ) {
+      state.DocumentInfo = payload[0].Document[0];
+      window.history.pushState( '', '', './Default?Id=@NavID@&unid=' + payload[0].Document[0].Field.unid );
+    }
   },
 };
 
@@ -78,7 +78,12 @@ const actions = {
     return new Promise( function( resolve, reject ) {
       setTimeout( () => {
         $.ajax( {
-          url: 'http://localhost:3000/fieldFiller',
+          /* Only DD list */
+          // url: 'http://localhost:3000/fieldFiller',
+          /* DD + base info w/t signer, file and onboarding */
+           url: 'http://localhost:3000/fieldFillerDocument',
+          /* DD + full document info */
+          // url: 'http://localhost:3000/fieldFillerDocumentFull',
           type: 'GET',
           complete ( resp ) {
             let _resp = JSON.parse( resp.responseText );

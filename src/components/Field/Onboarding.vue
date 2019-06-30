@@ -23,6 +23,7 @@
           </div>
         </div><!-- .field-block -->
         <br>
+        <br>
         <div class="tbl-container">
           <div class="tbl-header">
             <div class="tbl-3Block">Имя</div>
@@ -91,6 +92,10 @@
              return false;
           }
         }
+      },
+      onboardingWhoChecked () {
+        /* TODO: Fix it */
+        return [];
       }
     }
   };

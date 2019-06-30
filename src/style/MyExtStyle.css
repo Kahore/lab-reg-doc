@@ -224,4 +224,8 @@
   border: 1px orange solid;
   width: 250px;
 }
+
+.boldIt {
+  font-weight: 600;
+}
 /*# sourceMappingURL=MyExtStyle.css.map */

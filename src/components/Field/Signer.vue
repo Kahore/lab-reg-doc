@@ -3,7 +3,7 @@
     <h2>Подписант</h2>
     <div class="field-container">
       <div class="field-row">
-        <div class="fieldBlock">
+        <div class="field-block">
           <div class="field-block__wrapper htooltip">
             <input
               id="SearchNewSigner"
@@ -23,9 +23,10 @@
           </div>
         </div><!--fieldBlock -->		
         <br>
-        <div class="field-block errorMsg">
+        <br>
+        <!-- <div class="field-block errorMsg">
           <div class="field-block__wrapper htooltip" >Обязательно для заполнения</div>
-        </div>
+        </div> -->
         <div class="tbl-container">
           <div class="tbl-header">
             <div class="tbl-3Block">ФИО</div>
@@ -41,7 +42,7 @@
               v-text="signer.SignerName"/>
             <div 
               class="tbl-3Block"
-              v-text="signer.RegInfo" />
+              v-text="signer.AddBy" />
             <div class="tbl-3Block">
               <template v-if="signer.onAction === 'true'">
                 <span class="awaitWhenLoad">SomeText</span>
