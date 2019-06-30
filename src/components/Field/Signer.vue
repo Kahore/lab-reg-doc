@@ -27,7 +27,7 @@
         <!-- <div class="field-block errorMsg">
           <div class="field-block__wrapper htooltip" >Обязательно для заполнения</div>
         </div> -->
-        <div class="tbl-container">
+        <div class="tbl-container" v-show="isSignersInDocument">
           <div class="tbl-header">
             <div class="tbl-3Block">ФИО</div>
             <div class="tbl-3Block">Внесено</div>

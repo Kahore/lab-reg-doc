@@ -22,7 +22,7 @@
       <div class="field-block"/>
     </div>
     <!-- .field-row -->
-    <div class="field-row">
+    <div class="field-row" v-show="isFilesInDocument">
       <h3>Загруженные файлы</h3>
       <div class="tbl-container">
         <div class="tbl-header">
@@ -74,5 +74,16 @@
         default: () => [],
       },
     },
+    computed: {
+      isFilesInDocument () {
+        if (typeof this.dataFiles !== "undefined") {
+          if (this.dataFiles.length !== 0) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      }
+    }
   };
 </script>
