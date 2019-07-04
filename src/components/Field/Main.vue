@@ -6,8 +6,8 @@
       id="myAwaitLoad"
       class="awaitLoad"
     > Some text </div>
-     <!-- </template>
-     <template v-else> -->
+    <!-- </template>
+    <template v-else> -->
     <field-field :field="fieldPrep.Field"/>
     <field-uploader :data-files="fieldPrep.DataFiles"/>
     <field-signer :signers="fieldPrep.SignerData"/>

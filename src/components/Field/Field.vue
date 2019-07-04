@@ -134,7 +134,7 @@
     },
     computed: {
       fieldPrep() {
-        if (typeof this.field !== "undefined") {
+        if ( typeof this.field !== 'undefined' ) {
           return this.field;
         } else {
           return {};
