@@ -155,6 +155,11 @@
           return this.$store.getters.GET_DD_DivCodes;
         }
       },
+    },
+    methods : {
+      clearAction () {
+        this.$store.dispatch( 'MUTATE_FIELD_RESET' ); 
+      }
     }
   };
 </script>

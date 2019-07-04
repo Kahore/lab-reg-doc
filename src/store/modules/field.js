@@ -64,7 +64,7 @@ const mutations = {
     }
     if ( typeof payload[0].Document !== 'undefined' ) {
       state.DocumentInfo = payload[0].Document[0];
-      window.history.pushState( '', '', './Default?Id=@NavID@&unid=' + payload[0].Document[0].Field.unid );
+      window.history.pushState( '', '', './Default?Id=@Nav_Document@&unid=' + payload[0].Document[0].Field.unid );
     }
   },
 };
@@ -81,7 +81,7 @@ const actions = {
           /* Only DD list */
           // url: 'http://localhost:3000/fieldFiller',
           /* DD + base info w/t signer, file and onboarding */
-           url: 'http://localhost:3000/fieldFillerDocument',
+          url: 'http://localhost:3000/fieldFillerDocument',
           /* DD + full document info */
           // url: 'http://localhost:3000/fieldFillerDocumentFull',
           type: 'GET',
@@ -100,6 +100,9 @@ const actions = {
       // } );
     } );
   },
+  MUTATE_FIELD_RESET: ( { commit } ) => { 
+     commit( 'MUTATE_FIELD_RESET' );
+  }
 };
 
 export default {
