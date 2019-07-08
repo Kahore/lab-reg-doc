@@ -1,5 +1,6 @@
 const state = () => ( {
-  unid: '@unid@',
+  // unid: '@unid@',
+  unid: _defUNID(),
   error_Msg: '',
   info_Msg: ''
 } );
@@ -66,7 +67,12 @@ const actions = {
     commit( 'CLEAR_INFO' );
   }
 };
-
+function _defUNID(){
+  let url = new URL( window.location.href );
+  let unid = url.searchParams.get( 'unid' );
+  unid === null ? unid = '@unid@' : unid;
+  return unid;
+}
 export default {
   state,
   getters,

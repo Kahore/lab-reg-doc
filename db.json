@@ -6,7 +6,7 @@
       "DocNum": "NK19/RegN0047",
       "DocType": "Протокол аттестации испытательного оборудования",
       "DocumentDate": "19/06/2019",
-      "ID": "020BDDF7-594F-41AA-B07A-F2536D1A5C38",
+      "unid": "020BDDF7-594F-41AA-B07A-F2536D1A5C38",
       "LastChangeInfo": "19/06/2019 10:17 Y_Vasyuchenko",
       "RegInfo": "19/06/2019 10:14 Y_Vasyuchenko"
     },
@@ -16,7 +16,7 @@
       "DocNum": "NK19/RegN0046",
       "DocType": "Протокол аттестации испытательного оборудования",
       "DocumentDate": "14/05/2019",
-      "ID": "37CC3A6D-9983-4EAE-87AB-E8BCE059BB01",
+      "unid": "37CC3A6D-9983-4EAE-87AB-E8BCE059BB01",
       "LastChangeInfo": "29/05/2019 09:46 maxim_bordunov",
       "RegInfo": "29/05/2019 09:40 maxim_bordunov"
     },
@@ -26,119 +26,238 @@
       "DocNum": "NK19/RegN0045",
       "DocType": "Протокол аттестации испытательного оборудования",
       "DocumentDate": "14/05/2019",
-      "ID": "41D40DB6-5D93-4DF3-8F3E-3427C8C1D72C",
+      "unid": "41D40DB6-5D93-4DF3-8F3E-3427C8C1D72C",
       "LastChangeInfo": "29/05/2019 09:43 maxim_bordunov",
       "RegInfo": "29/05/2019 09:42 maxim_bordunov"
-      }
-    ],
-   "fieldFiller": 
-    [ 
-      {
-        "ListData":[
-          {
-            "DocumentTypes":"Акт внедрения;Отчёт;Протокол аттестации испытательного оборудования;Протокол проверки;Протокол совещания;Распоряжение директора ЛК;Распоряжение начальника лаборатории;",
-            "Locations":"Киселевск;Новокузнецк;Черногорск;"
-            ,"DivCodes":"div1;div2;div3"
-          }
-        ]
-      }
-    ],
-    "fieldFillerDocument": [
-      {
-        "ListData":[
-          {
-            "DocumentTypes":"Акт внедрения;Отчёт;Протокол аттестации испытательного оборудования;Протокол проверки;Протокол совещания;Распоряжение директора ЛК;Распоряжение начальника лаборатории;",
-            "Locations":"Киселевск;Новокузнецк;Черногорск;"
-            ,"DivCodes":"div1;div2;div3"
-          }
-        ],
-        "Document":[ 
-          {
-            "Field": {
-              "CanIEditDocument": "true",
-              "DocDescribe": "Протокол аттестации БРИКЕТ-400 №9",
-              "DocNum": "NK19/RegN0045",
-              "DocType": "Протокол аттестации испытательного оборудования",
-              "DocumentDate": "14/05/2019",
-              "unid": "41D40DB6-5D93-4DF3-8F3E-3427C8C1D72C",
-              "LastChangeInfo": "29/05/2019 09:43 maxim_bordunov",
-              "RegInfo": "29/05/2019 09:42 maxim_bordunov",
-              "Location": "Новокузнецк",
-              "DivCode": "div1",
-              "Note": ""
-            }
-          }
-        ]
-      }
-    ],
-    "fieldFillerDocumentFull": [
-      {
-        "ListData":[
-          {
-            "DocumentTypes":"Акт внедрения;Отчёт;Протокол аттестации испытательного оборудования;Протокол проверки;Протокол совещания;Распоряжение директора ЛК;Распоряжение начальника лаборатории;",
-            "Locations":"Киселевск;Новокузнецк;Черногорск;"
-            ,"DivCodes":"div1;div2;div3"
-          }
-        ],
-        "Document":[ {
+    },
+    {
+      "PARAM": "Document",
+      "PARAM2": "Document_Save",
+      "unid": "aecc640e-003d-4f06-8417-8918d8c1596e",
+      "DocNum": "NK19/RegN0025",
+      "DocumentDate": "22/07/2019",
+      "DocType": "Отчёт",
+      "Location": "Новокузнецк",
+      "DivCode": "div1",
+      "DocDescribe": "12123123123",
+      "Note": "",
+      "RegInfo": "Test User 08.07.2019 18:58:03",
+      "LastChangeInfo": "Test User 08.07.2019 18:58:03",
+      "id": "25"
+    },
+    {
+      "PARAM": "Document",
+      "PARAM2": "Document_Save",
+      "unid": "39dba622-9e1e-47c0-9a01-a9b4856ac44d",
+      "DocNum": "NK19/RegN0058",
+      "DocumentDate": "10/07/2019",
+      "DocType": "Акт внедрения",
+      "Location": "Новокузнецк",
+      "DivCode": "div1",
+      "DocDescribe": "ssddff",
+      "Note": "bfff",
+      "RegInfo": "08.07.2019 19:04:03 Test User",
+      "LastChangeInfo": "08.07.2019 19:04:03 Test User",
+      "id": "58"
+    },
+    {
+      "PARAM": "Document",
+      "PARAM2": "Document_Save",
+      "unid": "5564394d-e1ea-4c97-bf55-fd34d086f865",
+      "DocNum": "NK19/RegN0058",
+      "DocumentDate": "22/07/2019",
+      "DocType": "Протокол проверки",
+      "Location": "Новокузнецк",
+      "DivCode": "div1",
+      "DocDescribe": "xxx",
+      "Note": "nnnf",
+      "RegInfo": "08.07.2019 19:16:40 Test User Name&Surn",
+      "LastChangeInfo": "08.07.2019 19:16:40 Test User Name&Surn",
+      "id": "58"
+    },
+    {
+      "PARAM": "Document",
+      "PARAM2": "Document_Save",
+      "unid": "77a1140b-83be-47f0-b906-781f992c71ec",
+      "DocumentDate": "15/07/2019",
+      "DocType": "Протокол совещания",
+      "DivCode": "div2",
+      "Location": "Новокузнецк",
+      "DocDescribe": "sss",
+      "Note": "dsx",
+      "id": "11",
+      "DocNum": "NK19/RegN0011",
+      "RegInfo": "08.07.2019 19:40:41 Test User Name&Surn",
+      "LastChangeInfo": "08.07.2019 19:40:41 Test User Name&Surn"
+    },
+    {
+      "PARAM": "Document",
+      "PARAM2": "Document_Save",
+      "unid": "a11a0686-a667-4066-9cf8-651a28296015",
+      "DocumentDate": "02/07/2019",
+      "Location": "Киселевск",
+      "DocType": "Протокол аттестации испытательного оборудования",
+      "DivCode": "div2",
+      "DocDescribe": "xcxbbm",
+      "Note": "vh",
+      "id": "77",
+      "DocNum": "NK19/RegN0077",
+      "RegInfo": "08.07.2019 19:42:04 Test User Name&Surn",
+      "LastChangeInfo": "08.07.2019 19:42:04 Test User Name&Surn"
+    },
+    {
+      "PARAM": "Document",
+      "PARAM2": "Document_Save",
+      "unid": "59669140-ba3b-439f-879c-02b21e6f861a",
+      "DivCode": "div2",
+      "DocumentDate": "22/07/2019",
+      "DocType": "Распоряжение начальника лаборатории",
+      "Location": "Черногорск",
+      "DocDescribe": "ccc",
+      "id": "83",
+      "DocNum": "NK19/RegN0083",
+      "RegInfo": "08.07.2019 19:44:03 Test User Name&Surn",
+      "LastChangeInfo": "08.07.2019 19:44:03 Test User Name&Surn"
+    },
+    {
+      "PARAM": "Document",
+      "PARAM2": "Document_Save",
+      "unid": "b6c9f85c-6a03-4188-a15e-4712ba44205e",
+      "DocNum": "NK19/RegN0043",
+      "DocumentDate": "24/07/2019",
+      "DocType": "Протокол аттестации испытательного оборудования",
+      "Location": "Киселевск",
+      "DivCode": "div1",
+      "DocDescribe": "xx",
+      "Note": "",
+      "RegInfo": "08.07.2019 19:45:54 Test User Name&Surn",
+      "LastChangeInfo": "08.07.2019 19:45:54 Test User Name&Surn",
+      "id": "43"
+    },
+    {
+      "PARAM": "Document",
+      "PARAM2": "Document_Save",
+      "unid": "a0d8cc9c-c39e-418e-981b-37c37dc3b9d4",
+      "DocNum": "NK19/RegN0051",
+      "DocumentDate": "29/07/2019",
+      "DocType": "Протокол совещания",
+      "Location": "Новокузнецк",
+      "DivCode": "div1",
+      "DocDescribe": "asdfghjk",
+      "Note": "vvjhghj",
+      "RegInfo": "08.07.2019 19:49:31 Test User Name&Surn",
+      "LastChangeInfo": "08.07.2019 19:49:31 Test User Name&Surn",
+      "id": "51"
+    }
+  ],
+  "fieldFiller": [
+    {
+      "ListData": [
+        {
+          "DocumentTypes": "Акт внедрения;Отчёт;Протокол аттестации испытательного оборудования;Протокол проверки;Протокол совещания;Распоряжение директора ЛК;Распоряжение начальника лаборатории;",
+          "Locations": "Киселевск;Новокузнецк;Черногорск;",
+          "DivCodes": "div1;div2;div3"
+        }
+      ]
+    }
+  ],
+  "fieldFillerDocument": [
+    {
+      "ListData": [
+        {
+          "DocumentTypes": "Акт внедрения;Отчёт;Протокол аттестации испытательного оборудования;Протокол проверки;Протокол совещания;Распоряжение директора ЛК;Распоряжение начальника лаборатории;",
+          "Locations": "Киселевск;Новокузнецк;Черногорск;",
+          "DivCodes": "div1;div2;div3"
+        }
+      ],
+      "Document": [
+        {
           "Field": {
-              "CanIEditDocument": "true",
-              "DocDescribe": "Протокол аттестации БРИКЕТ-400 №9",
-              "DocNum": "NK19/RegN0045",
-              "DocType": "Протокол аттестации испытательного оборудования",
-              "DocumentDate": "14/05/2019",
-              "unid": "41D40DB6-5D93-4DF3-8F3E-3427C8C1D72C",
-              "LastChangeInfo": "29/05/2019 09:43 maxim_bordunov",
-              "RegInfo": "29/05/2019 09:42 maxim_bordunov",
-              "Location": "Новокузнецк",
-              "DivCode": "div1",
-              "Note": ""
-          },
-        "DataFiles": [ 
-          {
-            "DocFileId": "987654",
-            "FileName": "FileName1",
-            "UploadedInfo": "29/05/2019 09:59 maxim_bordunov",
-            "onAction": "false",
-            "linkToDoc": "./FileDownload.ashx?Id=987654"
+            "CanIEditDocument": "true",
+            "DocDescribe": "Протокол аттестации БРИКЕТ-400 №9",
+            "DocNum": "NK19/RegN0045",
+            "DocType": "Протокол аттестации испытательного оборудования",
+            "DocumentDate": "14/05/2019",
+            "unid": "41D40DB6-5D93-4DF3-8F3E-3427C8C1D72C",
+            "LastChangeInfo": "29/05/2019 09:43 maxim_bordunov",
+            "RegInfo": "29/05/2019 09:42 maxim_bordunov",
+            "Location": "Новокузнецк",
+            "DivCode": "div1",
+            "Note": ""
           }
-        ],
-          "SignerData" : [
+        }
+      ]
+    }
+  ],
+  "fieldFillerDocumentFull": [
+    {
+      "ListData": [
+        {
+          "DocumentTypes": "Акт внедрения;Отчёт;Протокол аттестации испытательного оборудования;Протокол проверки;Протокол совещания;Распоряжение директора ЛК;Распоряжение начальника лаборатории;",
+          "Locations": "Киселевск;Новокузнецк;Черногорск;",
+          "DivCodes": "div1;div2;div3"
+        }
+      ],
+      "Document": [
+        {
+          "Field": {
+            "CanIEditDocument": "true",
+            "DocDescribe": "Протокол аттестации БРИКЕТ-400 №9",
+            "DocNum": "NK19/RegN0045",
+            "DocType": "Протокол аттестации испытательного оборудования",
+            "DocumentDate": "14/05/2019",
+            "unid": "41D40DB6-5D93-4DF3-8F3E-3427C8C1D72C",
+            "LastChangeInfo": "29/05/2019 09:43 maxim_bordunov",
+            "RegInfo": "29/05/2019 09:42 maxim_bordunov",
+            "Location": "Новокузнецк",
+            "DivCode": "div1",
+            "Note": ""
+          },
+          "DataFiles": [
+            {
+              "DocFileId": "987654",
+              "FileName": "FileName1",
+              "UploadedInfo": "29/05/2019 09:59 maxim_bordunov",
+              "onAction": "false",
+              "linkToDoc": "./FileDownload.ashx?Id=987654"
+            }
+          ],
+          "SignerData": [
             {
               "ID": "134567",
               "SignerName": "Name1",
-              "onAction":"false",
-              "AddBy":"29/05/2019 09:48 maxim_bordunov"
+              "onAction": "false",
+              "AddBy": "29/05/2019 09:48 maxim_bordunov"
             },
             {
               "ID": "13456788",
-              "SignerName":"Name2",
-              "onAction":"false",
-              "AddBy":"29/05/2019 09:50 maxim_bordunov"
+              "SignerName": "Name2",
+              "onAction": "false",
+              "AddBy": "29/05/2019 09:50 maxim_bordunov"
             }
           ],
           "OnboardingData": [
             {
               "ID": "234567",
               "PersonName": "Name3",
-              "OnboardingState":"approved",
-              "onAction":"false",
+              "OnboardingState": "approved",
+              "onAction": "false",
               "IsDisabledChb": "true",
-              "IsDisabledBtnDel":"true",
-              "LastChanged":"29/05/2019 09:58 Name3"
+              "IsDisabledBtnDel": "true",
+              "LastChanged": "29/05/2019 09:58 Name3"
             },
             {
               "ID": "224567",
               "PersonName": "Name7",
-              "OnboardingState":"pendingApproveByUser",
-              "onAction":"false",
+              "OnboardingState": "pendingApproveByUser",
+              "onAction": "false",
               "IsDisabledChb": "false",
-              "IsDisabledBtnDel":"false",
-              "LastChanged":""
+              "IsDisabledBtnDel": "false",
+              "LastChanged": ""
             }
           ]
         }
-        ]
-      }
-    ]
+      ]
+    }
+  ]
 }

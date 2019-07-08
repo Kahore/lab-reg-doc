@@ -113,7 +113,8 @@
           <input 
             type="button"
             class="button align-rigth"
-            value="сохранить">
+            value="сохранить"
+            @click="saveAction( fieldPrep )">
         </div>
         <!-- .field-block -->
       </div>
@@ -158,7 +159,23 @@
     },
     methods : {
       clearAction () {
-        this.$store.dispatch( 'MUTATE_FIELD_RESET' ); 
+        this.$store.dispatch( 'MUTATE_FIELD_RESET' );
+        this.$store.dispatch( 'mutateNewUnid', '@'+'unid'+'@' );
+      },
+      saveAction ( fieldPrep ) {
+        let unid = this.$store.getters.getCurrentUnid;
+        let dataField;
+        if ( unid === '@' + 'unid' + '@' ) {
+          dataField = Object.assign( { unid }, fieldPrep );
+        } else {
+          dataField = fieldPrep;
+        }
+        dataField = Object.assign( { PARAM: 'Document', PARAM2: 'Document_Save' }, dataField );
+        /*
+        console.log( 'TCL: saveAction -> unid', unid );
+        console.log( 'TCL: saveAction -> dataField', dataField );
+        */
+       this.$store.dispatch( 'MUTATE_FIELD_SAVE', dataField );
       }
     }
   };

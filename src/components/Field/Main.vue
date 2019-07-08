@@ -9,9 +9,11 @@
     <!-- </template>
     <template v-else> -->
     <field-field :field="fieldPrep.Field"/>
-    <field-uploader :data-files="fieldPrep.DataFiles"/>
-    <field-signer :signers="fieldPrep.SignerData"/>
-    <field-onboadring :onboarding-persons="fieldPrep.OnboardingData"/>
+    <section v-if="!isANewDoc">
+      <field-uploader :data-files="fieldPrep.DataFiles"/>
+      <field-signer :signers="fieldPrep.SignerData"/>
+      <field-onboadring :onboarding-persons="fieldPrep.OnboardingData"/>
+    </section>
     <!-- </template> -->
   </section>
 </template>
@@ -43,10 +45,19 @@ import fieldSigner from './Signer';
       },
       loading () {
         return this.$store.getters.isFieldLoading;
+      },
+      isANewDoc() {
+        let unid = this.$store.getters.getCurrentUnid;
+        if ( unid === '@' + 'unid' + '@' ) {
+          return true;
+        } else {
+          return false;
+        }
       }
     },
     created() {
-       this.$store.dispatch( 'LOAD_DOCUMENT_INFO' );
+       let unid = this.$store.getters.getCurrentUnid;
+       this.$store.dispatch( 'LOAD_DOCUMENT_INFO', unid );
      }
   };
 </script>
