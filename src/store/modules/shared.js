@@ -70,7 +70,7 @@ const actions = {
 function _defUNID(){
   let url = new URL( window.location.href );
   let unid = url.searchParams.get( 'unid' );
-  unid === null ? unid = '@unid@' : unid;
+  unid === null ? unid = '@'+'unid'+'@' : unid;
   return unid;
 }
 export default {
