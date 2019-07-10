@@ -6,12 +6,12 @@
       <div class="bar"/>
     </div>
     <div :class="{ 'field-wrapper__disabled': loading }"/>
-      <field-field :field="fieldPrep.Field"/>
-      <section v-if="!isANewDoc">
-        <field-uploader :data-files="fieldPrep.DataFiles"/>
-        <field-signer :signers="fieldPrep.SignerData"/>
-        <field-onboadring :onboarding-persons="fieldPrep.OnboardingData"/>
-      </section>
+    <field-field :field="fieldPrep.Field"/>
+    <section v-if="!isANewDoc">
+      <field-uploader :data-files="fieldPrep.DataFiles"/>
+      <field-signer :signers="fieldPrep.SignerData"/>
+      <field-onboadring :onboarding-persons="fieldPrep.OnboardingData"/>
+    </section>
   </section>
 </template>
 
