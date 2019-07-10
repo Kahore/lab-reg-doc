@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import { fixJSON, fixField } from '../../scripts/shared';
+import { doAjax }  from '../../scripts/ajax';
 const state = () => ( {
   DocumentInfo: {
     Field: {}
@@ -242,8 +243,8 @@ const actions = {
   MUTATE_FILE_LOADNEW: ( { commit }, payload ) => {
     commit( 'OnProgress_Attachment' );
     setTimeout( () => {
-      return new Promise( function ( resolve, reject ) {
       /* AJAX tested in NKReports */
+      /*
         $.ajax( {
           url: './GetPageText.ashx?Id=@Nav_Backend@',
           type: 'GET',
@@ -264,6 +265,11 @@ const actions = {
             reject();
           }
         } );
+        */
+      const data = { PARAM: 'Document', PARAM2: 'Document_UploadingFile_Load', unid: payload };
+      doAjax( '@Nav_Backend@', 'GET', data, 'OnProgress_Attachment' ).then( ( result ) => {
+        commit( 'MUTATE_FILE_LOADNEW', result );
+      }, error => { commit( 'SET_ERROR', error );} );
         /*TEST*/
         /*
           let resp = '[ {"DocFileId":"ED0FADCB-B97C-489C-87EC-2CE6295C4EDF","FileName":"РАСПОРЯЖЕНИЕ НЛ от 13052019 39.docx","UploadedInfo":"13.05.2019 07:02:35   ludmila_smolko","onAction":"false","linkToDoc":"./FileDownload.ashx?Id=ED0FADCB-B97C-489C-87EC-2CE6295C4EDF"}]';
@@ -271,42 +277,58 @@ const actions = {
           commit( 'MUTATE_FILE_LOADNEW', myDataParse );
           resolve( resp );
           */
-      } );
+
     }, 2000 );
   },
   MUTATE_FILE_DELETE: ( { commit }, payload ) => {
     /* AJAX tested in NKReports */
     commit( 'OnProgress_Attachment_Single', payload );
-    $.ajax( {
-      type: 'POST',
-      url: './GetPageText.ashx?Id=@Nav_Backend@',
-      data: { 
+    /* v1 */
+    // $.ajax( {
+    //   type: 'POST',
+    //   url: './GetPageText.ashx?Id=@Nav_Backend@',
+    //   data: { 
+    //           PARAM: 'Document', 
+    //           PARAM2: 'Document_UploadingFile_Change', 
+    //           PARAM3: 'Document_UploadingFile_Delete', 
+    //           FileID: payload.DocFileId,
+    //           unid: payload.unid
+    //         },
+    //   success: function ( resp ) {
+    //     if ( resp.length === 0 ) {
+    //       commit( 'MUTATE_FILE_DELETE', payload );
+    //     } else {
+    //       commit( 'SET_ERROR', JSON.parse( resp )[0].ErrorMsg );
+    //       commit( 'OnProgress_Attachment_Single', payload );
+    //     }
+    //   },
+    //   error: function ( resp ) {
+    //     commit( 'SET_ERROR', resp.statusText );
+    //     commit( 'OnProgress_Attachment_Single', payload );
+    //   }
+    // } );
+    /* v2 */
+    const data = { 
               PARAM: 'Document', 
               PARAM2: 'Document_UploadingFile_Change', 
               PARAM3: 'Document_UploadingFile_Delete', 
               FileID: payload.DocFileId,
               unid: payload.unid
-            },
-      success: function ( resp ) {
-        if ( resp.length === 0 ) {
-          commit( 'MUTATE_FILE_DELETE', payload );
-        } else {
-          commit( 'SET_ERROR', JSON.parse( resp )[0].ErrorMsg );
-          commit( 'OnProgress_Attachment_Single', payload );
-        }
-      },
-      error: function ( resp ) {
-        commit( 'SET_ERROR', resp.statusText );
+            };
+      doAjax( '@Nav_Backend@', 'POST', data ).then( () => {
         commit( 'OnProgress_Attachment_Single', payload );
-      }
-    } );
+        commit( 'MUTATE_FILE_DELETE', payload );
+      }, error => { commit( 'SET_ERROR', error );} );
     /*TEST*/
     /*
       commit( 'MUTATE_FILE_DELETE', payload );
     */
   },
   MUTATE_SIGNER_ADD: ( { commit }, payload ) => {
-    /* TODO: AJAX */
+    // const data = payload;
+    // doAjax( '@Nav_Backend@', 'POST', data ).then( ( result ) => {
+    //   commit ( 'MUTATE_SIGNER_ADD', result );
+    // }, error => { commit( 'SET_ERROR', error );} );
     let resp = {
                 'ID': _generateUNID(),
                 'SignerName': payload.EmployeeName,
@@ -317,7 +339,12 @@ const actions = {
   },
   MUTATE_SIGNER_DELETE: ( { commit }, payload ) => { 
     commit( 'OnProgress_Signer_Single', payload );
-    /* TODO: AJAX */
+    // const data = payload;
+    // doAjax( '@Nav_Backend@', 'POST', data ).then( ( result ) => {
+    //   commit ( 'MUTATE_SIGNER_DELETE', result );
+    //   commit( 'OnProgress_Signer_Single', payload );
+    // }, error => { commit( 'SET_ERROR', error );} );
+        
     setTimeout( () => {
       commit( 'OnProgress_Signer_Single', payload );
       commit( 'MUTATE_SIGNER_DELETE', payload );

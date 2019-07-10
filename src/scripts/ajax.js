@@ -2,7 +2,7 @@ import $ from 'jquery';
 import 'jquery-ui';
 window.jQuery = $;
 window.$ = $; 
-
+import { store } from '../store/store';
 export function autocmpl( PARAM2, term ) {
   
   // eslint-disable-next-line no-console
@@ -25,7 +25,74 @@ export function autocmpl( PARAM2, term ) {
   } );
   */
          let data = [
-'Колосов Михаил Александрович','Колодезнов Владимир Владимирович','Колос Анна Александровна','Колов Михаил Григорьевич','Колотовкин Владимир Анатольевич','Колосков Юрий Юрьевич','Коломиец Ирина Андреевна','Колобов Степан Александрович','Коломенко Юлия Владимировна','Колобов Александр Викторович','Колоскова Ольга Вениаминовна','Коломиец Руслан Владимирович','Коломейцев Владимир Андреевич','Колобылин Юрий Михайлович','Колотов Денис Васильевич','Колосов Артем Андреевич','Коломина Татьяна Николаевна','Коломоец Артем Владимирович','Колосовская Наталья Николаевна','Коломин Александр Сергеевич','Колотов Максим Владимирович','Колодин Николай Андреевич','Колодка Маргарита Геннадьевна','Коломенко Ксения Евгеньевна','Колодрубский Олег Вильевич','Колова Светлана Геннадьевна'
+          'Колосов Михаил Александрович',
+          'Колодезнов Владимир Владимирович',
+          'Колос Анна Александровна',
+          'Колов Михаил Григорьевич',
+          'Колотовкин Владимир Анатольевич',
+          'Колосков Юрий Юрьевич',
+          'Коломиец Ирина Андреевна',
+          'Колобов Степан Александрович',
+          'Коломенко Юлия Владимировна',
+          'Колобов Александр Викторович',
+          'Колоскова Ольга Вениаминовна',
+          'Коломиец Руслан Владимирович',
+          'Коломейцев Владимир Андреевич',
+          'Колобылин Юрий Михайлович',
+          'Колотов Денис Васильевич',
+          'Колосов Артем Андреевич',
+          'Коломина Татьяна Николаевна',
+          'Коломоец Артем Владимирович',
+          'Колосовская Наталья Николаевна',
+          'Коломин Александр Сергеевич',
+          'Колотов Максим Владимирович',
+          'Коломенко Ксения Евгеньевна',
+          'Колодрубский Олег Вильевич',
+          'Колова Светлана Геннадьевна'
         ];
         return data;
+}
+
+export function doAjax( url, type, ajaxData, nameLoading ) {
+  return new Promise( function( resolve, reject ) {
+    try {
+      _ajaxLoadingHelper( nameLoading );
+      $.ajax( {
+        url: './GetPageText.ashx?Id=' + url,
+        type: type,
+        data: ajaxData,
+        complete: function( resp ) {
+          if ( resp.length !== 0 && resp !== null ) {
+            let _resp = JSON.parse( resp.response );
+            if ( typeof _resp[0].ErrorMsg !== 'undefined' ) {
+              store.commit( 'SET_ERROR', _resp[0].ErrorMsg );
+              reject( _resp[0].ErrorMsg );
+              _ajaxLoadingHelper( nameLoading );
+            } else {
+              resolve( _resp );
+              _ajaxLoadingHelper( nameLoading );
+            } 
+          } else {
+             resolve();
+             _ajaxLoadingHelper( nameLoading );
+          }
+        },
+        error( resp ) {
+          store.commit( 'SET_ERROR', resp.responseText );
+          reject( resp.responseText );
+          _ajaxLoadingHelper( nameLoading );
+        },
+      } );
+    } catch ( error ) {
+      store.commit( 'SET_ERROR', error );
+       reject( error );
+      _ajaxLoadingHelper( nameLoading );
+    }
+  } );
+}
+
+function _ajaxLoadingHelper( nameLoading ) {
+  if ( typeof nameLoading !== 'undefined' ) {
+    store.commit( nameLoading );
+  }
 }
