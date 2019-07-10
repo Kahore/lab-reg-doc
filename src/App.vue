@@ -17,20 +17,14 @@
 </template>
 
 <script>
-import modalInfo from './components/Modal/Info';
-import howToUse from './components/HowToUse';
-import modalError from './components/Modal/Error';
-import fieldMain from './components/Field/Main';
-import tableMain from './components/Table/Table';
-
 export default {
   name: 'App',
   components: {
-    'modal-info': modalInfo,
-    'how-to-use': howToUse,
-    'field-main': fieldMain,
-    'table-main': tableMain,
-    'modal-error': modalError,
+    'modal-info': () => import( './components/Modal/Info' ),
+    'how-to-use': () => import( './components/HowToUse' ),
+    'field-main': () => import( './components/Field/Main' ),
+    'table-main': () => import( './components/Table/Table' ),
+    'modal-error': () => import( './components/Modal/Error' ), 
   }
 };
 </script>
