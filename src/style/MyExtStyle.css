@@ -66,6 +66,9 @@
   z-index: 0;
   font-size: 12px;
   margin-top: 2px;
+  -webkit-box-shadow: inset 0 0 0 5px #fff !important;
+          box-shadow: inset 0 0 0 5px #fff !important;
+  /* opera fix*/
 }
 
 .field-block__wrapper_item_item textarea {

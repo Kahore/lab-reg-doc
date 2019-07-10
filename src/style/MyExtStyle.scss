@@ -57,6 +57,7 @@ $info-color: #ff9900;
         z-index: 0;
         font-size: 12px;
         margin-top: 2px;
+        box-shadow: inset 0 0 0 5px #fff !important; /* opera fix*/
 
         &_item textarea  {
           resize: none;
