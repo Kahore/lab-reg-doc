@@ -23,7 +23,8 @@ const state = () => ( {
     OnboardingPersons:[]
   },
   Lists: [],
-  loadingField: false
+  loadingField: false,
+  attachmentListOnAction: false,
 } );
 
 const getters = {
@@ -35,6 +36,14 @@ const getters = {
   },
   isFieldLoading: state => {
     return state.loadingField;
+  },
+  GET_DataFiles: state => {
+    // if ( typeof state.DocumentInfo.DataFiles !== 'undefined' ) {
+    //   return state.DocumentInfo.DataFiles;
+    // } else {
+    //   return [];
+    // }
+    return state.DocumentInfo.DataFiles;
   },
   GET_LIST: state => {
     return state.Lists;
@@ -64,6 +73,20 @@ const mutations = {
   InProgress_Field: ( state ) => {
     state.loadingField = !state.loadingField;
   },
+  OnProgressAttachment: ( state, payload ) => {
+    state.attachmentListOnAction = payload;
+  },
+  OnProgress_Attachment_Single : ( state, payload ) => {
+      let index = state.DocumentInfo.DataFiles.findIndex( function ( block ) {
+      return block.DocFileId === payload.DocFileId;
+    } );
+    if ( state.DocumentInfo.DataFiles[index].onAction === 'true' ) {
+      state.DocumentInfo.DataFiles[index].onAction = 'false';
+    } else {
+      state.DocumentInfo.DataFiles[index].onAction === 'true';
+    }
+  },
+  
   loadField: ( state, payload ) => {
     if ( typeof payload[0].ListData !== 'undefined' ) {
       state.Lists = payload[0].ListData[0];
@@ -80,10 +103,27 @@ const mutations = {
       state.DocumentInfo.Field.RegInfo = payload.RegInfo;
       state.DocumentInfo.Field.DocNum = payload.DocNum;
     }
-  }
+  },
+  MUTATE_FILE_LOADNEW: ( state, payload ) => {
+    for ( let i = 0; i < payload.length; i++ ) {
+      let index = state.DocumentInfo.DataFiles.findIndex( function ( block ) {
+        return block.DocFileId === payload[i].DocFileId;
+      } );
+      if ( index === -1 ) {
+        state.DocumentInfo.DataFiles.unshift( payload[i] );
+      }
+    }
+  },
+  MUTATE_FILE_DELETE: ( state, payload ) => {
+    let _index =  state.DocumentInfo.DataFiles.findIndex( function ( block ) {
+      return block.DocFileId === payload.DocFileId;
+    } );
+    if ( _index !== -1 ) {
+      state.DocumentInfo.DataFiles.splice( _index, 1 );
+    }
+  },
 };
 
-      
 const actions = {
   MUTATE_FIELD_RESET: ( { commit } ) => { 
      commit( 'MUTATE_FIELD_RESET' );
@@ -125,27 +165,122 @@ const actions = {
     } );
   },
   MUTATE_FIELD_SAVE: ( { commit }, payload ) => { 
-	return new Promise( ( resolve, reject ) => {
-    let _type = payload.unid === '@unid@' ? 'POST' : 'PUT';
-    payload = _fakeServerResp ( payload );
+    return new Promise( ( resolve, reject ) => {
+      let _type = payload.unid === '@unid@' ? 'POST' : 'PUT';
+      payload = _fakeServerResp ( payload );
+      $.ajax( {
+        url: 'http://localhost:3000/documents',
+        type: _type,
+        data: payload,  
+        complete ( resp ) {
+          let _resp = JSON.parse( resp.responseText );
+          //let _resp = resp;
+          resolve( resp.unid );
+          commit( 'mutateNewUnid', resp.unid );
+          commit ( 'MUTATE_FIELD_SAVE', _resp );
+        },
+        error ( resp ) {
+          reject();
+          commit( 'SET_ERROR', resp.statusText );
+        }
+      } );
+    } );
+  },
+  MUTATE_FILE_UPLOAD: ( { commit }, payload ) => {
+    return new Promise( function ( resolve, reject ) {
+      var httpRequest = new XMLHttpRequest();
+      httpRequest.onreadystatechange = function () {
+        if ( httpRequest.readyState === 4 && httpRequest.status === 200 ) {
+          /* eslint-disable-next-line no-console */
+          console.log( 'status 200' );
+        } else if (
+          httpRequest.readyState === 4 &&
+          httpRequest.status === 500
+        ) {
+          commit( 'SET_ERROR', httpRequest.status + ' ' + httpRequest.statusText + '(Внутренняя ошибка сервера)' );
+        } else if (
+          httpRequest.readyState === 4 &&
+          httpRequest.status === 401
+        ) {
+          commit( 'SET_ERROR', httpRequest.status + ' ' + httpRequest.statusText + '(Внутренняя ошибка сервера)' );
+          reject();
+        }
+      };
+      httpRequest.open( 'POST', './GetPageText.ashx', true );
+      httpRequest.send( payload );
+      resolve();
+      /*TEST*/
+        /*
+        resolve();
+        */
+    } );
+  },
+  MUTATE_FILE_LOADNEW: ( { commit }, payload ) => {
+    commit( 'OnProgressAttachment', true );
+    setTimeout( () => {
+      return new Promise( function ( resolve, reject ) {
+      /* AJAX tested in NKReports */
+        $.ajax( {
+          url: './GetPageText.ashx?Id=@Nav_Backend@',
+          type: 'GET',
+          data: { PARAM: 'Document', PARAM2: 'Document_UploadingFile_Load', unid: payload },
+          complete: function ( resp ) {
+            if ( resp.response.length !== 0 ) {
+              let newline = String.fromCharCode( 13, 10 );
+              resp.response = resp.response.replace( /'\\n'/g, newline );
+              let myDataParse = JSON.parse( resp.response );
+              commit( 'MUTATE_FILE_LOADNEW', myDataParse );
+            }
+            commit( 'OnProgressAttachment', false );
+            resolve( resp );
+          },
+          error: function ( resp ) {
+            commit( 'SET_ERROR', resp.statusText );
+            commit( 'OnProgressAttachment', false );
+            reject();
+          }
+        } );
+        /*TEST*/
+        /*
+          let resp = '[ {"DocFileId":"ED0FADCB-B97C-489C-87EC-2CE6295C4EDF","FileName":"РАСПОРЯЖЕНИЕ НЛ от 13052019 39.docx","UploadedInfo":"13.05.2019 07:02:35   ludmila_smolko","onAction":"false","linkToDoc":"./FileDownload.ashx?Id=ED0FADCB-B97C-489C-87EC-2CE6295C4EDF"}]';
+          let myDataParse = JSON.parse( resp );
+          commit( 'MUTATE_FILE_LOADNEW', myDataParse );
+          resolve( resp );
+          */
+      } );
+    }, 2000 );
+  },
+  MUTATE_FILE_DELETE: ( { commit }, payload ) => {
+    /* AJAX tested in NKReports */
+    commit( 'OnProgress_Attachment_Single', payload );
     $.ajax( {
-      url: 'http://localhost:3000/documents',
-      type: _type,
-      data: payload,  
-      complete ( resp ) {
-        let _resp = JSON.parse( resp.responseText );
-        //let _resp = resp;
-        resolve( resp.unid );
-         commit( 'mutateNewUnid', resp.unid );
-        commit ( 'MUTATE_FIELD_SAVE', _resp );
+      type: 'POST',
+      url: './GetPageText.ashx?Id=@Nav_Backend@',
+      data: { 
+              PARAM: 'Document', 
+              PARAM2: 'Document_UploadingFile_Change', 
+              PARAM3: 'Document_UploadingFile_Delete', 
+              FileID: payload.DocFileId,
+              unid: payload.unid
+            },
+      success: function ( resp ) {
+        if ( resp.length === 0 ) {
+          commit( 'MUTATE_FILE_DELETE', payload );
+        } else {
+          commit( 'SET_ERROR', JSON.parse( resp )[0].ErrorMsg );
+          commit( 'OnProgress_Attachment_Single', payload );
+        }
       },
-      error ( resp ) {
-        reject();
+      error: function ( resp ) {
         commit( 'SET_ERROR', resp.statusText );
+        commit( 'OnProgress_Attachment_Single', payload );
       }
     } );
-  } );
-  }
+    /*TEST*/
+    /*
+      commit( 'MUTATE_FILE_DELETE', payload );
+    */
+  },
 };
 function getDate() {
   let date = new Date( Date.now() ).toLocaleString().split( ',' )[0];

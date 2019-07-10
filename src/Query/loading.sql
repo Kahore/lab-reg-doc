@@ -35,3 +35,17 @@ SELECT
 	  AS/**/XML)
     FOR XML path(''), type																								
 	))
+  
+  IF ( '@PARAM2@' = 'OrderInfo_UploadingFile_Load' )
+BEGIN
+	SELECT [LabProtocols].dbo.qfn_XmlToJson ((
+	SELECT /*POST SERVICE LAB DocumentBackend @PARAM2@, @UserName@, @GetDate@*/ [Id] AS [DocFileId]
+	, [FileName]
+	, convert( char(10),[UploadedOn],104 ) + ' ' + convert( char(10),[UploadedOn],108 ) + ' ' + [UploadedBy] AS [UploadedInfo]
+	, 'false' AS [onAction]
+	, './FileDownload.ashx?Id='+CAST( [Id] AS nvarchar(36) ) AS [linkToDoc]
+			FROM [NKReports].[dbo].[DB_Settings_UploadedFiles] WHERE [IdParent] IN 
+				( SELECT CAST([Item] as uniqueidentifier) FROM [LabProtocols].[dbo].[Ent_Lab_Document_Item] WHERE [DocID] ='@unid@' AND [ItemGroup]='UploadedFile' ) 
+        FOR xml path('DocFile'),root('DocFileData'), type
+  ))
+END

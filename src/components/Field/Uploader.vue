@@ -9,13 +9,14 @@
           <input 
             type="file"
             name="documentFile"
+            multiple="multiple"
             class="fileUpload field-block__wrapper_item"><br>
           <input 
             class="button"
             type="button"
             name="load__btnDeleteFile"
             value="Загрузить файл"
-            @click="addMeFile()">
+            @click="uploadFile()">
         </div>
       </div>
       <!-- .field-block -->
@@ -91,6 +92,67 @@
           }
         }
       }
+    },
+  methods: {
+    uploadFile() {
+      this.$store.commit( 'CLEAR_ERROR' );
+      const filesCollection = document.querySelector( 'input[type=file]' ).files;
+      if ( filesCollection.length !== 0 ) {
+        let _unid = this.$store.getters.getCurrentUnid;
+        let _index;
+        let uploadedFiles = this.$store.getters.GET_DataFiles;
+        for ( let i = 0; i < filesCollection.length; i++ ) {
+          if ( uploadedFiles.length !== 0 ) {
+            _index = uploadedFiles.findIndex(
+              function( block ) {
+                return (
+                  block.FileName === filesCollection[i].name
+                );
+              }
+            );
+          } else {
+            _index = -1;
+          }
+          if ( _index === -1 ) {
+            try {
+              let formData = new FormData();
+              formData.append(
+                'documentFile',
+                filesCollection[i]
+              );
+              formData.append( 'PARAM', 'Document' );
+              formData.append( 'PARAM2', 'Document_UploadingFile_Change' );
+              formData.append( 'unid', _unid );
+              formData.append( 'PARAM3', 'Document_UploadingFile_Upload' );
+              formData.append( 'Id', '@Nav_PostServiceLab_Document@' );
+              this.$store
+                .dispatch( 'MUTATE_FILE_UPLOAD', formData )
+                .then( () => {
+                  this.$store.dispatch( 'MUTATE_FILE_LOADNEW', _unid );
+                } );
+            } catch ( e ) {
+              this.$store.commit( 'SET_ERROR', 'Произошла ошибка ' + e );
+            }
+          } else {
+            this.$store.commit(
+              'SET_ERROR',
+              filesCollection[i].name + ' уже загружен.'
+            );
+          }
+        } /* ENDOF for*/
+      filesCollection.value = '';
+      } else {
+        this.$store.commit( 'SET_INFO', 'Нет файлов для загрузки' );
+      }
+    },
+    delDataFile( e ) {
+      this.$store.commit( 'CLEAR_ERROR' );
+      let _unid = this.$store.getters.getCurrentUnid;
+      this.$store.dispatch( 'MUTATE_FILE_DELETE', {
+        DocFileId: e.target.id,
+        unid: _unid
+      } );
     }
+  },
   };
 </script>
