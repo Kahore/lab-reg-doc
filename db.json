@@ -218,7 +218,7 @@
               "DocFileId": "987654",
               "FileName": "FileName1",
               "UploadedInfo": "29/05/2019 09:59 maxim_bordunov",
-              "onAction": "false",
+              "onAction": "true",
               "linkToDoc": "./FileDownload.ashx?Id=987654"
             }
           ],
@@ -232,7 +232,7 @@
             {
               "ID": "13456788",
               "SignerName": "Name2",
-              "onAction": "false",
+              "onAction": "true",
               "AddBy": "29/05/2019 09:50 maxim_bordunov"
             }
           ],
@@ -250,7 +250,7 @@
               "ID": "224567",
               "PersonName": "Name7",
               "OnboardingState": "pendingApproveByUser",
-              "onAction": "false",
+              "onAction": "true",
               "IsDisabledChb": "false",
               "IsDisabledBtnDel": "false",
               "LastChanged": ""

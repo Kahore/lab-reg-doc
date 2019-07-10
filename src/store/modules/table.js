@@ -22,22 +22,29 @@ const mutations = {
   LOAD_DOCUMENTS: ( state, payload ) => {
     state.documents = payload;
   },
-  InProgress_Table: ( state, payload ) => {
-    state.loading = payload;
+  InProgress_Table: ( state ) => {
+    state.loading = !state.loading;
   },
 };
 
 const actions = {
   LOAD_DOCUMENTS( { commit } ) {
-    
+  commit( 'InProgress_Table' );
+  setTimeout( () => {
     $.ajax( {
       url: 'http://localhost:3000/documents',
       type: 'GET',
       complete ( resp ) {
         let _resp = fixJSON( resp.responseText );
         commit( 'LOAD_DOCUMENTS', _resp );
+        commit( 'InProgress_Table' );
+      },
+      error ( resp ) {
+        commit( 'SET_ERROR', resp.statusText );
+        commit( 'InProgress_Table' );
       }
     } );
+  }, 2000 );
   }
 };
 

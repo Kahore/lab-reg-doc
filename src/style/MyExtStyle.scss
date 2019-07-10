@@ -237,3 +237,97 @@ $info-color: #ff9900;
     width: 25px;
   }
 }
+
+/* Слайдер загрузки в таблицах*/
+.lds-ring {
+  display: inline-block;
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  margin: 10% 20%;
+  &.centered {
+    margin: 0% 20%;
+  }
+  &.list-ring {
+    margin: -14px -13px;
+    & div{
+      width: 15px;
+      height: 15px;
+      border: 3px solid darken($corp-primary-color, $amount: 1);
+      animation: lds-ring 1.2s cubic-bezier(0.7, 0, 0.5, 1) infinite;
+      border-color:  darken($corp-primary-color, $amount: 1) transparent transparent transparent;
+    }
+  }
+  & div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    margin: 6px;
+    border: 6px solid $corp-primary-color;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color:  darken($corp-primary-color, $amount: 1) transparent transparent transparent;
+    &:nth-child(1) {
+      animation-delay: -0.45s;
+    }
+    &:nth-child(2) {
+      animation-delay: -0.3s;
+    }
+    &:nth-child(3) {
+      animation-delay: -0.15s;
+    }
+  }
+}
+
+/*
+.lds-ring {
+  display: inline-block;
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  margin: 10% 20%;
+}
+.lds-ring.centered {
+  margin: 0% 50%;
+}
+.lds-ring.list-ring {
+  margin: -13px -15px;
+}
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  margin: 6px;
+  border: 6px solid #ff6600;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #ff6600 transparent transparent transparent;
+}
+.lds-ring.list-ring div{
+  width: 15px;
+  height: 15px;
+  border: 3px solid #ff6600;
+  animation: lds-ring 1.2s cubic-bezier(0.7, 0, 0.5, 1) infinite;
+  border-color: #ff6600 transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}*/
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

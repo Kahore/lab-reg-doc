@@ -54,7 +54,7 @@
             </div>
             <div class="tbl-3Block">
               <template v-if="onboardingPerson.onAction==='true'">
-                <span class="awaitWhenLoad">SomeText</span>
+                <lds-loader/>
               </template> 
               <template v-else>
                 <input
@@ -82,6 +82,9 @@
 <script>
   export default {
     name: 'FieldOnboarding',
+    components: {
+      'lds-loader':  () => import( './../LDSLoaded' ),
+    },
     props: {
       onboardingPersons: {
         type: Array,

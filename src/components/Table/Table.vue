@@ -38,10 +38,9 @@
         <div class="tbl-block tbl-block_huge"> {{ document.RegInfo }} </div>
         <div class="tbl-block tbl-block_huge">{{ document.LastChangeInfo }} </div>
       </div> <!-- .tbl-row -->
-      <div 
-        v-show="loading"
-        id="myAwaitLoad"
-        class="awaitLoad"> Some text </div>
+      <div v-if="loading">
+        <lds-loader :external="'centered'"/>  
+      </div>
       <div
         v-show="allElemIsLoadNow"
         id="myFooter" 
@@ -53,6 +52,9 @@
 <script>
   export default {
     name: 'TableMain',
+    components: {
+      'lds-loader':  () => import( './../LDSLoaded' ),
+    },
     computed: {
       documents() {
         if ( this.$store.getters.GET_DOCUMENTS.length !== 0 ) {

@@ -49,7 +49,7 @@
               v-text="signer.AddBy" />
             <div class="tbl-3Block">
               <template v-if="signer.onAction === 'true'">
-                <span class="awaitWhenLoad">SomeText</span>
+                <lds-loader/>
               </template>
               <template v-else>
                 <input
@@ -75,6 +75,9 @@
 <script>
   export default {
     name: 'FieldSigner',
+    components: {
+      'lds-loader':  () => import( './../LDSLoaded' ),
+    },
     props: {
       signers: {
         type: Array,

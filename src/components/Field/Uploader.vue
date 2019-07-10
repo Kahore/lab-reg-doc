@@ -48,7 +48,7 @@
             v-text="dataFile.UploadedInfo"/>
           <div class="tbl-3Block ">
             <template v-if="dataFile.onAction==='true'">
-              <span class="awaitWhenLoad">SomeText</span>
+              <lds-loader/>
             </template>
             <template v-else>
               <input 
@@ -72,6 +72,9 @@
 <script>
   export default {
     name: 'FieldUpload',
+    components: {
+      'lds-loader':  () => import( './../LDSLoaded' ),
+    },
     props: {
       dataFiles: {
         type: Array,
