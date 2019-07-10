@@ -2,6 +2,7 @@
   <div>
     <h2>Вложения</h2>
     <div
+      v-if="editable" 
       class="field-row">
       <div class="field-block_full">
         <div class="field-block__wrapper">
@@ -74,6 +75,10 @@
       dataFiles: {
         type: Array,
         default: () => [],
+      },
+      editable: {
+        type: Boolean,
+        default: false,
       },
     },
     computed: {

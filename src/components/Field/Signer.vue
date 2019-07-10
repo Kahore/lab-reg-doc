@@ -3,7 +3,9 @@
     <h2>Подписант</h2>
     <div class="field-container">
       <div class="field-row">
-        <div class="field-block">
+        <div 
+          v-if="editable" 
+          class="field-block">
           <div class="field-block__wrapper htooltip">
             <input
               id="SearchNewSigner"
@@ -21,9 +23,9 @@
               id="line_SearchNewSigner" 
               name="lineItTo"/>
           </div>
+          <br>
+          <br>
         </div><!--fieldBlock -->		
-        <br>
-        <br>
         <!-- <div class="field-block errorMsg">
           <div class="field-block__wrapper htooltip" >Обязательно для заполнения</div>
         </div> -->
@@ -77,6 +79,10 @@
       signers: {
         type: Array,
         default:  () => [],
+      },
+      editable: {
+        type: Boolean,
+        default: false,
       },
     },
     computed: {

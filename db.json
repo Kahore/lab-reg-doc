@@ -201,7 +201,7 @@
       "Document": [
         {
           "Field": {
-            "CanIEditDocument": "true",
+            "CanIEditDocument": "false",
             "DocDescribe": "Протокол аттестации БРИКЕТ-400 №9",
             "DocNum": "NK19/RegN0045",
             "DocType": "Протокол аттестации испытательного оборудования",

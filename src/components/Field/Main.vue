@@ -6,11 +6,19 @@
       <div class="bar"/>
     </div>
     <div :class="{ 'field-wrapper__disabled': loading }"/>
-    <field-field :field="fieldPrep.Field"/>
+    <field-field 
+      :field="fieldPrep.Field"
+      :editable="canIEdit"/>
     <section v-if="!isANewDoc">
-      <field-uploader :data-files="fieldPrep.DataFiles"/>
-      <field-signer :signers="fieldPrep.SignerData"/>
-      <field-onboadring :onboarding-persons="fieldPrep.OnboardingData"/>
+      <field-uploader 
+        :data-files="fieldPrep.DataFiles"
+        :editable="canIEdit"/>
+      <field-signer 
+        :signers="fieldPrep.SignerData"
+        :editable="canIEdit"/>
+      <field-onboadring 
+        :onboarding-persons="fieldPrep.OnboardingData"
+        :editable="canIEdit"/>
     </section>
   </section>
 </template>
@@ -49,6 +57,21 @@ import fieldSigner from './Signer';
           return true;
         } else {
           return false;
+        }
+      },
+      canIEdit () {
+        let aclEgit;
+        if ( !this.$store.getters.isFieldLoading ) {
+          aclEgit = this.$store.getters.documentInfo.Field.CanIEditDocument;
+          if ( Object.keys( this.$store.getters.documentInfo ).length === 0 ) {
+            aclEgit = this.$store.getters.defaultInfo.Field.CanIEditDocument;
+          }
+          if ( aclEgit === 'true' ) {
+            return true;
+          }
+          else {
+            return false;
+          }
         }
       }
     },

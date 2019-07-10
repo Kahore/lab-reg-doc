@@ -15,7 +15,8 @@ const state = () => ( {
       DocDescribe: '',
       Note: '',
       RegInfo: '',
-      LastChangeInfo: '', 
+      LastChangeInfo: '',
+      CanIEditDocument: 'true'
     },
     DataFiles:[],
     Signers:[],
@@ -96,11 +97,11 @@ const actions = {
       setTimeout( () => {
         $.ajax( {
           /* Only DD list */
-          url: 'http://localhost:3000/fieldFiller',
+          //url: 'http://localhost:3000/fieldFiller',
           /* DD + base info w/t signer, file and onboarding */
           //url: 'http://localhost:3000/fieldFillerDocument/',
           /* DD + full document info */
-          // url: 'http://localhost:3000/fieldFillerDocumentFull',
+          url: 'http://localhost:3000/fieldFillerDocumentFull',
           type: 'GET',
           complete ( resp ) {
             let _resp = fixJSON( resp.responseText );

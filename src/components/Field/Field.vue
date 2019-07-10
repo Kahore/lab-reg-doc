@@ -18,7 +18,7 @@
         </div>
         <!-- .field-block  -->
         <div class="field-block field-block_full">
-          <div class="field-block__wrapper align-rigth ">
+          <div class="field-block__wrapper align-right ">
             <span>Начало работы: <span/>{{ fieldPrep.RegInfo }}</span><br>
             <span>Последние изменения:<span/>{{ fieldPrep.LastChangeInfo }}</span><br>
           </div>
@@ -108,15 +108,23 @@
         <!-- .field-block -->
       </div>
       <!-- .field-row -->
-      <div class="field-row">
+      <div  
+        v-if="editable" 
+        class="field-row">
         <div class="field-block field-block_full">
           <input 
             type="button"
-            class="button align-rigth"
+            class="button align-right"
             value="сохранить"
             @click="saveAction( fieldPrep )">
         </div>
         <!-- .field-block -->
+      </div>
+      <!-- .field-row -->
+      <div  
+        v-else 
+        class="field-row ">
+        <p class="align-right error">К сожалению, у вас недостаточно прав для этой операции</p>
       </div>
       <!-- .field-row -->
     </div>
@@ -131,6 +139,10 @@
       field: {
         type: Object,
         default: () => {},
+      },
+      editable: {
+        type: Boolean,
+        default: false,
       },
     },
     computed: {

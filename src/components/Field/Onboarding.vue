@@ -3,7 +3,9 @@
     <h2>Ознакомление с документом</h2>
     <div class="field-container">
       <div class="field-row">
-        <div class="field-block">
+        <div
+          v-if="editable" 
+          class="field-block">
           <div class="field-block__wrapper htooltip">
             <input
               id="EmployeeToOnboarding" 
@@ -21,9 +23,9 @@
               id="line_EmployeeToOnboarding" 
               name="lineItTo"/>
           </div>
+          <br>
+          <br>
         </div><!-- .field-block -->
-        <br>
-        <br>
         <div 
           v-show="isOnboardingInDocument"
           class="tbl-container" 
@@ -84,6 +86,10 @@
       onboardingPersons: {
         type: Array,
         default: () => [],
+      },
+      editable: {
+        type: Boolean,
+        default: false,
       },
     },
     computed:{
