@@ -130,7 +130,7 @@ Vue.component( 'select-block', {
   template:
     '<div class="field-block__wrapper">' +
     '<select class="field-block__wrapper_item" name="Field" :id="selectId" v-model="currentItem" :required="required" @focus="toggleLabel($event)" @blur="toggleLabel($event)">' +
-    '<option :selected="true">{{currentItem}}</option>' +
+    '<option v-if="currentItem" :selected="true">{{currentItem}}</option>' +
     '<option></option>' +
     '<option v-for="itemType in itemTypesPars" :value="itemType" >{{ itemType }}</option>' +
     '</select>' +
