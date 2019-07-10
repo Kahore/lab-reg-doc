@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import { fixJSON } from '../../shared';
 const state = () => ( {
   documents:[],
   loading: false,
@@ -33,7 +34,7 @@ const actions = {
       url: 'http://localhost:3000/documents',
       type: 'GET',
       complete ( resp ) {
-        let _resp = JSON.parse( resp.responseText );
+        let _resp = fixJSON( resp.responseText );
         commit( 'LOAD_DOCUMENTS', _resp );
       }
     } );

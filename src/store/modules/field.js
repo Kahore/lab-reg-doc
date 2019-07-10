@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import { fixJSON, fixField } from '../../shared';
 const state = () => ( {
   DocumentInfo: {
     Field: {}
@@ -102,7 +103,8 @@ const actions = {
           // url: 'http://localhost:3000/fieldFillerDocumentFull',
           type: 'GET',
           complete ( resp ) {
-            let _resp = JSON.parse( resp.responseText );
+            let _resp = fixJSON( resp.responseText );
+            _resp = fixField( _resp );
             commit( 'loadField', _resp );
             if ( typeof _resp[0].Document !== 'undefined' ) {
               commit( 'mutateNewUnid', _resp[0].Document[0].Field.unid );
