@@ -4,7 +4,7 @@
     <div class="field-container">
       <div class="field-row">
         <div
-          v-if="editable" 
+          v-show="editable" 
           class="field-block">
           <div class="field-block__wrapper htooltip">
             <input
