@@ -24,7 +24,17 @@ export function autocmpl( PARAM2, term ) {
     }
   } );
   */
-         let data = [
+ let data;
+  if ( PARAM2 === 'EmployeeEmail' ) {
+    data = ['ksenia_kolomenko:ksenia.kolomenko@sgs.com',
+            'andrey_sokolov:andrey.sokolov@sgs.com',
+            'Tatyana_Kolomina:Tatyana.Kolomina@sgs.com',
+            'mikhail_kolov:mikhail.kolov@sgs.com',
+            'alexander_kolobov:alexander.kolobov@sgs.com',
+            'julia_kolomenko:julia.kolomenko@sgs.com'
+          ];
+  } else {
+   data = [
           'Колосов Михаил Александрович',
           'Колодезнов Владимир Владимирович',
           'Колос Анна Александровна',
@@ -50,6 +60,8 @@ export function autocmpl( PARAM2, term ) {
           'Колодрубский Олег Вильевич',
           'Колова Светлана Геннадьевна'
         ];
+ }
+
         return data;
 }
 

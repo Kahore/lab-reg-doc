@@ -21,7 +21,8 @@ const state = () => ( {
     },
     DataFiles:[],
     SignerData:[],
-    OnboardingPersons:[]
+    OnboardingData:[],
+    OnboardingWhoChecked:[],
   },
   Lists: [],
   loadingField: false,
@@ -44,6 +45,12 @@ const getters = {
   },
   GET_Signers: state => { 
     return state.DocumentInfo.SignerData;
+  },
+  GET_Onboadring: state => {
+    return state.DocumentInfo.OnboardingData;
+  },
+  GET_ONBOARDING_CHECKED: state => {
+    return state.DocumentInfo.OnboardingWhoChecked;
   },
   GET_LIST: state => {
     return state.Lists;
@@ -101,6 +108,18 @@ const mutations = {
       }
     }
   },
+  OnProgress_Onboarding_Single: ( state, payload ) => {
+    let index = state.DocumentInfo.OnboardingData.findIndex( function ( block ) {
+      return block.ID === payload.OnboardingID;
+    } ); 
+    if( index !== -1 ) {
+      if( state.DocumentInfo.OnboardingData[index].onAction === 'true' ) {
+        state.DocumentInfo.OnboardingData[index].onAction = 'false';
+      } else {
+        state.DocumentInfo.OnboardingData[index].onAction = 'true';
+      }
+    }
+  },
   loadField: ( state, payload ) => {
     if ( typeof payload[0].ListData !== 'undefined' ) {
       state.Lists = payload[0].ListData[0];
@@ -108,6 +127,13 @@ const mutations = {
     if ( typeof payload[0].Document !== 'undefined' ) {
       state.DocumentInfo = payload[0].Document[0];
       window.history.pushState( '', '', './Default?Id=@Nav_Document@&unid=' + payload[0].Document[0].Field.unid );
+      if ( typeof payload[0].Document[0].OnboardingData !== 'undefined' ) {
+        for ( let i = 0; i < payload[0].Document[0].OnboardingData.length; i++ ) {
+          if ( payload[0].Document[0].OnboardingData[i].OnboardingState === 'approved' ) {
+            state.DocumentInfo.OnboardingWhoChecked = state.DocumentInfo.OnboardingWhoChecked.concat( payload[0].Document[0].OnboardingData[i].ID );
+          }
+        }
+      }
     }
   },
   MUTATE_FIELD_SAVE: ( state, payload ) => { 
@@ -145,6 +171,34 @@ const mutations = {
     } );
     if ( _index !== -1 ) {
       state.DocumentInfo.SignerData.splice( _index, 1 );
+    }
+  },
+  MUTATE_ONBOARDING_ADD: ( state, payload ) => {
+    state.DocumentInfo.OnboardingData.unshift( payload );
+  },
+  MUTATE_ONBOARDING_UPDATE: ( state, payload ) => {
+    let index = state.DocumentInfo.OnboardingData.findIndex( function ( block ) {
+      return block.ID === payload.ID;
+    } );
+    /*
+    * MEMO: NOT USE THIS ANYWAY!!! -> 
+    * state.DocumentInfo.OnboardingData[index] = payload[0];
+    */
+    state.DocumentInfo.OnboardingData.splice( index, 1 );
+    state.DocumentInfo.OnboardingData.splice( index, 0, payload );
+    if ( payload.OnboardingState === 'approved' ) {
+      state.DocumentInfo.OnboardingWhoChecked.push( payload.ID );
+    } else {
+      let checkIdx = state.DocumentInfo.OnboardingWhoChecked.indexOf( payload.ID );
+      state.DocumentInfo.OnboardingWhoChecked.splice( checkIdx, 1 );
+    }
+  },
+  MUTATE_ONBOARDING_DELETE: ( state, payload ) => {
+    let _index =  state.DocumentInfo.OnboardingData.findIndex( function ( block ) {
+      return block.ID === payload.OnboardingID;
+    } );
+    if ( _index !== -1 ) {
+      state.DocumentInfo.OnboardingData.splice( _index, 1 );
     }
   }
 };
@@ -349,7 +403,52 @@ const actions = {
       commit( 'OnProgress_Signer_Single', payload );
       commit( 'MUTATE_SIGNER_DELETE', payload );
     }, 2000 );
-  }
+  },
+  MUTATE_ONBOARDING_ADD: ( { commit }, payload ) => { 
+    // const data = payload;
+    // doAjax( '@Nav_Backend@', 'POST', data ).then( ( result ) => {
+    //   commit ( 'MUTATE_ONBOARDING_ADD', result );
+    // }, error => { commit( 'SET_ERROR', error );} );
+    let resp = {
+                'ID': _generateUNID(),
+                'PersonName': payload.EmployeeName,
+                'IsDisabledBtnDel': 'false',
+                'IsDisabledChb': 'false',
+                'onAction': 'false',
+                'OnboardingState': 'pendingApproveByUser',
+                'LastChanged': ''
+              };
+    commit ( 'MUTATE_ONBOARDING_ADD', resp );
+  },
+  MUTATE_ONBOARDING_UPDATE: ( { commit }, payload ) => { 
+    // const data = payload;
+    // doAjax( '@Nav_Backend@', 'POST', data ).then( ( result ) => {
+    //   commit ( 'MUTATE_ONBOARDING_ADD', result );
+    // }, error => { commit( 'SET_ERROR', error );} );
+        let resp = {
+                'ID': payload.OnboardingID,
+                'PersonName': payload.EmployeeName,
+                'IsDisabledBtnDel': 'false',
+                'IsDisabledChb': 'false',
+                'onAction': 'false',
+                'OnboardingState': 'approved',
+                'LastChanged': getDate() + ' Test User Name&Surn'
+              };
+    commit ( 'MUTATE_ONBOARDING_UPDATE', resp );
+  },
+  MUTATE_ONBOARDING_DELETE: ( { commit }, payload ) => { 
+    commit( 'OnProgress_Onboarding_Single', payload );
+    // const data = payload;
+    // doAjax( '@Nav_Backend@', 'POST', data ).then( ( result ) => {
+    //   commit ( 'MUTATE_ONBOARDING_DELETE', result );
+    //   commit( 'OnProgress_Onboarding_Single', payload );
+    // }, error => { commit( 'SET_ERROR', error );} );
+        
+    setTimeout( () => {
+      commit( 'OnProgress_Onboarding_Single', payload );
+      commit( 'MUTATE_ONBOARDING_DELETE', payload );
+    }, 2000 );
+  },
 };
 function getDate() {
   let date = new Date( Date.now() ).toLocaleString().split( ',' )[0];

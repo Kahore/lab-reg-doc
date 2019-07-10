@@ -60,6 +60,7 @@
                 <input
                   :disabled="onboardingPerson.IsDisabledBtnDel === 'true' "
                   :id="onboardingPerson.ID"
+                  :class ="{'disabled': onboardingPerson.IsDisabledBtnDel === 'true' }"
                   class="tbl-3Block button"
                   value="Х"
                   type="button" 
@@ -80,6 +81,12 @@
 </template>
 
 <script>
+import $ from 'jquery';
+import 'jquery-ui';
+window.jQuery = $;
+window.$ = $; 
+import { autocmpl } from '../../scripts/ajax';
+import { transliteration } from '../../scripts/shared';
   export default {
     name: 'FieldOnboarding',
     components: {
@@ -105,9 +112,78 @@
           }
         }
       },
-      onboardingWhoChecked () {
-        /* TODO: Fix it */
-        return [];
+      onboardingWhoChecked: {
+        get: function () {
+          return this.$store.getters.GET_ONBOARDING_CHECKED;
+        },
+        set: function ( value ) {
+          this.$emit( 'input', value );
+        }
+      }
+    },
+    mounted () {
+      var self = this;
+      $( '#EmployeeToOnboarding' ).autocomplete( {
+        minLength: 3,
+        source: function( request, response ) {
+          let req = transliteration( request.term.toLowerCase() );
+          let data = autocmpl( 'EmployeeEmail', req );
+          response( $.map( data, function( item ) {				 	
+              let result = item.split( ':' );
+                return {
+                  label: result[0],
+                  value: result[0],
+                  data : item
+                };
+          } ) );
+        },
+        select: function( event, ui ) {
+          self.$store.dispatch( 'CLEAR_ERROR' );
+          let employee = ui.item.data.split( ':' );
+           // eslint-disable-next-line no-console
+          console.log( 'TCL: mounted -> employee', employee[0] );
+         let onboadringList = self.$store.getters.GET_Onboadring;
+         let idx = onboadringList.findIndex( function ( block ) {
+          return block.PersonName === employee[0];
+        } );
+        if ( idx === -1 ){
+          let unid = self.$store.getters.getCurrentUnid;
+          self.$store.dispatch( 'MUTATE_ONBOARDING_ADD', {
+                                                        PARAM: 'Document',
+                                                        PARAM2: 'Document_Onboarding_Change',
+                                                        PARAM3: 'Document_Onboarding_Add',
+                                                        EmployeeName: employee[0],
+                                                        EmployeeMail: employee[1],
+                                                        unid
+                                                      } );
+        } else {
+            self.$store.dispatch( 'SET_ERROR', 'Уже выбран для ознакомления' );
+        }
+          $( this ).val( '' );
+          return false;	
+        }
+      } );
+    },
+    methods: {
+      check ( e ) {
+        let unid = this.$store.getters.getCurrentUnid;
+        this.$store.dispatch( 'MUTATE_ONBOARDING_UPDATE', {
+                                                          PARAM: 'Document',
+                                                          PARAM2: 'Document_Onboarding_Change',
+                                                          PARAM3: 'Document_Onboarding_UpdateState',
+                                                          OnboardingID: e.target.value,
+                                                          unid
+                                                        } );
+      },
+      delOnboardingPerson( e ) {
+          let unid = this.$store.getters.getCurrentUnid;
+          this.$store.dispatch( 'MUTATE_ONBOARDING_DELETE', {
+                                                          PARAM: 'Document',
+                                                          PARAM2: 'Document_Onboarding_Change',
+                                                          PARAM3: 'Document_Onboarding_Delete',
+                                                          OnboardingID: e.target.id,
+                                                          unid
+                                                        } );
       }
     }
   };

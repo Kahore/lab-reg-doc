@@ -15,20 +15,23 @@ export function fixJSON ( resp ) {
  *  Add missed arrays if they no exist in object
  */
 export function fixField ( parsedData ) {
-  if ( typeof parsedData.DocDescribe !== 'undefined' ) {
-    parsedData.DocDescribe = parsedData.DocDescribe.replace( /\\n/g, '\n' );
+  if ( typeof parsedData[0].Document[0].Field.DocDescribe !== 'undefined' ) {
+    parsedData[0].Document[0].Field.DocDescribe = parsedData[0].Document[0].Field.DocDescribe.replace( /\\n/g, '\n' );
   }
-  if ( typeof parsedData.Note !== 'undefined' ) {
-    parsedData.Note = parsedData.Note.replace( /\\n/g, '\n' );
+  if ( typeof parsedData[0].Document[0].Field.Note !== 'undefined' ) {
+    parsedData[0].Document[0].Field.Note = parsedData[0].Document[0].Field.Note.replace( /\\n/g, '\n' );
   }
-  if ( typeof parsedData.DataFiles === 'undefined' ) {
-    parsedData.DataFiles = [];
+  if ( typeof parsedData[0].Document[0].DataFiles === 'undefined' ) {
+    parsedData[0].Document[0].DataFiles = [];
   }
-  if ( typeof parsedData.Signers === 'undefined' ) {
-    parsedData.Signers = [];
+  if ( typeof parsedData[0].Document[0].SignerData === 'undefined' ) {
+    parsedData[0].Document[0].SignerData = [];
   }
-  if ( typeof parsedData.OnboardingPersons === 'undefined' ) {
-    parsedData.OnboardingPersons = [];
+  if ( typeof parsedData[0].Document[0].OnboardingData === 'undefined' ) {
+    parsedData[0].Document[0].OnboardingData = [];
+  }
+  if ( typeof parsedData[0].Document[0].OnboardingWhoChecked === 'undefined' ) {
+    parsedData[0].Document[0].OnboardingWhoChecked = [];
   }
   return parsedData;
 }
