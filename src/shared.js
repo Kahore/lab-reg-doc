@@ -11,7 +11,8 @@ export function fixJSON ( resp ) {
 
 /*
  *  Data should be JSON object
- *  Fix the crlf in textarea field.
+ *  Fix the crlf in textarea field
+ *  Add missed arrays if they no exist in object
  */
 export function fixField ( parsedData ) {
   if ( typeof parsedData.DocDescribe !== 'undefined' ) {
@@ -19,6 +20,15 @@ export function fixField ( parsedData ) {
   }
   if ( typeof parsedData.Note !== 'undefined' ) {
     parsedData.Note = parsedData.Note.replace( /\\n/g, '\n' );
+  }
+  if ( typeof parsedData.DataFiles === 'undefined' ) {
+    parsedData.DataFiles = [];
+  }
+  if ( typeof parsedData.Signers === 'undefined' ) {
+    parsedData.Signers = [];
+  }
+  if ( typeof parsedData.OnboardingPersons === 'undefined' ) {
+    parsedData.OnboardingPersons = [];
   }
   return parsedData;
 }
