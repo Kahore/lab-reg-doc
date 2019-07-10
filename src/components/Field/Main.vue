@@ -1,20 +1,17 @@
 <template>
-  <section>
-    <!-- <template v-if="loading"> -->
+  <section class="field-wrapper">
     <div
-      v-show="loading"
-      id="myAwaitLoad"
-      class="awaitLoad"
-    > Some text </div>
-    <!-- </template>
-    <template v-else> -->
-    <field-field :field="fieldPrep.Field"/>
-    <section v-if="!isANewDoc">
-      <field-uploader :data-files="fieldPrep.DataFiles"/>
-      <field-signer :signers="fieldPrep.SignerData"/>
-      <field-onboadring :onboarding-persons="fieldPrep.OnboardingData"/>
-    </section>
-    <!-- </template> -->
+      v-if="loading"
+      class="bar-wrapper" >
+      <div class="bar"/>
+    </div>
+    <div :class="{ 'field-wrapper__disabled': loading }"/>
+      <field-field :field="fieldPrep.Field"/>
+      <section v-if="!isANewDoc">
+        <field-uploader :data-files="fieldPrep.DataFiles"/>
+        <field-signer :signers="fieldPrep.SignerData"/>
+        <field-onboadring :onboarding-persons="fieldPrep.OnboardingData"/>
+      </section>
   </section>
 </template>
 
