@@ -1,10 +1,16 @@
 <template>
   <div>
-    <h2>Подписант</h2>
+    <h2>Подписант
+      <span 
+        v-if="!isSignersInDocument"
+        class="error">
+        - Обязательно для заполнения
+      </span>
+    </h2>
     <div class="field-container">
       <div class="field-row">
         <div 
-          v-if="editable" 
+          v-show="editable" 
           class="field-block">
           <div class="field-block__wrapper htooltip">
             <input
@@ -25,10 +31,8 @@
           </div>
           <br>
           <br>
-        </div><!--fieldBlock -->		
-        <!-- <div class="field-block errorMsg">
-          <div class="field-block__wrapper htooltip" >Обязательно для заполнения</div>
-        </div> -->
+        </div>
+        <!-- .field-block -->
         <div 
           v-show="isSignersInDocument"
           class="tbl-container" >
@@ -64,15 +68,22 @@
               </template>
             </div>
           </div>
-        </div> <!-- ContainerForTbl -->
+          <!-- .tbl-row -->
+        </div>
+        <!-- .tbl-container -->
       </div>
-      <!--fieldRow -->
+      <!-- .field-row -->
     </div>
-    <!--fieldContainer -->
+    <!-- .field-container  -->
   </div>
 </template>
 
 <script>
+import $ from 'jquery';
+import 'jquery-ui';
+window.jQuery = $;
+window.$ = $; 
+import { autocmpl } from '../../scripts/ajax';
   export default {
     name: 'FieldSigner',
     components: {
@@ -97,6 +108,59 @@
              return false;
           }
         }
+      }
+    },
+    mounted () {
+      var self = this;
+      $( '#SearchNewSigner' ).autocomplete( {
+        minLength: 3,
+        source: function( request, response ) {
+          let data = autocmpl( 'Employee', request.term );
+          response( $.map( data, function( item ) {				 	
+              let result = item.split( '-' );
+                return {
+                  label: result[0],
+                  value: result[0],
+                  data : item
+                };
+          } ) );
+        },
+        select: function( event, ui ) {
+          self.$store.dispatch( 'CLEAR_ERROR' );
+          let employee = ui.item.data.split( ':' );
+           // eslint-disable-next-line no-console
+          console.log( 'TCL: mounted -> employee', employee[0] );
+         let signersList = self.$store.getters.GET_Signers;
+         let idx = signersList.findIndex( function ( block ) {
+          return block.SignerName === employee[0];
+        } );
+        if ( idx === -1 ){
+          let unid = self.$store.getters.getCurrentUnid;
+          self.$store.dispatch( 'MUTATE_SIGNER_ADD', {
+                                                        PARAM: 'Document',
+                                                        PARAM2: 'Document_Signer_Change',
+                                                        PARAM3: 'Document_Signer_Add',
+                                                        EmployeeName: employee[0],
+                                                        unid
+                                                      } );
+        } else {
+            self.$store.dispatch( 'SET_ERROR', 'Подписант уже выбран' );
+        }
+          $( this ).val( '' );
+          return false;	
+        }
+      } );
+    },
+    methods: {
+      delSigner( e ) {
+          let unid = this.$store.getters.getCurrentUnid;
+          this.$store.dispatch( 'MUTATE_SIGNER_DELETE', {
+                                                          PARAM: 'Document',
+                                                          PARAM2: 'Document_Signer_Change',
+                                                          PARAM3: 'Document_Signer_Delete',
+                                                          SignerID: e.target.id,
+                                                          unid
+                                                        } );
       }
     }
   };

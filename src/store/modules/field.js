@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { fixJSON, fixField } from '../../shared';
+import { fixJSON, fixField } from '../../scripts/shared';
 const state = () => ( {
   DocumentInfo: {
     Field: {}
@@ -19,12 +19,13 @@ const state = () => ( {
       CanIEditDocument: 'true'
     },
     DataFiles:[],
-    Signers:[],
+    SignerData:[],
     OnboardingPersons:[]
   },
   Lists: [],
   loadingField: false,
   attachmentListOnAction: false,
+  signerListOnAction: false
 } );
 
 const getters = {
@@ -38,12 +39,10 @@ const getters = {
     return state.loadingField;
   },
   GET_DataFiles: state => {
-    // if ( typeof state.DocumentInfo.DataFiles !== 'undefined' ) {
-    //   return state.DocumentInfo.DataFiles;
-    // } else {
-    //   return [];
-    // }
     return state.DocumentInfo.DataFiles;
+  },
+  GET_Signers: state => { 
+    return state.DocumentInfo.SignerData;
   },
   GET_LIST: state => {
     return state.Lists;
@@ -73,11 +72,11 @@ const mutations = {
   InProgress_Field: ( state ) => {
     state.loadingField = !state.loadingField;
   },
-  OnProgressAttachment: ( state, payload ) => {
-    state.attachmentListOnAction = payload;
+  OnProgress_Attachment: ( state ) => {
+    state.attachmentListOnAction = !state.attachmentListOnAction;
   },
-  OnProgress_Attachment_Single : ( state, payload ) => {
-      let index = state.DocumentInfo.DataFiles.findIndex( function ( block ) {
+  OnProgress_Attachment_Single: ( state, payload ) => {
+    let index = state.DocumentInfo.DataFiles.findIndex( function ( block ) {
       return block.DocFileId === payload.DocFileId;
     } );
     if ( state.DocumentInfo.DataFiles[index].onAction === 'true' ) {
@@ -86,7 +85,21 @@ const mutations = {
       state.DocumentInfo.DataFiles[index].onAction === 'true';
     }
   },
-  
+  OnProgress_Signer: ( state ) => {
+    state.signerListOnAction = !state.signerListOnAction;
+  },
+  OnProgress_Signer_Single: ( state, payload ) => {
+    let index = state.DocumentInfo.SignerData.findIndex( function ( block ) {
+      return block.ID === payload.SignerID;
+    } ); 
+    if( index !== -1 ) {
+      if( state.DocumentInfo.SignerData[index].onAction === 'true' ) {
+        state.DocumentInfo.SignerData[index].onAction = 'false';
+      } else {
+        state.DocumentInfo.SignerData[index].onAction = 'true';
+      }
+    }
+  },
   loadField: ( state, payload ) => {
     if ( typeof payload[0].ListData !== 'undefined' ) {
       state.Lists = payload[0].ListData[0];
@@ -122,6 +135,17 @@ const mutations = {
       state.DocumentInfo.DataFiles.splice( _index, 1 );
     }
   },
+  MUTATE_SIGNER_ADD: ( state, payload ) => {
+    state.DocumentInfo.SignerData.unshift( payload );
+  },
+  MUTATE_SIGNER_DELETE: ( state, payload ) => {
+    let _index =  state.DocumentInfo.SignerData.findIndex( function ( block ) {
+      return block.ID === payload.SignerID;
+    } );
+    if ( _index !== -1 ) {
+      state.DocumentInfo.SignerData.splice( _index, 1 );
+    }
+  }
 };
 
 const actions = {
@@ -216,7 +240,7 @@ const actions = {
     } );
   },
   MUTATE_FILE_LOADNEW: ( { commit }, payload ) => {
-    commit( 'OnProgressAttachment', true );
+    commit( 'OnProgress_Attachment' );
     setTimeout( () => {
       return new Promise( function ( resolve, reject ) {
       /* AJAX tested in NKReports */
@@ -231,12 +255,12 @@ const actions = {
               let myDataParse = JSON.parse( resp.response );
               commit( 'MUTATE_FILE_LOADNEW', myDataParse );
             }
-            commit( 'OnProgressAttachment', false );
+            commit( 'OnProgress_Attachment' );
             resolve( resp );
           },
           error: function ( resp ) {
             commit( 'SET_ERROR', resp.statusText );
-            commit( 'OnProgressAttachment', false );
+            commit( 'OnProgress_Attachment' );
             reject();
           }
         } );
@@ -281,6 +305,24 @@ const actions = {
       commit( 'MUTATE_FILE_DELETE', payload );
     */
   },
+  MUTATE_SIGNER_ADD: ( { commit }, payload ) => {
+    /* TODO: AJAX */
+    let resp = {
+                'ID': _generateUNID(),
+                'SignerName': payload.EmployeeName,
+                'onAction': 'false',
+                'AddBy': getDate() + ' Test User Name&Surn'
+              };
+    commit ( 'MUTATE_SIGNER_ADD', resp );
+  },
+  MUTATE_SIGNER_DELETE: ( { commit }, payload ) => { 
+    commit( 'OnProgress_Signer_Single', payload );
+    /* TODO: AJAX */
+    setTimeout( () => {
+      commit( 'OnProgress_Signer_Single', payload );
+      commit( 'MUTATE_SIGNER_DELETE', payload );
+    }, 2000 );
+  }
 };
 function getDate() {
   let date = new Date( Date.now() ).toLocaleString().split( ',' )[0];

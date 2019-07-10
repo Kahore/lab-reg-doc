@@ -232,7 +232,7 @@
             {
               "ID": "13456788",
               "SignerName": "Name2",
-              "onAction": "true",
+              "onAction": "false",
               "AddBy": "29/05/2019 09:50 maxim_bordunov"
             }
           ],

@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { fixJSON } from '../../shared';
+import { fixJSON } from '../../scripts/shared';
 const state = () => ( {
   documents:[],
   loading: false,

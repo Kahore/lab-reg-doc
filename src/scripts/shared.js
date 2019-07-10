@@ -32,3 +32,60 @@ export function fixField ( parsedData ) {
   }
   return parsedData;
 }
+
+const wordOption = {
+'а': 'a', 
+'б': 'b',
+'в': 'v',
+'г': 'g',
+'д': 'd',
+'е': 'e',
+'ё': 'e',
+'ж': 'zh', 
+'з': 'z',
+'и': 'i',
+'й': 'y',
+'к': 'k',
+'л': 'l',
+'м': 'm',
+'н': 'n',
+'о': 'o',
+'п': 'p',
+'р': 'r',
+'с': 's',
+'т': 't',
+'у': 'u',
+'ф': 'f',
+'х': 'kh',
+'ц': 'ts',
+'ч': 'ch',
+'ш': 'sh',
+'щ': 'shch',
+'ъ': '',
+'ы': 'y',
+'ь': '',
+'э': 'e',
+'ю':'u',
+'я':'ya'
+};
+/*антизалипалка*/
+export function transliteration( word ){
+  let result = '';
+  let curent_sim = '';
+	for( let i = 0; i < word.length; i++ ) {
+    if( wordOption[word[i]] != undefined ) {
+      if( curent_sim != wordOption[word[i]] || curent_sim !== ' ' ){
+        result += wordOption[word[i]];
+        curent_sim = wordOption[word[i]];
+      }
+    } else {
+      result += word[i];
+      curent_sim = word[i];
+    }
+  }
+
+let lastName = result.split( ' ' )[0]; 
+/* var firstName = result.split( '' )[1]; */
+  result = lastName;
+  return result;
+}
