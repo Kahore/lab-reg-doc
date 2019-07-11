@@ -1,8 +1,8 @@
 const state = () => ( {
   // unid: '@unid@',
   unid: _defUNID(),
-  error_Msg: '',
-  info_Msg: ''
+  error_Msg: 'error',
+  info_Msg: 'bff'
 } );
 
 const getters = {

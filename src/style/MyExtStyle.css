@@ -409,4 +409,131 @@
             transform: rotate(360deg);
   }
 }
+
+/* modal */
+@media only screen and (min-width: 600px) {
+  .v-snack__wrapper {
+    width: auto;
+    max-width: 568px;
+    min-width: 288px;
+    margin: 0 auto;
+    border-radius: 2px;
+  }
+}
+
+.v-snack {
+  position: -webkit-sticky;
+  position: sticky;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #fff;
+  pointer-events: none;
+  z-index: 1000;
+  font-size: 14px;
+  left: 0;
+  right: 0;
+}
+
+.v-snack--top {
+  top: 0;
+  position: fixed;
+  left: -40%;
+}
+
+.v-snack--bottom {
+  bottom: 0;
+  left: -40%;
+  position: fixed;
+}
+
+.v-snack__wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #323232;
+  pointer-events: auto;
+  width: 100%;
+  -webkit-box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+          box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+  border-radius: 5px;
+}
+
+.v-snack__wrapper_info {
+  background-color: #ff9900;
+  border-color: #ff9900;
+}
+
+.v-snack__wrapper_error {
+  background-color: #ff8181;
+  border-color: #ff8181;
+}
+
+.v-snack__content {
+  width: 100%;
+  padding: 14px 24px;
+  margin: -2px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  overflow: hidden;
+  color: white;
+}
+
+/*=================Close btn=================*/
+.closeContainer {
+  position: -webkit-sticky;
+  position: sticky;
+  right: 0;
+  top: 0;
+  margin-right: -35px;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+}
+
+.closeContainer:hover a {
+  opacity: 1;
+}
+
+.close {
+  opacity: 0.3;
+}
+
+.close:hover {
+  opacity: 1;
+}
+
+.close:before {
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
+.close:after {
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+
+.close:before, .close:after {
+  position: absolute;
+  top: -4px;
+  left: 10px;
+  content: " ";
+  height: 25px;
+  width: 2px;
+  background-color: #fff;
+  background: #323232;
+}
 /*# sourceMappingURL=MyExtStyle.css.map */
