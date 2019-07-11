@@ -30,7 +30,7 @@
           <a 
             class="myLink nowrapWhiteSpace"
             href="#" 
-            @click="fieldFillerVM( document.ID ); return false;"> {{ document.DocNum }} </a>
+            @click="fieldFiller( document.ID ); return false;"> {{ document.DocNum }} </a>
         </div>
         <div class="tbl-block tbl-block_sm"> {{ document.DocumentDate }} </div>	 
         <div class="tbl-block tbl-block_huge"> {{ document.DocType }} </div>
@@ -71,5 +71,10 @@
     created() {
       this.$store.dispatch( 'LOAD_DOCUMENTS' );
     },
+    methods :{
+      fieldFiller ( docID ) {
+        this.$store.dispatch( 'LOAD_DOCUMENT_INFO', docID );
+      }
+    }
   };
 </script>

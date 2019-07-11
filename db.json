@@ -174,7 +174,6 @@
         {
           "Field": {
             "CanIEditDocument": "true",
-            "DocDescribe": "Протокол аттестации БРИКЕТ-400 №9",
             "DocNum": "NK19/RegN0045",
             "DocType": "Протокол аттестации испытательного оборудования",
             "DocumentDate": "14/05/2019",
@@ -182,8 +181,7 @@
             "LastChangeInfo": "29/05/2019 09:43 maxim_bordunov",
             "RegInfo": "29/05/2019 09:42 maxim_bordunov",
             "Location": "Новокузнецк",
-            "DivCode": "div1",
-            "Note": ""
+            "DivCode": "div1"
           }
         }
       ]

@@ -185,8 +185,9 @@
         dataField = Object.assign( { PARAM: 'Document', PARAM2: 'Document_Save' }, dataField );
         /*
         console.log( 'TCL: saveAction -> unid', unid );
-        console.log( 'TCL: saveAction -> dataField', dataField );
         */
+        console.log( 'TCL: saveAction -> dataField', dataField );
+        
        this.$store.dispatch( 'MUTATE_FIELD_SAVE', dataField );
       }
     }
