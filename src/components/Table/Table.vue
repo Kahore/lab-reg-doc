@@ -69,9 +69,37 @@
       },
     },
     created() {
-      this.$store.dispatch( 'LOAD_DOCUMENTS' );
+      this.count = 0;
+      this.begin = 50;
+      this.load( this.count, this.begin, 'Document_MultiData' );
+      window.addEventListener( 'scroll', this.onScroll );
     },
     methods :{
+      onScroll: function() {
+        let self = this;
+        let scrollHeight = window.scrollY;
+        let maxHeight =
+          document.documentElement.scrollHeight - window.innerHeight;
+        if (
+          scrollHeight >= maxHeight - 200 &&
+          !self.loading &&
+          !self.allElemIsLoadNow
+        ) {
+          self.count = self.count + self.begin;
+          self.begin = self.begin;
+          self.load( self.count, self.begin, 'Document_MultiData' );
+        }
+    },
+    load( count, begin, blockType ) {
+      let dataAjax = {
+        PARAM: 'Document',
+        PARAM2: 'Document_Data',
+        PARAM3: blockType,
+        count: count,
+        begin: begin
+      };
+      this.$store.dispatch( 'LOAD_DOCUMENTS', dataAjax );
+    },
       fieldFiller ( docID ) {
         this.$store.dispatch( 'LOAD_DOCUMENT_INFO', docID );
       }

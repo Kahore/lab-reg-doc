@@ -254,7 +254,7 @@ const actions = {
         complete ( resp ) {
           let _resp = JSON.parse( resp.responseText );
           //let _resp = resp;
-          resolve( resp.unid );
+          resolve( resp.DocNum );
           commit( 'mutateNewUnid', resp.unid );
           commit ( 'MUTATE_FIELD_SAVE', _resp );
         },

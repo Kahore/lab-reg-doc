@@ -189,8 +189,15 @@
         /*
         console.log( 'TCL: saveAction -> dataField', dataField );
         */
-       this.$store.dispatch( 'MUTATE_FIELD_SAVE', dataField );
-      }
+       this.$store.dispatch( 'MUTATE_FIELD_SAVE', dataField ).then( response => {
+        this.$store.dispatch( 'LOAD_DOCUMENTS', {
+          PARAM: 'Document',
+          PARAM2: 'Document_Data',
+          PARAM3: 'Document_SingleData',
+          DocumentNum: response,
+          } );
+        } );
+      },
     }
   };
 </script>

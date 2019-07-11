@@ -20,7 +20,21 @@ const getters = {
 
 const mutations = {
   LOAD_DOCUMENTS: ( state, payload ) => {
-    state.documents = payload;
+    // state.documents = payload;
+    if ( payload.blockType === 'Document_SingleData' ) {
+      /* MEMO: Изменение информации в нижней таблицу по только что изменённому протоколу */
+      var index = state.documents.findIndex( function ( block ) {
+        return block.ID === payload.resp[ 0 ].ID;
+      } );
+      if ( index !== -1 ) {
+        state.documents.splice( index, 1 );
+        state.documents.splice( index, 0, payload.resp[ 0 ] );
+      } else {
+        state.documents.unshift( payload.resp[ 0 ] );
+      }
+    } else if ( payload.blockType === 'Document_MultiData' ) {
+      state.documents = state.documents.concat( payload.resp );
+    }
   },
   InProgress_Table: ( state ) => {
     state.loading = !state.loading;
@@ -28,15 +42,16 @@ const mutations = {
 };
 
 const actions = {
-  LOAD_DOCUMENTS( { commit } ) {
+  LOAD_DOCUMENTS( { commit }, payload ) {
   commit( 'InProgress_Table' );
   setTimeout( () => {
     $.ajax( {
       url: 'http://localhost:3000/documents',
+      //data: payload,
       type: 'GET',
       complete ( resp ) {
         let _resp = fixJSON( resp.responseText );
-        commit( 'LOAD_DOCUMENTS', _resp );
+        commit( 'LOAD_DOCUMENTS', { blockType: payload.PARAM3, resp: _resp } );
         commit( 'InProgress_Table' );
       },
       error ( resp ) {

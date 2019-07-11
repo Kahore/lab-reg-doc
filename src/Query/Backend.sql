@@ -8,8 +8,12 @@ DECLARE @CanIMakeAction NVARCHAR(10);
 
 DECLARE @DateFiller NCHAR(10);
 
+DECLARE @count INT;
+DECLARE @begin INT;
+
 DECLARE @t_DivCode TABLE ( [Name] NVARCHAR(MAX) );
 DECLARE @t_MySett TABLE ( [ProfileGroup] NVARCHAR(250), [ProfileItem] NVARCHAR(250), [ProfileItemVal] NVARCHAR(250) );
+DECLARE @t_NumTable TABLE ( [Num] NVARCHAR(50) );
 
 DECLARE @UserId UNIQUEIDENTIFIER;
 
@@ -29,7 +33,7 @@ BEGIN
     SET @CanIMakeAction = CASE WHEN @AccessList IS NOT NULL THEN 'true' ELSE 'false' END
   END
 
- 	IF ('@PARAM2@' = 'Document_Load')
+ 	IF ( '@PARAM2@' = 'Document_Load' )
 	BEGIN
     SET @DateFiller = CONVERT( NCHAR(10), GetDate(), 103 )
 
@@ -39,7 +43,7 @@ BEGIN
 		  JOIN [LabProtocols].[dbo].[Ent_Divisions] AS a
 		  ON b.[ID] = a.[ID_Segment]
 
-  SET @ListsData =	
+  	SET @ListsData =	
     ( SELECT
 	    ( SELECT [Item] + ';' FROM [LabProtocols].[dbo].[Ent_Type_List] WHERE [GroupTypeEng] = 'DocumentTypeName' ORDER BY [Item] ASC for xml path('') ) as DocumentTypes
       ,( SELECT [CityName] + ';'
@@ -124,15 +128,62 @@ BEGIN
         FOR XML PATH('Document'), ROOT('Document'), TYPE	)
     END
 
-SELECT [LabProtocols].dbo.qfn_XmlToJson_obj ((
-  SELECT
-    CAST('<Data>'
-			+ ISNULL( CAST( @VesselData AS NVARCHAR(max) ), '' )
-			+ ISNULL( CAST( @ListsData AS NVARCHAR(max) ), '' )
-		+'</Data>'
-	  AS XML)
-    FOR XML PATH(''), TYPE
-	))
+		SELECT [LabProtocols].dbo.qfn_XmlToJson_obj ((
+			SELECT
+				CAST('<Data>'
+					+ ISNULL( CAST( @VesselData AS NVARCHAR(max) ), '' )
+					+ ISNULL( CAST( @ListsData AS NVARCHAR(max) ), '' )
+				+'</Data>'
+				AS XML)
+				FOR XML PATH(''), TYPE
+			))
   END /* Document_Load */
+	ELSE IF ( '@PARAM2@' = 'Document_Data' )
+	BEGIN
+	  IF ( '@PARAM3@' = 'Document_MultiData' )
+	  BEGIN
+		 SELECT
+		  @count = CONVERT( INT, '@count@' )
+		  ,@begin = CONVERT( INT,  '@begin@' )
+
+		  INSERT INTO @t_NumTable 
+		  SELECT [DocNum] 
+		  FROM [LabProtocols].[dbo].[Ent_Lab_Document]
+		  WHERE [BranchCode] IN ( SELECT nstr FROM [NKReports].[dbo].[Params_To_Table] (@AccessList, @delimiter) ) 
+			ORDER BY/*анти*/[DocNum] desc, [Registered] desc OFFSET @count ROWS FETCH NEXT @begin ROWS ONLY
+	  END
+	  ELSE IF ( '@PARAM3@' = 'Document_SingleData' )
+		BEGIN
+ 		  INSERT INTO @t_NumTable 
+		  SELECT [DocNum] 
+		  FROM [LabProtocols].[dbo].[Ent_Lab_Document]
+		  WHERE [DocNum] = '@DocumentNum@'
+	  END
+		/*
+	  ELSE IF ('@PARAM3@' = 'Document_NewBlockData')
+	  BEGIN
+		  INSERT INTO @t_NumTable 
+		  SELECT [DocNum] 
+		  FROM [LabProtocols].[dbo].[Ent_Lab_Document]
+		  WHERE [BranchCode] in ( SELECT nstr FROM [NKReports].[dbo].[Params_To_Table] ( @AccessList, @delimiter) ) 
+			AND [Registered] > ( SELECT [Registered] FROM [LabProtocols].[dbo].[Ent_Lab_Document] WHERE CAST([ID] AS nvarchar(50))='@FirstBlockID@' )
+	  END
+		*/
+	  SELECT [LabProtocols].dbo.qfn_XmlToJson (( 
+			SELECT ELD.[ID]
+			  ,ELD.[DocNum]
+      	,CONVERT( CHAR(10), ELD.[DocDate], 103 ) AS [DocumentDate]
+			  ,ELD.[DocType]
+			  ,REPLACE( ELD.[DocDescribe], CHAR(10), '\n' ) AS [DocDescribe]
+	 		  ,CONVERT( CHAR(10), ELD.[Registered], 104 ) + ' ' + CONVERT( CHAR(5), ELD.[Registered], 108 ) + ' ' + ELD.[RegisteredBy] AS [RegInfo]
+	  		,CONVERT( CHAR(10), ELD.[LastChanged], 104 ) + ' ' + CONVERT( CHAR(5), ELD.[LastChanged], 108 ) + ' ' + ELD.[LastChangedBy] AS [LastChangeInfo]
+
+		 	FROM @t_NumTable AS NT
+			INNER JOIN [LabProtocols].[dbo].[Ent_Lab_Document] AS ELD
+			  ON NT.[Num] = ELD.[DocNum]
+		 	ORDER BY ELD.[DocNum] DESC, ELD.[Registered] DESC
+		 FOR xml path('DocData'), type ))
+	END
+	/*Document_Data*/
 END
 /* Document */
