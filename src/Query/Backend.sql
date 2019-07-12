@@ -185,5 +185,163 @@ BEGIN
 		 FOR xml path('DocData'), type ))
 	END
 	/*Document_Data*/
+	ELSE IF ('@PARAM2@' = 'Document_Save')
+	BEGIN
+	
+		IF ( @BranchCodeCheck in ( SELECT nstr FROM [NKReports].[dbo].[Params_To_Table] (@AccessList, @delimiter) ) )
+		BEGIN
+	  	IF ('@DocumentDate@'<>'' AND '@DocumentDate@'<>'@'+'DocumentDate'+'@')
+	  	BEGIN TRY 
+				SET @DocumentDate = CONVERT(date,'@DocumentDate@', 103) 
+			END TRY/**/
+			BEGIN CATCH 
+				SELECT char(10) + 'Дата документа некорректна' + char(13) SET @ErrorCount = @ErrorCount+1 
+	  	END CATCH
+			IF( '@Location@' <> '' AND '@Location@' <> '@'+'Location'+'@' AND '@DocumentType@' <> '' AND '@DocumentType@' <> '@'+'DocumentType'+'@' 
+					AND '@DocumentDescribe@' <> '' AND '@DocumentDescribe@' <> '@'+'DocumentDescribe'+'@' )
+			BEGIN
+	  		IF ( '@unid@' = '' AND '@DocumentNum@' = '' )
+	  		BEGIN
+					SET @DocID = NEWID()
+					SET @DocNum = NULL
+					/*присвоить номер документа*/
+					SET @tDocNum = (SELECT TOP 1 [LabCode] FROM [LabProtocols].[dbo].[Ent_Laboratories] WHERE [CityName] = '@Location@') 
+					+ RTRIM( convert(NCHAR, YEAR( GETDATE() )-2000) )+'/RegN' +  + 'XXXX'
+					SET @nLastNumID = (SELECT [Id] 
+							FROM [LabProtocols].[dbo].[Ent_LastNum] 
+							WHERE [DockType] = 'LabDocument' 
+							AND [DockParam1] = YEAR( GETDATE() ) 
+							AND [DockParam2] = ( SELECT TOP 1 [LabCode] FROM [LabProtocols].[dbo].[Ent_Laboratories] WHERE [CityName] = '@Location@' ) 
+							AND [DockParam3] = 'RegN'
+						  )
+					IF ( @nLastNumID IS NULL ) 
+					BEGIN
+					SET @nLastNumID = NEWID()	
+						INSERT INTO [LabProtocols].[dbo].[Ent_LastNum] Values 
+						( @nLastNumID, 'LabDocument', YEAR( GETDATE() ), ( SELECT TOP 1 [LabCode] FROM [LabProtocols].[dbo].[Ent_Laboratories] WHERE [CityName] = '@Location@' ), 'RegN', 0 , 'Номер документа ' + @tDocNum ) 
+					END
+					SET @nDocNum = ( SELECT [LastNum] FROM [LabProtocols].[dbo].[Ent_LastNum] WHERE [Id] = @nLastNumID )
+					SET @nDocNum=@nDocNum+1
+	
+					UPDATE [LabProtocols].[dbo].[Ent_LastNum] SET [LastNum] = @nDocNum WHERE [Id] = @nLastNumID
+					SET @tDocNum = Replace(@tDocNum,'XXXX',CASE WHEN @nDocNum<10 THEN '000' WHEN @nDocNum<100 THEN '00' WHEN @nDocNum<1000 THEN '0' ELSE '' END+rtrim(convert(nchar,@nDocNum)))
+					SET @DocNum = @tDocNum
+
+					INSERT INTO @MyRefCodeTable
+						SELECT TOP 1 a.[Code], b.[Name], b.[Code] 
+						FROM [RUWS002].[AllVostok].[dbo].[Ref_Location] AS a
+						JOIN [RUWS002].[AllVostok].[dbo].[Ent_Branch] AS b
+						ON a.[IdBranch] = b.[Id]
+						WHERE a.[Name] = '@Location@'
+
+					INSERT  /*POST SERVICE LAB DocumentBackend @PARAM2@, @UserName@, @GetDate@*/ INTO [LabProtocols].[dbo].[Ent_Lab_Document]
+					([ID]
+					,[DocNum]
+					,[DocDate]
+					,[DocType]
+					,[DocDescribe]
+					,[Branch]
+					,[BranchCode]
+					,[Location]
+					,[LocationCode]
+					,[Division]
+					,[DivCode]
+					,[Registered]
+					,[RegisteredBy]
+					,[LastChanged]
+					,[LastChangedBy]
+					)
+					VALUES (
+					@DocID
+					,@DocNum
+					,@DocumentDate
+					,'@DocumentType@'
+					,LTRIM(RTRIM('@DocumentDescribe@'))
+					,( SELECT [BranchName] FROM @MyRefCodeTable )
+					,( SELECT [BranchCode] FROM @MyRefCodeTable )						  
+					,'@Location@'
+					,( SELECT [LocationCode] FROM @MyRefCodeTable )				  
+					,( SELECT DISTINCT [Division] FROM [RUWS002].[Staff].[dbo].[Ref_Segment] WHERE [Name] = '@DivCode@' )
+					,'@DivCode@'
+					,GETDATE()
+					,'@DomainUserName@'
+					,GETDATE()
+					,'@DomainUserName@'
+					)
+					SELECT [LabProtocols].dbo.qfn_XmlToJson_Obj (( 
+							SELECT @DocID AS [unid]
+								,@DocNum AS [DocNum]
+								,CONVERT( CHAR(10), [Registered], 104 ) + ' ' + CONVERT( CHAR(5), [Registered], 108 ) + ' ' + [RegisteredBy] AS [RegInfo]
+								,CONVERT( CHAR(10), [LastChanged], 104 ) + ' ' + CONVERT( CHAR(5), [LastChanged], 108 ) + ' ' + [LastChangedBy] AS [LastChangeInfo]
+								FROM [LabProtocols].[dbo].[Ent_Lab_Document] WHERE ID = @DocID																							  
+					FOR XML PATH(''), ROOT ))
+	  		END
+	  		ELSE
+	  		BEGIN
+					SET @DocID = '@unid@'
+					UPDATE /*POST SERVICE LAB DocumentBackend @PARAM2@, @UserName@, @GetDate@*/ [LabProtocols].[dbo].[Ent_Lab_Document]
+						SET [DocDate] = @DocumentDate
+						,[DocType] = '@DocumentType@'
+						,[DocDescribe] = LTRIM( RTRIM( '@DocumentDescribe@' ) )
+						,[Division] = ( SELECT DISTINCT [Division] FROM [RUWS002].[Staff].[dbo].[Ref_Segment] WHERE [Name] = '@DivCode@' )
+						,[DivCode] = '@DivCode@'
+						,[LastChanged] = GETDATE()
+						,[LastChangedBy] = '@DomainUserName@'
+						WHERE CAST( [ID] AS nvarchar(50) ) = '@unid@'
+																																
+					SELECT [LabProtocols].dbo.qfn_XmlToJson_Obj (( 
+							SELECT [ID] AS [unid]
+								,[DocNum]
+								,CONVERT( CHAR(10), [LastChanged], 104 ) + ' ' + CONVERT( CHAR(5), [LastChanged],108 ) + ' ' + [LastChangedBy] AS [LastChangeInfo]
+							FROM [LabProtocols].[dbo].[Ent_Lab_Document] WHERE ID = @DocID																							   
+					FOR xml path(''), root ))
+				END
+	  		SET @x = ( SELECT [Item] FROM [LabProtocols].[dbo].[Ent_Lab_Document_Item] 
+					WHERE [DocID] = @DocID AND [ItemGroup] = 'regInfo' AND [Item] ='Note' )
+				IF ( @x IS NULL AND '@Note@' <>'' AND '@Note@' <> '@'+'Note'+'@' )
+				BEGIN
+				SET @DocItemID  = newid()
+					INSERT INTO /*POST SERVICE LAB DocumentBackend @PARAM2@, @UserName@, @GetDate@*/ [LabProtocols].[dbo].[Ent_Lab_Document_Item]
+					( [ID]
+						,[DocID]
+						,[ItemGroup]
+						,[Item]
+						,[ItemVal]
+						,[Registered]
+						,[RegisteredBy]
+						,[LastChanged]
+						,[LastChangedBy] )
+					VALUES 
+					(@DocItemID
+					,@DocID
+					,'regInfo'
+					,'Note'
+					,ltrim(rtrim('@Note@'))
+					,GETDATE()
+					,'@DomainUserName@'
+					,GETDATE()
+					,'@DomainUserName@')
+				END
+				ELSE
+				BEGIN
+				UPDATE /*POST SERVICE LAB DocumentBackend @PARAM2@, @UserName@, @GetDate@*/ [LabProtocols].[dbo].[Ent_Lab_Document_Item]
+				SET
+					[ItemVal] = LTRIM( RTRIM( '@Note@' ) )
+					,[LastChanged] = GETDATE()
+					,[LastChangedBy] = '@DomainUserName@'
+				WHERE [DocID] = @DocID AND [ItemGroup] = 'regInfo' AND [Item] = 'Note'
+				END
+			END
+			ELSE
+			BEGIN
+				SELECT [LabProtocols].dbo.qfn_XmlToJson (( SELECT 'Не все обязательные поля заполнены. Прогресс не сохранен.' FOR XML PATH ('ErrorMsg'),ROOT, TYPE ))
+			END/*filed check*/
+		END/*BranchCodeCheck end*/
+		ELSE
+		BEGIN
+			SELECT [LabProtocols].dbo.qfn_XmlToJson (( SELECT 'К сожалению, у вас недостаточно прав для совершения этой операциию ' FOR XML PATH ('ErrorMsg'), ROOT, TYPE ))
+		END/*filed check*/
+	END
+	/* Document_Save */
 END
 /* Document */
