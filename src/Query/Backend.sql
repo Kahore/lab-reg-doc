@@ -403,6 +403,36 @@ BEGIN
 
 	END
 	/* Document_Signer_Change */
+	/* MEMO: After uploading get all files */
+	ELSE IF ( '@PARAM2@' = 'Document_UploadingFile_Load' )
+	BEGIN
+	  SELECT [LabProtocols].dbo.qfn_XmlToJson ((
+		SELECT /*POST SERVICE LAB DocumentBackend @PARAM2@, @UserName@, @GetDate@*/  [Id] AS [DocFileId]
+		,[FileName]
+		,convert( char(10),[UploadedOn],103 ) + ' ' + convert( char(5),[UploadedOn],108 ) + ' ' + [UploadedBy] AS [UploadedInfo]
+		,'false' AS [onAction]
+		,'./FileDownload.ashx?Id='+CAST( [Id] AS nvarchar(36) ) AS [linkToDoc]
+		FROM [NKReports].[dbo].[DB_Settings_UploadedFiles] WHERE [IdParent] IN 
+		( SELECT CAST([Item] as uniqueidentifier) FROM [LabProtocols].[dbo].[Ent_Lab_Document_Item] WHERE [DocID] = '@unid@' AND [ItemGroup]='UploadedFile' ) FOR XML PATH('DocFile'), TYPE
+	  ))
+	END
+	/* Document_UploadingFile_Load */
+	ELSE IF ( '@PARAM2@' = 'Document_UploadingFile_Change' )
+	BEGIN
+	  IF ( @BranchCodeCheck in (SELECT nstr FROM [NKReports].[dbo].[Params_To_Table] (@AccessList, @delimiter)) AND  '@PARAM3@' = 'Document_UploadingFile_Delete' )
+	  BEGIN
+		  SET @DocItemID = (SELECT [IdParent] FROM [NKReports].[dbo].[DB_Settings_UploadedFiles] WHERE  CAST( [Id] AS nvarchar(36) ) = '@FileID@' )
+ 		  DELETE FROM /*POST SERVICE LAB DocumentBackend @PARAM2@ @UserName@, @GetDate@*/ [LabProtocols].[dbo].[Ent_Lab_Document_Item] 
+			 	WHERE [ItemGroup] = 'UploadedFile' AND [Item] = CAST( @DocItemID as nvarchar(36) ) AND [DocID] = '@unid@'
+		  DELETE FROM /*POST SERVICE LAB DocumentBackend @PARAM2@ @UserName@, @GetDate@*/ [NKReports].[dbo].[DB_Settings_UploadedFiles] WHERE  [IdParent] = @DocItemID 
+	  END
+	  ELSE
+	  BEGIN
+		  SELECT [LabProtocols].dbo.qfn_XmlToJson ((  SELECT 'Нарушение прав доступа, операции с документами недоступны' FOR XML PATH ('ErrorMsg'),ROOT,TYPE ))
+	  END
+		/* Document_UploadingFile_Delete */
+	END
+	/* Document_UploadingFile_Change */
 	ELSE IF ( '@PARAM2@' = 'Document_Onboarding_Change' )
 	BEGIN
 	  IF ( '@PARAM3@' = 'Document_Onboarding_Add' )
