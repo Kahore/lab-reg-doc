@@ -401,6 +401,152 @@ BEGIN
 			END/* SignerID */
 	  END/* OrderInfo_Approver_Delete */
 
-	END/* Document_Signer_Change */
+	END
+	/* Document_Signer_Change */
+	ELSE IF ( '@PARAM2@' = 'Document_Onboarding_Change' )
+	BEGIN
+	  IF ( '@PARAM3@' = 'Document_Onboarding_Add' )
+	  BEGIN
+			SET @CompareUserName = ( SELECT [Item] FROM [LabProtocols].[dbo].[Ent_Lab_Document_Item] 
+																WHERE [ItemGroup] = 'Onboarding' AND [Item] = '@EmployeeName@' AND CAST( [DocID] AS NVARCHAR(36) ) = '@unid@' )
+			/* MEMO: Backend проверка, что добавляемого нет в документе */
+
+			IF ( @CompareUserName IS NULL )
+			BEGIN
+				SET @DocItemID = NEWID() 
+				INSERT INTO /*POST SERVICE LAB DocumentBackendd @PARAM2@ @UserName@, @GetDate@*/ [LabProtocols].[dbo].[Ent_Lab_Document_Item]
+				( [ID], [DocID], [ItemGroup], [Item], [ItemVal], [Registered], [RegisteredBy], [LastChanged], [LastChangedBy])
+				VALUES( @DocItemID, '@unid@', 'Onboarding', '@EmployeeName@', 'pendingApproveByUser', GETDATE(), '@DomainUserName@', GETDATE(), '@DomainUserName@' )
+
+				SELECT [LabProtocols].dbo.qfn_XmlToJson_Obj ((
+					SELECT /*POST SERVICE LAB DocumentBackend @PARAM2@ @UserName@, @GetDate@*/  [ID]
+					,[Item] AS [PersonName]
+					,[ItemVal] AS [OnboardingState]
+					,'false' AS [onAction]
+					,CASE WHEN ItemVal = 'approved' THEN CONVERT( CHAR(10), [LastChanged], 104 ) + ' ' + CONVERT( CHAR(5), [LastChanged], 108 ) + ' ' + [LastChangedBy] ELSE '' END AS LastChanged
+					,CASE WHEN '@UserName@' <> [Item] OR ItemVal = 'approved' THEN 'true' ELSE 'false' END  AS [IsDisabledChb]
+					,CASE WHEN ItemVal = 'approved' THEN 'true' ELSE 'false' END  AS [IsDisabledBtnDel]
+					FROM [LabProtocols].[dbo].[Ent_Lab_Document_Item]
+					WHERE [ItemGroup] = 'Onboarding' AND CAST( [ID] AS nvarchar(50) ) = @DocItemID 
+				FOR xml path('OnboardingData'), type 
+				))
+					/*
+					 * Оповещалка.
+					 * Если один из элементов в запросе NULL, то вся ячейка зануляется. 
+					 * CASE обязательно
+					 */
+
+					SET @EmployeeMailFixed = '@replaceChar64@'
+					SET @DocType = ( SELECT [DocType] FROM [LabProtocols].[dbo].[Ent_Lab_Document] WHERE [ID] = '@unid@' ) 
+					SET @MailDocNum = ( SELECT [DocNum] FROM [LabProtocols].[dbo].[Ent_Lab_Document] WHERE [ID] = '@unid@' )
+					SET @DocDescribe = ( SELECT [DocDescribe] FROM [LabProtocols].[dbo].[Ent_Lab_Document] WHERE [ID] = '@unid@' ) 		
+
+					SET @SubjectDocType = ISNULL(@DocType,'')
+					SET @MailDocNum = (CASE WHEN @MailDocNum IS NULL THEN '' ELSE '<span>Регистрационный номер: ' + @MailDocNum+' от '+ ( SELECT convert(char(10), [DocDate], 103) FROM [LabProtocols].[dbo].[Ent_Lab_Document] WHERE [ID]='@unid@' )+'</span><br>' END)	
+					SET @DocType = ( CASE WHEN @DocType IS NULL THEN '' ELSE  '<span>Вид документа: '+ @DocType + '</span><br>' END )	
+					SET @DocDescribe = ( CASE WHEN @DocDescribe IS NULL THEN '' ELSE '<span>Краткое содержание документа: '+@DocDescribe+'</span><br>' END )
+
+					SET @SignerList = ( SELECT [Item] AS li FROM [LabProtocols].[dbo].[Ent_Lab_Document_Item] WHERE [ItemGroup] = 'Signer' AND [DocID] = '@unid@' for xml RAW(''), ROOT('ul'), ELEMENTS, TYPE )
+
+					SET @Link = '@Req_SERVER_NAME@'+'/NKReports/Default?Id=4a3ad22f-32cd-4bfd-b72a-88e3a44824e3&unid='+'@unid@'
+					IF ( @EmployeeMailFixed IS NOT NULL AND @SubjectDocType IS NOT NULL AND @MailDocNum IS NOT NULL 
+							 AND @DocType IS NOT NULL AND @DocDescribe IS NOT NULL AND @SignerList IS NOT NULL AND @Link IS NOT NULL )
+					BEGIN
+						INSERT INTO /*POST SERVICE ORDER (test) OrderInfo_Backend @PARAM2@ @UserName@, @GetDate@*/ [RUWS002].[AllVostok].[dbo].[DB_Settings_SendMail]
+						([id],
+						[applicationid],
+						[from],
+						[to],
+						[cc],
+						[subject],
+						[body],
+						[retries],
+						[Attachments],
+						[issent],
+						[iserror],
+						[isworking],
+						[isdone])
+						VALUES      
+						(NEWID()
+						,'LabOrder'
+						,'@UserEmail@'
+						,@EmployeeMailFixed
+						,''
+						,'LabDocuments - ' + @SubjectDocType
+						,'<span>Вам необходимо ознакомиться со следующим зарегистрированным документом</span><br>'+
+							@MailDocNum + @DocType + @DocDescribe +
+							'<span>Подписанты: </span><br>'+
+							CAST( @SignerList AS NVARCHAR(MAX) ) +
+							'Ознакомление по '+'<a href="'+@Link+'">ссылке</a></span>'
+						,'2'
+						,''
+						,'False'
+						,'False'
+						,'False'
+						,'False' );
+					END
+					/* Check all field as not null */
+			END
+			/* CompareUserName */
+	  END
+		/* OrderInfo_Onboarding_Add */
+	  ELSE IF ( '@PARAM3@' = 'Document_Onboarding_UpdateState' )
+	  BEGIN
+			IF ( '@OnboardingID@' <> '' AND '@OnboardingID@' <> '@'+'OnboardingID'+'@' )
+			BEGIN
+				SET @CompareUserName = (SELECT Item FROM [LabProtocols].[dbo].[Ent_Lab_Document_Item] WHERE [ItemGroup]='Onboarding' AND CAST( [ID] AS NVARCHAR(50) ) = '@OnboardingID@' )
+				IF ( @CompareUserName = '@UserName@' )
+				BEGIN
+					SET @DocItemID = '@OnboardingID@'
+					SET @CurrentState = ( SELECT ItemVal FROM [LabProtocols].[dbo].[Ent_Lab_Document_Item] WHERE [ItemGroup]='Onboarding' AND CAST( [ID] AS NVARCHAR(50) ) = @DocItemID )
+
+					UPDATE /*POST SERVICE LAB DocumentBackend @PARAM2@ @UserName@, @GetDate@*/  [LabProtocols].[dbo].[Ent_Lab_Document_Item] SET
+						[ItemVal] = CASE WHEN @CurrentState = 'pendingApproveByUser' THEN 'approved' ELSE 'pendingApproveByUser' END
+						,[LastChanged] = GETDATE()
+						,[LastChangedBy] = '@DomainUserName@'
+					WHERE CAST( [ID] AS NVARCHAR(36) ) = @DocItemID
+
+					SELECT [LabProtocols].dbo.qfn_XmlToJson_Obj ((
+						SELECT /*POST SERVICE LAB DocumentBackendd @PARAM2@ @UserName@, @GetDate@*/ [ID]
+							,[Item] AS [PersonName]
+							,[ItemVal] AS [OnboardingState]
+							,'false' AS [onAction]
+							,CASE WHEN ItemVal ='approved' THEN CONVERT( CHAR(10), [LastChanged], 104 ) + ' ' + CONVERT( CHAR(5), [LastChanged], 108 ) + ' ' + [LastChangedBy] ELSE '' END AS LastChanged
+							,CASE WHEN '@UserName@' <> [Item] OR ItemVal = 'approved' THEN 'true' ELSE 'false' END AS [IsDisabledChb]
+							,CASE WHEN ItemVal = 'approved' THEN 'true' ELSE 'false' END AS [IsDisabledBtnDel]
+							FROM [LabProtocols].[dbo].[Ent_Lab_Document_Item]
+							WHERE [ItemGroup] = 'Onboarding' AND CAST( [ID] AS NVARCHAR(50) ) = @DocItemID 
+						FOR XML PATH('OnboardingData'), TYPE 
+					))
+				
+				END
+				/* CompareUserName */
+			END
+			/* OnboardingID */
+	  END
+		/* Document_Onboarding_UpdateState */
+	  ELSE IF ( '@PARAM3@' = 'Document_Onboarding_Delete' )
+	  BEGIN
+			IF ( '@OnboardingID@' <>'' AND '@OnboardingID@' <> '@'+'OnboardingID'+'@' )
+			BEGIN
+				SET @DocItemID = '@OnboardingID@'
+				SET @CurrentState = ( SELECT ItemVal FROM [LabProtocols].[dbo].[Ent_Lab_Document_Item] WHERE [ItemGroup] = 'Onboarding' AND CAST( [ID] AS NVARCHAR(36) ) = @DocItemID )
+				/* MEMO: Backend проверка, что удаляемый не с отметкой */   
+				IF ( @CurrentState <> 'approved' )
+				BEGIN
+					DELETE FROM /*POST SERVICE ORDER (test) OrderInfo_Backend @PARAM2@ @UserName@, @GetDate@*/ [LabProtocols].[dbo].[Ent_Lab_Document_Item] 
+					WHERE CAST( [ID] AS NVARCHAR(36) ) = @DocItemID
+				END
+				/* CurrentState */
+				ELSE
+				BEGIN
+					SELECT [LabProtocols].dbo.qfn_XmlToJson ((  SELECT 'Нарушение прав доступа, проверяющий не удалён' FOR XML PATH ('ErrorMsg'),ROOT,TYPE ))
+				END
+			END
+			/* OnboardingID */
+	  END 
+		/* Document_Signer_Delete */
+	END 
+	/* Document_Onboarding_Change */
 END
 /* Document */
