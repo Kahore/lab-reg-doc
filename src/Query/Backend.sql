@@ -343,5 +343,64 @@ BEGIN
 		END/*filed check*/
 	END
 	/* Document_Save */
+	ELSE IF ('@PARAM2@' = 'Document_Signer_Change')
+	BEGIN
+	  IF ('@PARAM3@' = 'Document_Signer_Add')
+	  BEGIN
+			IF ('@unid@'<>'@'+'unid'+'@' AND '@unid@' <>'' AND @BranchCodeCheck in (SELECT nstr FROM [NKReports].[dbo].[Params_To_Table] (@AccessList, @delimiter)) )
+			BEGIN
+				SET @DocItemID = NEWID()
+				INSERT INTO /*POST SERVICE LAB DocumentBackendd @PARAM2@ @UserName@, @GetDate@*/ [LabProtocols].[dbo].[Ent_Lab_Document_Item]
+				([ID]
+				,[DocID]
+				,[ItemGroup]
+				,[Item]
+				,[ItemVal]
+				,[Registered]
+				,[RegisteredBy]
+				,[LastChanged]
+				,[LastChangedBy]
+				)
+				VALUES(
+					@DocItemID
+				,'@unid@'
+				,'Signer'
+				,'@EmployeeName@'
+				,NULL
+				,GETDATE()
+				,'@DomainUserName@'
+				,GETDATE()
+				,'@DomainUserName@'
+				)
+				SELECT [LabProtocols].dbo.qfn_XmlToJson_Obj (( 
+					SELECT 
+						@DocItemID AS [ID]
+						,'@EmployeeName@' AS [SignerName]
+						,'false' AS [onAction]
+						,CONVERT( CHAR(10), [Registered], 104 ) + ' ' + CONVERT( CHAR(5), [Registered], 108 ) + ' ' + [RegisteredBy] AS [AddBy]
+					FROM [LabProtocols].[dbo].[Ent_Lab_Document_Item]
+					WHERE [ID] = @DocItemID
+				FOR XML PATH('SignerData'), TYPE))
+			END/*unid check end*/
+	  END
+		/* Document_Signer_Add */
+	  ELSE IF ( '@PARAM3@' = 'Document_Signer_Delete' )
+	  BEGIN
+			IF ( '@SignerID@' <>'' AND '@SignerID@' <> '@'+'SignerID'+'@')
+			BEGIN
+			SET @BranchCodeCheck = ( SELECT BranchCode from [LabProtocols].[dbo].[Ent_Lab_Document] WHERE ID = '@unid@' )
+				IF ( @BranchCodeCheck IN ( SELECT nstr FROM [NKReports].[dbo].[Params_To_Table] (@AccessList, @delimiter) ) )
+				BEGIN
+					DELETE FROM /*POST SERVICE LAB DocumentBackendd @PARAM2@ @UserName@, @GetDate@*/ [LabProtocols].[dbo].[Ent_Lab_Document_Item] 
+					WHERE CAST( [ID] AS nvarchar(36) ) = '@SignerID@'
+				END
+				ELSE
+				BEGIN
+				SELECT [LabProtocols].dbo.qfn_XmlToJson ((  SELECT 'Нарушение прав доступа, утверждающий не удалён' FOR XML PATH ('ErrorMsg'),ROOT,TYPE ))
+				END
+			END/* SignerID */
+	  END/* OrderInfo_Approver_Delete */
+
+	END/* Document_Signer_Change */
 END
 /* Document */
