@@ -76,10 +76,10 @@ export function doAjax( url, type, ajaxData, nameLoading ) {
         complete: function( resp ) {
           if ( resp.length !== 0 && resp !== null ) {
             let _resp = JSON.parse( resp.response );
-            if ( typeof _resp[0].ErrorMsg !== 'undefined' ) {
-              store.commit( 'SET_ERROR', _resp[0].ErrorMsg );
-              reject( _resp[0].ErrorMsg );
-              _ajaxLoadingHelper( nameLoading );
+            if ( typeof _resp.ErrorMsg !== 'undefined' ) {
+                store.commit( 'SET_ERROR', _resp.ErrorMsg );
+                reject( _resp.ErrorMsg );
+                _ajaxLoadingHelper( nameLoading );
             } else {
               resolve( _resp );
               _ajaxLoadingHelper( nameLoading );

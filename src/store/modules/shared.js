@@ -9,7 +9,7 @@ const getters = {
   getCurrentUnid: state => {
     return state.unid;
   },
-  isANewTask: state => {
+  isANewDoc: state => {
     let unid = state.unid;
     if ( unid === '@' + 'unid' + '@' ) {
       return true;

@@ -60,6 +60,10 @@ const actions = {
       }
     } );
   }, 2000 );
+    // 	 const data = payload;
+		//  const result = doAjax( '@Nav_Backend@', 'GET', data, 'InProgress_Table' ).then( ( result ) => {
+		// 	commit( 'LOAD_DOCUMENTS', { blockType: payload.PARAM3, resp: result } );
+		//  } );
   }
 };
 

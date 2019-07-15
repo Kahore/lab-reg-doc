@@ -52,12 +52,7 @@ import fieldSigner from './Signer';
         return this.$store.getters.isFieldLoading;
       },
       isANewDoc() {
-        let unid = this.$store.getters.getCurrentUnid;
-        if ( unid === '@' + 'unid' + '@' ) {
-          return true;
-        } else {
-          return false;
-        }
+        return this.$store.getters.isANewDoc;
       },
       canIEdit () {
         let aclEgit;
@@ -78,6 +73,6 @@ import fieldSigner from './Signer';
     created() {
        let unid = this.$store.getters.getCurrentUnid;
        this.$store.dispatch( 'LOAD_DOCUMENT_INFO', unid );
-     }
+     },
   };
 </script>

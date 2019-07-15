@@ -120,22 +120,26 @@ const mutations = {
       }
     }
   },
-  loadField: ( state, payload ) => {
-    if ( typeof payload[0].ListData !== 'undefined' ) {
-      state.Lists = payload[0].ListData[0];
+	loadField: ( state, payload ) => {
+    if ( typeof payload.ListData !== 'undefined' ) {
+      state.Lists = payload.ListData;
     }
-    if ( typeof payload[0].Document !== 'undefined' ) {
-      state.DocumentInfo = payload[0].Document[0];
-      window.history.pushState( '', '', './Default?Id=@Nav_Document@&unid=' + payload[0].Document[0].Field.unid );
-      if ( typeof payload[0].Document[0].OnboardingData !== 'undefined' ) {
-        for ( let i = 0; i < payload[0].Document[0].OnboardingData.length; i++ ) {
-          if ( payload[0].Document[0].OnboardingData[i].OnboardingState === 'approved' ) {
-            state.DocumentInfo.OnboardingWhoChecked = state.DocumentInfo.OnboardingWhoChecked.concat( payload[0].Document[0].OnboardingData[i].ID );
+    if ( typeof payload.Document !== 'undefined' ) {
+      state.DocumentInfo = payload.Document;
+      if ( typeof payload.Document.Field !== 'undefined' ) {
+        if ( typeof payload.Document.Field.unid !== 'undefined' ) {
+          window.history.pushState( '', '', './Default?Id=@Nav_Document@&unid=' + payload.Document.Field.unid );
+        }
+      }
+      if ( typeof payload.Document.OnboardingData !== 'undefined' ) {
+        for ( let i = 0; i < payload.Document.OnboardingData.length; i++ ) {
+          if ( payload.Document.OnboardingData[i].OnboardingState === 'approved' ) {
+            state.DocumentInfo.OnboardingWhoChecked = state.DocumentInfo.OnboardingWhoChecked.concat( payload.Document.OnboardingData[i].ID );
           }
         }
       }
     }
-  },
+	},
   MUTATE_FIELD_SAVE: ( state, payload ) => { 
     state.DocumentInfo.Field.LastChangeInfo = payload.LastChangeInfo;
     if ( state.DocumentInfo.Field.RegInfo === '' ) {
@@ -236,9 +240,15 @@ const actions = {
           }
         } );
       }, 2000 );
-      // const data = {  PARAM2: 'VesselFieldFiller', PARAM3: payload.PARAM3, unid: payload.unid };
-      // const result = doAjax( '@Nav_Backend@', data, 'InProgress_Field' ).then( ( result ) => {
+      // const data = { PARAM: 'Document', PARAM2: 'Document_Load', unid: payload };
+      // const result = doAjax( '@Nav_Backend@', 'GET', data, 'InProgress_Field' ).then( ( result ) => {
       //   commit( 'loadField', result );
+			// if ( typeof result.Document.Field !== 'undefined' ) {
+			//   if ( typeof result.Document.Field.unid !== 'undefined' ) {
+			// 	commit( 'mutateNewUnid', result.Document.Field.unid );
+			// 	window.history.pushState( '', '', './Default?Id=@Nav_Document@&unid=' + result.Document.Field.unid );
+			//   }
+			// }
       //   resolve( result );
       // } );
     } );
@@ -264,6 +274,13 @@ const actions = {
         }
       } );
     } );
+    /*
+      const data = payload;
+		  const result = doAjax( '@Nav_Backend@', 'GET', data, 'InProgress_Field' ).then( ( result ) => {
+			commit( 'mutateNewUnid', result.unid );
+			commit ( 'MUTATE_FIELD_SAVE', result );
+		 } );
+    */
   },
   MUTATE_FILE_UPLOAD: ( { commit }, payload ) => {
     return new Promise( function ( resolve, reject ) {

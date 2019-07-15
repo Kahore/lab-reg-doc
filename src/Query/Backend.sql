@@ -1,21 +1,40 @@
 DECLARE @ListsData XML;
 DECLARE @VesselData XML;
+DECLARE @SignerList XML;
 
-DECLARE @AccessList NVARCHAR(max);
+DECLARE @DocumentDate date;
+
+DECLARE @AccessList NVARCHAR(MAX);
+DECLARE @x NVARCHAR(MAX);
+DECLARE @CompareUserName NVARCHAR (MAX);
+DECLARE @EmployeeMailFixed NVARCHAR (MAX);
+DECLARE @SubjectDocType NVARCHAR (MAX);
+DECLARE @MailDocNum NVARCHAR (MAX);
+DECLARE @DocType NVARCHAR (MAX);
+DECLARE @DocDescribe NVARCHAR (MAX);
+DECLARE @Link NVARCHAR (MAX);
 DECLARE @delimiter NVARCHAR(50);
 DECLARE @BranchCodeCheck NVARCHAR(50);
+DECLARE @CurrentState NVARCHAR(50);
+DECLARE @DocNum NVARCHAR(50);
+DECLARE @tDocNum NVARCHAR(50);
 DECLARE @CanIMakeAction NVARCHAR(10);
 
 DECLARE @DateFiller NCHAR(10);
 
 DECLARE @count INT;
 DECLARE @begin INT;
+DECLARE @nDocNum INT;
 
 DECLARE @t_DivCode TABLE ( [Name] NVARCHAR(MAX) );
 DECLARE @t_MySett TABLE ( [ProfileGroup] NVARCHAR(250), [ProfileItem] NVARCHAR(250), [ProfileItemVal] NVARCHAR(250) );
 DECLARE @t_NumTable TABLE ( [Num] NVARCHAR(50) );
+DECLARE @MyRefCodeTable TABLE ([LocationCode] nvarchar(100),[BranchName] nvarchar(100),[BranchCode] nvarchar(100) );
 
-DECLARE @UserId UNIQUEIDENTIFIER;
+
+DECLARE @DocID UNIQUEIDENTIFIER;
+DECLARE @DocItemID UNIQUEIDENTIFIER;
+DECLARE @nLastNumID UNIQUEIDENTIFIER;
 
 IF ('@PARAM@' = 'Document')
 BEGIN
@@ -60,7 +79,7 @@ BEGIN
 	  BEGIN
 			SET @VesselData =	(SELECT
 		 ( SELECT /* POST SERVICE LAB DocumentBackend @PARAM2@, @UserName@, GetDate() */ 
-		  [ID]
+		  [ID] AS [unid]
 		  ,[DocNum]
 		  ,CONVERT( CHAR(10), [DocDate], 103 ) AS [DocumentDate]
 		  ,[DocType]
@@ -110,7 +129,6 @@ BEGIN
     END
     ELSE
 	  BEGIN
-      SET @UserId= ( SELECT TOP 1 [Id] FROM [LabProtocols].[dbo].[Ent_UserProfile_New] WHERE [UserName] = '@DomainUserName@' ) 
 
 			INSERT INTO @t_MySett
 			SELECT [ProfileGroup]
@@ -121,10 +139,12 @@ BEGIN
 			AND [ProfileGroup] = 'LabProtocols'
           
       SET @VesselData = ( SELECT
+			 (SELECT
         ( SELECT ISNULL([ProfileItemVal],'') FROM @t_MySett WHERE [ProfileItem] = 'Location' ) AS [Location]
 				,( SELECT ISNULL([ProfileItemVal],'') FROM @t_MySett WHERE [ProfileItem] = 'DivCode' ) AS [DivCode]
 				,@DateFiller AS [DocumentDate]
 			 	,CASE WHEN @AccessList IS NULL THEN 'false' ELSE 'true' END AS [CanIEditDocument]
+				 FOR XML PATH('Field'),ROOT('Field'), TYPE	)
         FOR XML PATH('Document'), ROOT('Document'), TYPE	)
     END
 
@@ -175,8 +195,8 @@ BEGIN
       	,CONVERT( CHAR(10), ELD.[DocDate], 103 ) AS [DocumentDate]
 			  ,ELD.[DocType]
 			  ,REPLACE( ELD.[DocDescribe], CHAR(10), '\n' ) AS [DocDescribe]
-	 		  ,CONVERT( CHAR(10), ELD.[Registered], 104 ) + ' ' + CONVERT( CHAR(5), ELD.[Registered], 108 ) + ' ' + ELD.[RegisteredBy] AS [RegInfo]
-	  		,CONVERT( CHAR(10), ELD.[LastChanged], 104 ) + ' ' + CONVERT( CHAR(5), ELD.[LastChanged], 108 ) + ' ' + ELD.[LastChangedBy] AS [LastChangeInfo]
+	 		  ,CONVERT( CHAR(10), ELD.[Registered], 104 ) + ' ' + CONVERT( CHAR(5), ELD.[Registered], 108 ) + ' ' + REPLACE(ELD.[RegisteredBy],'eame\','')  AS [RegInfo]
+	  		,CONVERT( CHAR(10), ELD.[LastChanged], 104 ) + ' ' + CONVERT( CHAR(5), ELD.[LastChanged], 108 ) + ' ' + REPLACE(ELD.[LastChangedBy],'eame\','')  AS [LastChangeInfo]
 
 		 	FROM @t_NumTable AS NT
 			INNER JOIN [LabProtocols].[dbo].[Ent_Lab_Document] AS ELD
@@ -333,12 +353,12 @@ BEGIN
 			END
 			ELSE
 			BEGIN
-				SELECT [LabProtocols].dbo.qfn_XmlToJson (( SELECT 'Не все обязательные поля заполнены. Прогресс не сохранен.' FOR XML PATH ('ErrorMsg'),ROOT, TYPE ))
+				SELECT [LabProtocols].dbo.qfn_XmlToJson_Obj (( SELECT 'Не все обязательные поля заполнены. Прогресс не сохранен.' FOR XML PATH ('ErrorMsg'),ROOT, TYPE ))
 			END/*filed check*/
 		END/*BranchCodeCheck end*/
 		ELSE
 		BEGIN
-			SELECT [LabProtocols].dbo.qfn_XmlToJson (( SELECT 'К сожалению, у вас недостаточно прав для внесения изменений в информацию о документе. ' FOR XML PATH ('ErrorMsg'), ROOT, TYPE ))
+			SELECT [LabProtocols].dbo.qfn_XmlToJson_Obj (( SELECT 'К сожалению, у вас недостаточно прав для внесения изменений в информацию о документе. ' FOR XML PATH ('ErrorMsg'), ROOT, TYPE ))
 		END/*filed check*/
 	END
 	/* Document_Save */
@@ -399,7 +419,7 @@ BEGIN
 		END
 		ELSE
 		BEGIN
-			SELECT [LabProtocols].dbo.qfn_XmlToJson ((  SELECT 'К сожалению, у вас недостаточно прав для операций с подписантами. ' FOR XML PATH ('ErrorMsg'),ROOT,TYPE ))
+			SELECT [LabProtocols].dbo.qfn_XmlToJson_Obj ((  SELECT 'К сожалению, у вас недостаточно прав для операций с подписантами. ' FOR XML PATH ('ErrorMsg'),ROOT,TYPE ))
 		END
 		/* Right check */
 	END
@@ -432,7 +452,7 @@ BEGIN
 		END
 	  ELSE
 	  BEGIN
-		  SELECT [LabProtocols].dbo.qfn_XmlToJson ((  SELECT 'Нарушение прав доступа, операции с документами недоступны' FOR XML PATH ('ErrorMsg'),ROOT,TYPE ))
+		  SELECT [LabProtocols].dbo.qfn_XmlToJson_Obj ((  SELECT 'Нарушение прав доступа, операции с документами недоступны' FOR XML PATH ('ErrorMsg'),ROOT,TYPE ))
 	  END
 		/* Document_UploadingFile_Delete */
 	END
@@ -576,7 +596,7 @@ BEGIN
 					/* CurrentState */
 					ELSE
 					BEGIN
-						SELECT [LabProtocols].dbo.qfn_XmlToJson ((  SELECT 'Нарушение прав доступа, проверяющий не удалён' FOR XML PATH ('ErrorMsg'),ROOT,TYPE ))
+						SELECT [LabProtocols].dbo.qfn_XmlToJson_Obj ((  SELECT 'Нарушение прав доступа, проверяющий не удалён' FOR XML PATH ('ErrorMsg'),ROOT,TYPE ))
 					END
 				END
 				/* OnboardingID */
@@ -584,7 +604,7 @@ BEGIN
 		END
 		ELSE
 		BEGIN
-			SELECT [LabProtocols].dbo.qfn_XmlToJson (( SELECT 'К сожалению, у вас недостаточно прав для внесения изменений в этот раздел. ' FOR XML PATH ('ErrorMsg'), ROOT, TYPE ))
+			SELECT [LabProtocols].dbo.qfn_XmlToJson_Obj (( SELECT 'К сожалению, у вас недостаточно прав для внесения изменений в этот раздел. ' FOR XML PATH ('ErrorMsg'), ROOT, TYPE ))
 		END
 		/* Document_Onboarding_Delete */
 	END 

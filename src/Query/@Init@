@@ -1,5 +1,5 @@
 SELECT 
-'' AS [Nav_Backend]
-'' AS [Nav_Document]
+'cee5a867-08cc-4b66-9e19-74f98d7348be' AS [Nav_Backend] /*POST SERVICE ORDER (ТЕСТ)*/
+,'ca79b507-67e0-4b10-9d13-0e6d89c79a84' AS [Nav_Document] /*test*/
 ,'b7b30791-f1f9-434b-a9f7-c8794c76b68d' AS [Nav_PostServiceLab_Document]
 ,'47edd884-28a7-4948-b06c-b827cdc89957' AS [Nav_AutocomplLabRUWS002]
