@@ -41,13 +41,19 @@ const getters = {
     return state.loadingField;
   },
   GET_DataFiles: state => {
-    return state.DocumentInfo.DataFiles;
+    if ( typeof state.DocumentInfo.DataFiles !== 'undefined' ) {
+      return state.DocumentInfo.DataFiles;
+    }
   },
   GET_Signers: state => { 
-    return state.DocumentInfo.SignerData;
+    if ( typeof state.DocumentInfo.SignerData !== 'undefined' ) {
+       return state.DocumentInfo.SignerData;
+    }
   },
   GET_Onboadring: state => {
-    return state.DocumentInfo.OnboardingData;
+    if ( typeof  state.DocumentInfo.OnboardingData !== 'undefined' ) {
+      return state.DocumentInfo.OnboardingData;
+    }
   },
   GET_ONBOARDING_CHECKED: state => {
     return state.DocumentInfo.OnboardingWhoChecked;
@@ -241,7 +247,8 @@ const actions = {
         } );
       }, 2000 );
       // const data = { PARAM: 'Document', PARAM2: 'Document_Load', unid: payload };
-      // const result = doAjax( '@Nav_Backend@', 'GET', data, 'InProgress_Field' ).then( ( result ) => {
+      // let result = doAjax( '@Nav_Backend@', 'GET', data, 'InProgress_Field' ).then( ( result ) => {
+      // result = fixField( result );	
       //   commit( 'loadField', result );
 			// if ( typeof result.Document.Field !== 'undefined' ) {
 			//   if ( typeof result.Document.Field.unid !== 'undefined' ) {
@@ -415,8 +422,8 @@ const actions = {
     commit( 'OnProgress_Signer_Single', payload );
     // const data = payload;
     // doAjax( '@Nav_Backend@', 'POST', data ).then( ( result ) => {
-    //   commit ( 'MUTATE_SIGNER_DELETE', result );
-    //   commit( 'OnProgress_Signer_Single', payload );
+    //   commit ( 'MUTATE_SIGNER_DELETE', data );
+    //   commit( 'OnProgress_Signer_Single', data );
     // }, error => { commit( 'SET_ERROR', error );} );
         
     setTimeout( () => {
@@ -460,8 +467,8 @@ const actions = {
     commit( 'OnProgress_Onboarding_Single', payload );
     // const data = payload;
     // doAjax( '@Nav_Backend@', 'POST', data ).then( ( result ) => {
-    //   commit ( 'MUTATE_ONBOARDING_DELETE', result );
-    //   commit( 'OnProgress_Onboarding_Single', payload );
+    //   commit ( 'MUTATE_ONBOARDING_DELETE', data );
+    //   commit( 'OnProgress_Onboarding_Single', data );
     // }, error => { commit( 'SET_ERROR', error );} );
         
     setTimeout( () => {

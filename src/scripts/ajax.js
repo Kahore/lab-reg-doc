@@ -8,6 +8,7 @@ export function autocmpl( PARAM2, term ) {
   // eslint-disable-next-line no-console
   console.log( 'TCL: autocmpl -> term', term );
   /*
+    return new Promise( function( resolve, reject ) {
   $.ajax( {
     url: './GetPageText.ashx?Id=@Nav_AutocomplLabRUWS002@',
     dataType: 'json',
@@ -17,12 +18,17 @@ export function autocmpl( PARAM2, term ) {
       PARAM2: PARAM2			   
     },
     success: function( data ) {
-      return data;
+      if ( data.responseText.length !== 0 ) {
+         resolve( JSON.parse( data.responseText ) );
+      } else {
+        resolve(data.responseText );
+      }
     },
     error: function( data ) {
       self.$store.dispatch( 'SET_ERROR', data.statusText );
     }
   } );
+    } );	
   */
  let data;
   if ( PARAM2 === 'EmployeeEmail' ) {

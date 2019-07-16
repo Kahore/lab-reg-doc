@@ -116,15 +116,16 @@ import { autocmpl } from '../../scripts/ajax';
       $( '#SearchNewSigner' ).autocomplete( {
         minLength: 3,
         source: function( request, response ) {
-          let data = autocmpl( 'Employee', request.term );
-          response( $.map( data, function( item ) {				 	
-              let result = item.split( '-' );
-                return {
-                  label: result[0],
-                  value: result[0],
-                  data : item
-                };
-          } ) );
+          let result = autocmpl( 'Employee', request.term ).then( ( result ) => {
+            response( $.map( result, function( item ) {				 	
+                let result = item.split( '-' );
+                  return {
+                    label: result[0],
+                    value: result[0],
+                    data : item
+                  };
+            } ) );
+          } );
         },
         select: function( event, ui ) {
           self.$store.dispatch( 'CLEAR_ERROR' );

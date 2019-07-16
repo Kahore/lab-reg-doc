@@ -19,44 +19,44 @@ export function fixJSON ( resp ) {
  */
 export function fixField ( parsedData ) {
   let _tmpArray = [];
-  if ( typeof parsedData[0].Document[0].Field.DocumentDescribe !== 'undefined' ) {
-    parsedData[0].Document[0].Field.DocumentDescribe = parsedData[0].Document[0].Field.DocumentDescribe.replace( /\\n/g, '\n' );
+  if ( typeof parsedData.Document.Field.DocumentDescribe !== 'undefined' ) {
+    parsedData.Document.Field.DocumentDescribe = parsedData.Document.Field.DocumentDescribe.replace( /\\n/g, '\n' );
   }
-  if ( typeof parsedData[0].Document[0].Field.Note !== 'undefined' ) {
-    parsedData[0].Document[0].Field.Note = parsedData[0].Document[0].Field.Note.replace( /\\n/g, '\n' );
+  if ( typeof parsedData.Document.Field.Note !== 'undefined' ) {
+    parsedData.Document.Field.Note = parsedData.Document.Field.Note.replace( /\\n/g, '\n' );
   }
-  if ( typeof parsedData[0].Document[0].DataFiles === 'undefined' ) {
-    parsedData[0].Document[0].DataFiles = [];
+  if ( typeof parsedData.Document.DataFiles === 'undefined' ) {
+    parsedData.Document.DataFiles = [];
   } else {
     /* MEMO: Expected array, not object */
-      if ( typeof parsedData[0].Document[0].DataFiles[0] === 'undefined' ) {
-        _tmpArray.push( parsedData[0].Document[0].DataFiles );
-        parsedData[0].Document[0].DataFiles = _tmpArray;
+      if ( typeof parsedData.Document.DataFiles[0] === 'undefined' ) {
+        _tmpArray.push( parsedData.Document.DataFiles );
+        parsedData.Document.DataFiles = _tmpArray;
         _tmpArray = [];
       }
   }
-  if ( typeof parsedData[0].Document[0].SignerData === 'undefined' ) {
-    parsedData[0].Document[0].SignerData = [];
+  if ( typeof parsedData.Document.SignerData === 'undefined' ) {
+    parsedData.Document.SignerData = [];
   } else {
     /* MEMO: Expected array, not object */
-      if ( typeof parsedData[0].Document[0].SignerData[0] === 'undefined' ) {
-        _tmpArray.push( parsedData[0].Document[0].SignerData );
-        parsedData[0].Document[0].SignerData = _tmpArray;
+      if ( typeof parsedData.Document.SignerData[0] === 'undefined' ) {
+        _tmpArray.push( parsedData.Document.SignerData );
+        parsedData.Document.SignerData = _tmpArray;
         _tmpArray = [];
       }
   }
-  if ( typeof parsedData[0].Document[0].OnboardingData === 'undefined' ) {
-    parsedData[0].Document[0].OnboardingData = [];
+  if ( typeof parsedData.Document.OnboardingData === 'undefined' ) {
+    parsedData.Document.OnboardingData = [];
   } else {
     /* MEMO: Expected array, not object */
-      if ( typeof parsedData[0].Document[0].OnboardingData[0] === 'undefined' ) {
-        _tmpArray.push( parsedData[0].Document[0].OnboardingData );
-        parsedData[0].Document[0].OnboardingData = _tmpArray;
+      if ( typeof parsedData.Document.OnboardingData[0] === 'undefined' ) {
+        _tmpArray.push( parsedData.Document.OnboardingData );
+        parsedData.Document.OnboardingData = _tmpArray;
         _tmpArray = [];
       }
   }
-  if ( typeof parsedData[0].Document[0].OnboardingWhoChecked === 'undefined' ) {
-    parsedData[0].Document[0].OnboardingWhoChecked = [];
+  if ( typeof parsedData.Document.OnboardingWhoChecked === 'undefined' ) {
+    parsedData.Document.OnboardingWhoChecked = [];
   }
   return parsedData;
 }
