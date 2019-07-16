@@ -101,7 +101,7 @@ BEGIN
 					,'./FileDownload.ashx?Id='+ CAST( [Id] AS NVARCHAR(36) ) AS [linkToDoc]
 			FROM [NKReports].[dbo].[DB_Settings_UploadedFiles] WHERE [IdParent] IN 
 				( SELECT CAST([Item] AS UNIQUEIDENTIFIER) FROM [LabProtocols].[dbo].[Ent_Lab_Document_Item] WHERE [DocID] = '@unid@' AND [ItemGroup] = 'UploadedFile' ) 
-        FOR XML PATH('DocFile'), ROOT('DocFileData'), TYPE )
+        FOR XML PATH('DataFiles'), ROOT('DataFiles'), TYPE )
         /* Подписанты */
         ,( SELECT 
 					[ID] AS [ID]
