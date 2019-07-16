@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import { fixJSON } from '../../scripts/shared';
+import { CONST_BEGIN } from '../../scripts/shared';
 const state = () => ( {
   documents:[],
   loading: false,
@@ -22,7 +23,7 @@ const mutations = {
   LOAD_DOCUMENTS: ( state, payload ) => {
     // state.documents = payload;
     if ( payload.blockType === 'Document_SingleData' ) {
-      /* MEMO: Изменение информации в нижней таблицу по только что изменённому протоколу */
+      /* MEMO: Изменение информации в нижней таблицу по только что изменённому документу */
       var index = state.documents.findIndex( function ( block ) {
         return block.ID === payload.resp[ 0 ].ID;
       } );
@@ -39,6 +40,9 @@ const mutations = {
   InProgress_Table: ( state ) => {
     state.loading = !state.loading;
   },
+  AllElemIsLoadNow: ( state ) => {
+    state.allElemIsLoadNow = !state.allElemIsLoadNow;
+  }
 };
 
 const actions = {
@@ -53,6 +57,9 @@ const actions = {
         let _resp = fixJSON( resp.responseText );
         commit( 'LOAD_DOCUMENTS', { blockType: payload.PARAM3, resp: _resp } );
         commit( 'InProgress_Table' );
+          if ( payload.PARAM3 === 'Document_MultiData' && _resp < CONST_BEGIN ) {
+            commit( 'AllElemIsLoadNow' );
+          }
       },
       error ( resp ) {
         commit( 'SET_ERROR', resp.statusText );
@@ -62,7 +69,10 @@ const actions = {
   }, 2000 );
     // 	 const data = payload;
 		//  const result = doAjax( '@Nav_Backend@', 'GET', data, 'InProgress_Table' ).then( ( result ) => {
-		// 	commit( 'LOAD_DOCUMENTS', { blockType: payload.PARAM3, resp: result } );
+    // 	commit( 'LOAD_DOCUMENTS', { blockType: payload.PARAM3, resp: result } );
+      //  if ( data.PARAM3 === 'Document_MultiData' && result < CONST_BEGIN ) {
+      //    commit( 'AllElemIsLoadNow' );
+      //  }
 		//  } );
   }
 };

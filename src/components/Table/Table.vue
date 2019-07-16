@@ -43,13 +43,16 @@
       </div>
       <div
         v-show="allElemIsLoadNow"
-        id="myFooter" 
-        class="myFooter"> Кажется, больше ничего нет </div> 
+        class="tbl-footer">
+        <p class="important">Кажется, больше ничего нет </p>
+      </div> 
     </div>
   </section>
 </template>
 
 <script>
+import { CONST_COUNT, CONST_BEGIN } from '../../scripts/shared';
+
   export default {
     name: 'TableMain',
     components: {
@@ -69,8 +72,8 @@
       },
     },
     created() {
-      this.count = 0;
-      this.begin = 50;
+      this.count = CONST_COUNT;
+      this.begin = CONST_BEGIN;      
       this.load( this.count, this.begin, 'Document_MultiData' );
       window.addEventListener( 'scroll', this.onScroll );
     },

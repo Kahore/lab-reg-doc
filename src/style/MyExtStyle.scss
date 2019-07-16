@@ -183,6 +183,10 @@ $info-color: #ff9900;
     text-align: initial;
     padding-left: 20px;
   }
+  &-footer {
+    text-align: center;
+    border-top: 3px solid $corp-primary-color;
+  }
 }
 
 .htooltip{

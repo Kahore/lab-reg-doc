@@ -1,3 +1,6 @@
+export const CONST_COUNT = 0;
+export const CONST_BEGIN = 50;
+
 /*
  * Data should be strignify JSON
  * Escape bad symbol and return parsed value
