@@ -48,6 +48,7 @@
           <date-picker
             v-model = "fieldPrep.DocumentDate"
             date-format = "dd/mm/yy"
+            :required="true"
             rus-desc = "Дата создания" 
             input-id = "DocumentDate" 
             @update-date = "updateDate($event)" 
@@ -58,6 +59,7 @@
           <select-block 
             v-model = "fieldPrep.Location"
             :item-types = "locations"
+            :required="true"
             rus-desc = "Локация" 
             select-id = "Location" 
           />
@@ -71,6 +73,7 @@
           <select-block
             v-model = "fieldPrep.DivCode"
             :item-types = "divCodes"
+            :required="true"
             rus-desc = "DivCode" 
             select-id = "DivCode" 
           />
@@ -80,6 +83,7 @@
           <select-block
             v-model = "fieldPrep.DocumentType"
             :item-types = "documentTypes"
+            :required="true"
             rus-desc = "Вид документа" 
             select-id = "DocumentType" 
           />
@@ -91,6 +95,7 @@
           <fld-textarea
             v-model = "fieldPrep.DocumentDescribe"
             rus-desc = "Краткое содержание документа" 
+            :required="true"
             input-id = "DocumentDescribe" 
           />
         </div>
