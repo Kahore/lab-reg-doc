@@ -74,7 +74,7 @@ export function doAjax( url, type, ajaxData, nameLoading ) {
         type: type,
         data: ajaxData,
         complete: function( resp ) {
-          if ( resp.length !== 0 && resp !== null ) {
+          if ( resp.response.length !== 0 && resp.response !== null ) {
             let _resp = JSON.parse( resp.response );
             if ( typeof _resp.ErrorMsg !== 'undefined' ) {
                 store.commit( 'SET_ERROR', _resp.ErrorMsg );

@@ -57,7 +57,7 @@ const actions = {
         let _resp = fixJSON( resp.responseText );
         commit( 'LOAD_DOCUMENTS', { blockType: payload.PARAM3, resp: _resp } );
         commit( 'InProgress_Table' );
-          if ( payload.PARAM3 === 'Document_MultiData' && _resp < CONST_BEGIN ) {
+          if ( payload.PARAM3 === 'Document_MultiData' && _resp.length < CONST_BEGIN ) {
             commit( 'AllElemIsLoadNow' );
           }
       },
@@ -70,7 +70,7 @@ const actions = {
     // 	 const data = payload;
 		//  const result = doAjax( '@Nav_Backend@', 'GET', data, 'InProgress_Table' ).then( ( result ) => {
     // 	commit( 'LOAD_DOCUMENTS', { blockType: payload.PARAM3, resp: result } );
-      //  if ( data.PARAM3 === 'Document_MultiData' && result < CONST_BEGIN ) {
+      //  if ( data.PARAM3 === 'Document_MultiData' && result.length < CONST_BEGIN ) {
       //    commit( 'AllElemIsLoadNow' );
       //  }
 		//  } );
