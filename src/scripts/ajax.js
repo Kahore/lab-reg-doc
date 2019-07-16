@@ -68,6 +68,7 @@ export function autocmpl( PARAM2, term ) {
 export function doAjax( url, type, ajaxData, nameLoading ) {
   return new Promise( function( resolve, reject ) {
     try {
+      store.dispatch( 'CLEAR_ERROR' );
       _ajaxLoadingHelper( nameLoading );
       $.ajax( {
         url: './GetPageText.ashx?Id=' + url,
@@ -90,8 +91,8 @@ export function doAjax( url, type, ajaxData, nameLoading ) {
           }
         },
         error( resp ) {
-          store.commit( 'SET_ERROR', resp.responseText );
-          reject( resp.responseText );
+          store.commit( 'SET_ERROR', resp.statusText );
+          reject( resp.statusText );
           _ajaxLoadingHelper( nameLoading );
         },
       } );
