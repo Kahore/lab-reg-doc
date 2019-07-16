@@ -183,9 +183,8 @@ select:invalid { border-left: 2px solid $error-color }
       max-width: 190px;        
     }
   }
-  &-noCenterBlock {
+  &-noCenter {
     text-align: initial;
-    padding-left: 20px;
   }
   &-footer {
     text-align: center;

@@ -225,9 +225,8 @@ select:invalid {
   max-width: 190px;
 }
 
-.tbl-noCenterBlock {
+.tbl-noCenter {
   text-align: initial;
-  padding-left: 20px;
 }
 
 .tbl-footer {

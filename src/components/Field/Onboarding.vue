@@ -41,9 +41,9 @@
             :key="index"
             class="tbl-row">
             <div 
-              class="tbl-3Block tbl-noCenterBlock"
+              class="tbl-3Block tbl-noCenter"
               v-text="onboardingPerson.PersonName"/>
-            <div class="tbl-3Block tbl-noCenterBlock">
+            <div class="tbl-3Block tbl-noCenter">
               <input
                 :disabled="onboardingPerson.IsDisabledChb === 'true' "
                 :value="onboardingPerson.ID"
