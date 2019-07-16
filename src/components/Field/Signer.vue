@@ -59,6 +59,7 @@
                 <input
                   :disabled="signer.IsNotDisabledBtnDel === 'false' "
                   :id="signer.ID" 
+                  :class ="{'disabled': signer.IsNotDisabledBtnDel === 'false' }"
                   class="button"
                   type="button"
                   name="load__btnDeleteOrderTracker"
