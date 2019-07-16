@@ -303,6 +303,7 @@ function likeLabelOnCreateV( elem ) {
 }
 
 function autoGrow( element ) {
+  element.style.height = '24px';
   if ( element.value.length > 1 ) {
     element.style.height = element.scrollHeight + 'px';
     if ( element.scrollHeight === 0 ) {
