@@ -3,14 +3,14 @@
     <div class="v-snack v-snack--bottom" >
       <div class="v-snack__wrapper v-snack__wrapper_error">
         <div class="v-snack__content">
-          <p> {{ error }} </p>
-        </div>
-        <div 
-          class="closeContainer"
-          @click="closeError()">
-          <a 
-            class="close" 
-            href="#"/>
+          <p> {{ error }} </p>  
+          <div 
+            class="closeContainer"
+            @click="closeError()">
+            <a 
+              class="close" 
+              href="#"/>
+          </div>
         </div>
       </div>
     </div>

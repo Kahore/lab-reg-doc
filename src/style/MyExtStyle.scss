@@ -393,12 +393,8 @@ $info-color: #ff9900;
 
 /*=================Close btn=================*/
 .closeContainer {
-  position: sticky;
-  right: 0;
-  top: 0;
-  margin-right: -35px;
-  width: 35px;
-  height: 35px;
+  position: relative;
+  margin-top: -6%;
   cursor: pointer;
   &:hover a {
     opacity: 1;
@@ -422,9 +418,9 @@ $info-color: #ff9900;
     top: -4px;
     left: 10px;
     content: " ";
-    height: 25px;
+    height: 20px;
     width: 2px;
     background-color: #fff;
-    background: #323232; 
+    background: #fff; 
   }
 }

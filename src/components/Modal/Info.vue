@@ -4,13 +4,13 @@
       <div class="v-snack__wrapper v-snack__wrapper_info">
         <div class="v-snack__content">
           <p> {{ info }} </p>
-        </div>
-        <div 
-          class="closeContainer"
-          @click="closeInfo()">
-          <a 
-            class="close" 
-            href="#"/>
+          <div 
+            class="closeContainer"
+            @click="closeInfo()">
+            <a 
+              class="close" 
+              href="#"/>
+          </div>
         </div>
       </div>
     </div>
