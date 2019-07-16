@@ -78,7 +78,7 @@
         <!-- .field-block -->
         <div class="field-block field-block_half">
           <select-block
-            v-model = "fieldPrep.DocType"
+            v-model = "fieldPrep.DocumentType"
             :item-types = "documentTypes"
             rus-desc = "Вид документа" 
             select-id = "DocumentType" 
@@ -89,7 +89,7 @@
       <div class="field-row">
         <div class="field-block field-block_full">
           <fld-textarea
-            v-model = "fieldPrep.DocDescribe"
+            v-model = "fieldPrep.DocumentDescribe"
             rus-desc = "Краткое содержание документа" 
             input-id = "DocumentDescribe" 
           />
@@ -194,7 +194,7 @@
           PARAM: 'Document',
           PARAM2: 'Document_Data',
           PARAM3: 'Document_SingleData',
-          DocumentNum: response,
+          DocumentNum: response.DocNum,
           } );
         } );
       },

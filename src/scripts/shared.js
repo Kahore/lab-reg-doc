@@ -19,8 +19,8 @@ export function fixJSON ( resp ) {
  */
 export function fixField ( parsedData ) {
   let _tmpArray = [];
-  if ( typeof parsedData[0].Document[0].Field.DocDescribe !== 'undefined' ) {
-    parsedData[0].Document[0].Field.DocDescribe = parsedData[0].Document[0].Field.DocDescribe.replace( /\\n/g, '\n' );
+  if ( typeof parsedData[0].Document[0].Field.DocumentDescribe !== 'undefined' ) {
+    parsedData[0].Document[0].Field.DocumentDescribe = parsedData[0].Document[0].Field.DocumentDescribe.replace( /\\n/g, '\n' );
   }
   if ( typeof parsedData[0].Document[0].Field.Note !== 'undefined' ) {
     parsedData[0].Document[0].Field.Note = parsedData[0].Document[0].Field.Note.replace( /\\n/g, '\n' );

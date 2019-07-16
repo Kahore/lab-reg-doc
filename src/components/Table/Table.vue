@@ -33,8 +33,8 @@
             @click="fieldFiller( document.ID ); return false;"> {{ document.DocNum }} </a>
         </div>
         <div class="tbl-block tbl-block_sm"> {{ document.DocumentDate }} </div>	 
-        <div class="tbl-block tbl-block_huge"> {{ document.DocType }} </div>
-        <div class="tbl-block tbl-block_lg"> {{ document.DocDescribe }} </div>
+        <div class="tbl-block tbl-block_huge"> {{ document.DocumentType }} </div>
+        <div class="tbl-block tbl-block_lg"> {{ document.DocumentDescribe }} </div>
         <div class="tbl-block tbl-block_huge"> {{ document.RegInfo }} </div>
         <div class="tbl-block tbl-block_huge">{{ document.LastChangeInfo }} </div>
       </div> <!-- .tbl-row -->

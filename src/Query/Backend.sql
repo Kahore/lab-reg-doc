@@ -82,8 +82,8 @@ BEGIN
 		  [ID] AS [unid]
 		  ,[DocNum]
 		  ,CONVERT( CHAR(10), [DocDate], 103 ) AS [DocumentDate]
-		  ,[DocType]
-		  ,REPLACE( [DocDescribe], CHAR(10), '\n' ) AS [DocDescribe]
+		  ,[DocType] AS [DocumentType]
+		  ,REPLACE( [DocDescribe], CHAR(10), '\n' ) AS [DocumentDescribe]
 		  ,[Location]     
 		  ,[DivCode]
 		  ,( SELECT REPLACE( [ItemVal], CHAR(10), '\n' ) FROM [LabProtocols].[dbo].[Ent_Lab_Document_Item] 
@@ -193,8 +193,8 @@ BEGIN
 			SELECT ELD.[ID]
 			  ,ELD.[DocNum]
       	,CONVERT( CHAR(10), ELD.[DocDate], 103 ) AS [DocumentDate]
-			  ,ELD.[DocType]
-			  ,REPLACE( ELD.[DocDescribe], CHAR(10), '\n' ) AS [DocDescribe]
+			  ,ELD.[DocType] AS [DocumentType]
+			  ,REPLACE( ELD.[DocDescribe], CHAR(10), '\n' ) AS [DocumentDescribe]
 	 		  ,CONVERT( CHAR(10), ELD.[Registered], 104 ) + ' ' + CONVERT( CHAR(5), ELD.[Registered], 108 ) + ' ' + REPLACE(ELD.[RegisteredBy],'eame\','')  AS [RegInfo]
 	  		,CONVERT( CHAR(10), ELD.[LastChanged], 104 ) + ' ' + CONVERT( CHAR(5), ELD.[LastChanged], 108 ) + ' ' + REPLACE(ELD.[LastChangedBy],'eame\','')  AS [LastChangeInfo]
 
@@ -219,7 +219,7 @@ BEGIN
 			IF( '@Location@' <> '' AND '@Location@' <> '@'+'Location'+'@' AND '@DocumentType@' <> '' AND '@DocumentType@' <> '@'+'DocumentType'+'@' 
 					AND '@DocumentDescribe@' <> '' AND '@DocumentDescribe@' <> '@'+'DocumentDescribe'+'@' )
 			BEGIN
-	  		IF ( '@unid@' = '' AND '@DocumentNum@' = '' )
+	  		IF ( ('@unid@' = '' or '@unid@' = '@' + 'unid' +'@')  AND ('@DocumentNum@' = '' or '@DocumentNum@' = '@' + 'DocumentNum' +'@') )
 	  		BEGIN
 					SET @DocID = NEWID()
 					SET @DocNum = NULL

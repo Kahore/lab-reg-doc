@@ -10,10 +10,10 @@ const state = () => ( {
       unid: '@' + 'unid' + '@',
       DocNum: '',
       DocumentDate: '',
-      DocType: '',
+      DocumentType: '',
       Location: '',
       DivCode: '',
-      DocDescribe: '',
+      DocumentDescribe: '',
       Note: '',
       RegInfo: '',
       LastChangeInfo: '',
@@ -275,11 +275,14 @@ const actions = {
       } );
     } );
     /*
+    return new Promise( ( resolve, reject ) => {
       const data = payload;
 		  const result = doAjax( '@Nav_Backend@', 'GET', data, 'InProgress_Field' ).then( ( result ) => {
 			commit( 'mutateNewUnid', result.unid );
-			commit ( 'MUTATE_FIELD_SAVE', result );
-		 } );
+      commit ( 'MUTATE_FIELD_SAVE', result );
+      resolve(result);
+      } );
+    } );   
     */
   },
   MUTATE_FILE_UPLOAD: ( { commit }, payload ) => {
