@@ -219,7 +219,7 @@ BEGIN
 			IF( '@Location@' <> '' AND '@Location@' <> '@'+'Location'+'@' AND '@DocumentType@' <> '' AND '@DocumentType@' <> '@'+'DocumentType'+'@' 
 					AND '@DocumentDescribe@' <> '' AND '@DocumentDescribe@' <> '@'+'DocumentDescribe'+'@' )
 			BEGIN
-	  		IF ( ('@unid@' = '' or '@unid@' = '@' + 'unid' +'@')  AND ('@DocumentNum@' = '' or '@DocumentNum@' = '@' + 'DocumentNum' +'@') )
+	  		IF ( ('@unid@' = '' or '@unid@' like '%unid%' )  AND ('@DocNum@' = '' or '@DocNum@' like '%DocNum%') )
 	  		BEGIN
 					SET @DocID = NEWID()
 					SET @DocNum = NULL

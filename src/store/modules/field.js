@@ -141,11 +141,11 @@ const mutations = {
     }
 	},
   MUTATE_FIELD_SAVE: ( state, payload ) => { 
-    state.DocumentInfo.Field.LastChangeInfo = payload.LastChangeInfo;
-    if ( state.DocumentInfo.Field.RegInfo === '' ) {
+    state.DocumentInfo.Field = { ...state.DocumentInfo.Field, LastChangeInfo: payload.LastChangeInfo };
+    if ( typeof state.DocumentInfo.Field.RegInfo === 'undefined' || state.DocumentInfo.Field.RegInfo === '' ) {
       window.history.pushState( '', '', './Default?Id=@Nav_Document@&unid=' + payload.unid );
-      state.DocumentInfo.Field.RegInfo = payload.RegInfo;
-      state.DocumentInfo.Field.DocNum = payload.DocNum;
+      let newVal = { RegInfo: payload.RegInfo, DocNum:payload.DocNum };
+      state.DocumentInfo.Field = { ...state.DocumentInfo.Field, ...newVal };
     }
   },
   MUTATE_FILE_LOADNEW: ( state, payload ) => {

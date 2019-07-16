@@ -177,11 +177,9 @@
       saveAction ( fieldPrep ) {
         let unid = this.$store.getters.getCurrentUnid;
         let dataField;
-        if ( unid === '@' + 'unid' + '@' ) {
-          dataField = Object.assign( { unid }, fieldPrep );
-        } else {
-          dataField = fieldPrep;
-        }
+
+        dataField = Object.assign( { unid }, fieldPrep );
+
         dataField = Object.assign( { PARAM: 'Document', PARAM2: 'Document_Save' }, dataField );
         /*
         console.log( 'TCL: saveAction -> unid', unid );
