@@ -89,6 +89,7 @@ const mutations = {
   OnProgress_Attachment: ( state ) => {
     state.attachmentListOnAction = !state.attachmentListOnAction;
   },
+  
   OnProgress_Attachment_Single: ( state, payload ) => {
     let index = state.DocumentInfo.DataFiles.findIndex( function ( block ) {
       return block.DocFileId === payload.DocFileId;
@@ -96,7 +97,7 @@ const mutations = {
     if ( state.DocumentInfo.DataFiles[index].onAction === 'true' ) {
       state.DocumentInfo.DataFiles[index].onAction = 'false';
     } else {
-      state.DocumentInfo.DataFiles[index].onAction === 'true';
+      state.DocumentInfo.DataFiles[index].onAction = 'true';
     }
   },
   OnProgress_Signer: ( state ) => {
@@ -297,8 +298,8 @@ const actions = {
       var httpRequest = new XMLHttpRequest();
       httpRequest.onreadystatechange = function () {
         if ( httpRequest.readyState === 4 && httpRequest.status === 200 ) {
-          /* eslint-disable-next-line no-console */
-          console.log( 'status 200' );
+          /* MEMO: reset selected files */
+          document.querySelector( 'input[type=file]' ).value = '';
         } else if (
           httpRequest.readyState === 4 &&
           httpRequest.status === 500
