@@ -1,6 +1,8 @@
 export const CONST_COUNT = 0;
 export const CONST_BEGIN = 50;
-
+import $ from 'jquery';
+window.jQuery = $;
+window.$ = $; 
 /*
  * Data should be strignify JSON
  * Escape bad symbol and return parsed value
@@ -117,3 +119,17 @@ let lastName = result.split( ' ' )[0];
   result = lastName;
   return result;
 }
+/* lift implement */
+$( function() {
+  $( '.liftUp' ).fadeOut();
+} );
+
+$( function() {
+  $( window ).scroll( function() {
+    if ( $( this ).scrollTop() !== 0 ) {
+      $( '.liftUp' ).fadeIn();
+    } else {
+      $( '.liftUp' ).fadeOut();
+    }
+  } );
+} );

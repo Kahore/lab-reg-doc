@@ -547,4 +547,26 @@ select:invalid {
   background-color: #fff;
   background: #fff;
 }
+
+/* lift */
+.liftUp {
+  top: 0;
+  right: 0;
+  height: 100%;
+  position: fixed;
+  background: -webkit-gradient(linear, left top, right top, color-stop(29%, #eeeeee), to(#cccccc));
+  background: linear-gradient(to right, #eeeeee 29%, #cccccc 100%);
+  opacity: 0.4;
+}
+
+.liftUp:hover {
+  opacity: 1.0;
+}
+
+.liftUp-msg {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 40px 20px;
+}
 /*# sourceMappingURL=MyExtStyle.css.map */
