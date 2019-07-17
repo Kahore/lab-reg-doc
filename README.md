@@ -9,7 +9,7 @@
 npm install
 
 # fake server at localhost:3000
-json-server db.json
+npm run serv 
 
 # serve with hot reload at localhost:8080
 npm run dev
