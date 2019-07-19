@@ -9,13 +9,13 @@
       "DocumentType": "Протокол аттестации испытательного оборудования",
       "DocumentDescribe": "Протокол контрольного испытания полочного барабана КП-123Р",
       "id": "52",
-      "DocNum": "NK19/RegN0052-230",
+      "DocNum": "NK19/RegN52-230",
       "RegInfo": "19.07.2019 13:10:56 Test User Name_Surn",
       "LastChangeInfo": "19.07.2019 13:10:56 Test User Name_Surn"
     },
     {
       "unid": "7ad19325-2809-4ace-8fce-53232bb207c4",
-      "DocNum": "NK19/RegN0038-736",
+      "DocNum": "NK19/RegN38-736",
       "DocumentDate": "03/07/2019",
       "DocumentType": "Протокол аттестации испытательного оборудования",
       "Location": "Новокузнецк",
@@ -29,7 +29,7 @@
     },
     {
       "unid": "53261c11-9c7c-46a5-b955-64251245afe5",
-      "DocNum": "NK19/RegN0074-617",
+      "DocNum": "NK19/RegN74-617",
       "DocumentDate": "10/07/2019",
       "DocumentType": "Распоряжение директора ЛК",
       "Location": "Новокузнецк",
@@ -55,7 +55,7 @@
           "DocumentType": "Протокол аттестации испытательного оборудования",
           "DocumentDescribe": "Протокол контрольного испытания полочного барабана КП-123Р",
           "id": "52",
-          "DocNum": "NK19/RegN0052-230",
+          "DocNum": "NK19/RegN52-230",
           "RegInfo": "19.07.2019 13:10:56 Test User Name_Surn",
           "LastChangeInfo": "19.07.2019 13:10:56 Test User Name_Surn"
         }
@@ -66,7 +66,7 @@
       "Document": {
         "Field": {
           "unid": "7ad19325-2809-4ace-8fce-53232bb207c4",
-          "DocNum": "NK19/RegN0038-736",
+          "DocNum": "NK19/RegN38-736",
           "DocumentDate": "03/07/2019",
           "DocumentType": "Протокол аттестации испытательного оборудования",
           "Location": "Новокузнецк",
@@ -85,7 +85,7 @@
       "Document": {
         "Field": {
           "unid": "53261c11-9c7c-46a5-b955-64251245afe5",
-          "DocNum": "NK19/RegN0074-617",
+          "DocNum": "NK19/RegN74-617",
           "DocumentDate": "10/07/2019",
           "DocumentType": "Распоряжение директора ЛК",
           "Location": "Чита",

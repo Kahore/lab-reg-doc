@@ -520,11 +520,11 @@ function _fakeServerResp ( payload ) {
       let max = 99;  
       let random = Math.floor( Math.random() * ( +max - +min ) ) + +min;
       let dmin = 1; 
-      let dmax = 1000;  
+      let dmax = 999;  
       let drandom = Math.floor( Math.random() * ( +dmax - +dmin ) ) + +dmin;
       payload.id = random;
       payload.unid = _generateUNID();
-      payload.DocNum = 'NK19/RegN00'+random+'-'+drandom;
+      payload.DocNum = 'NK19/RegN'+random+'-'+drandom;
       payload.RegInfo = getDate() + ' Test User Name_Surn';
       payload.LastChangeInfo = getDate() + ' Test User Name_Surn';
   } else {
