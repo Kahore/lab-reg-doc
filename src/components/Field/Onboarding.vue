@@ -127,7 +127,7 @@ import { transliteration } from '../../scripts/shared';
         minLength: 3,
         source: function( request, response ) {
           let req = transliteration( request.term.toLowerCase() );
-          let result = autocmpl( 'EmployeeEmail', req ).then( ( result ) => {
+          autocmpl( 'EmployeeEmail', req ).then( ( result ) => {
             response( $.map( result, function( item ) {				 	
                 let result = item.split( ':' );
                   return {

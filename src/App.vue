@@ -6,9 +6,11 @@
       <div id="content">
         <span id="ctl00_Content_ctl00_PageText">
           <modal-info/>
-          <div class="liftUp" onclick="$(window).scrollTop(0)">
-		        <span class="liftUp-msg">Go up!</span>
-	        </div>
+          <div 
+            class="liftUp" 
+            onclick="$(window).scrollTop(0)">
+            <span class="liftUp-msg">Go up!</span>
+          </div>
           <how-to-use/>
           <field-main/>
           <table-main/>

@@ -47,8 +47,8 @@
         <div class="field-block">
           <date-picker
             v-model = "fieldPrep.DocumentDate"
-            date-format = "dd/mm/yy"
             :required="true"
+            date-format = "dd/mm/yy"
             rus-desc = "Дата создания" 
             input-id = "DocumentDate" 
             @update-date = "updateDate($event)" 
@@ -94,8 +94,8 @@
         <div class="field-block field-block_full">
           <fld-textarea
             v-model = "fieldPrep.DocumentDescribe"
-            rus-desc = "Краткое содержание документа" 
             :required="true"
+            rus-desc = "Краткое содержание документа" 
             input-id = "DocumentDescribe" 
           />
         </div>

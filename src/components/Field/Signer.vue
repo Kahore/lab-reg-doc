@@ -116,7 +116,7 @@ import { autocmpl } from '../../scripts/ajax';
       $( '#SearchNewSigner' ).autocomplete( {
         minLength: 3,
         source: function( request, response ) {
-          let result = autocmpl( 'Employee', request.term ).then( ( result ) => {
+          autocmpl( 'Employee', request.term ).then( ( result ) => {
             response( $.map( result, function( item ) {				 	
                 let result = item.split( '-' );
                   return {
