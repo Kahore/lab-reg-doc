@@ -81,7 +81,7 @@ const getters = {
 const mutations = {
   MUTATE_FIELD_RESET: ( state ) => {
     state.DocumentInfo = JSON.parse( JSON.stringify( state.DefaultInfo ) );
-    window.history.pushState( '', '', './Default?Id=@Nav_Document@' );
+    window.history.pushState( '', '', '/' );
   },
   InProgress_Field: ( state ) => {
     state.loadingField = !state.loadingField;
@@ -135,7 +135,7 @@ const mutations = {
       state.DocumentInfo = payload.Document;
       if ( typeof payload.Document.Field !== 'undefined' ) {
         if ( typeof payload.Document.Field.unid !== 'undefined' ) {
-          window.history.pushState( '', '', './Default?Id=@Nav_Document@&unid=' + payload.Document.Field.unid );
+          window.history.pushState( '', '', './?unid=' + payload.Document.Field.unid );
         }
       }
       if ( typeof payload.Document.OnboardingData !== 'undefined' ) {
@@ -150,7 +150,7 @@ const mutations = {
   MUTATE_FIELD_SAVE: ( state, payload ) => { 
     state.DocumentInfo.Field = { ...state.DocumentInfo.Field, LastChangeInfo: payload.LastChangeInfo };
     if ( typeof state.DocumentInfo.Field.RegInfo === 'undefined' || state.DocumentInfo.Field.RegInfo === '' ) {
-      window.history.pushState( '', '', './Default?Id=@Nav_Document@&unid=' + payload.unid );
+      window.history.pushState( '', '', './?unid=' + payload.unid );
       let newVal = { RegInfo: payload.RegInfo, DocNum:payload.DocNum };
       state.DocumentInfo.Field = { ...state.DocumentInfo.Field, ...newVal };
     }
@@ -244,7 +244,7 @@ const actions = {
             if ( typeof _resp.Document.Field !== 'undefined' ) {
               if ( typeof _resp.Document.Field.unid !== 'undefined' ) {
                 commit( 'mutateNewUnid', _resp.Document.Field.unid );
-                window.history.pushState( '', '', './Default?Id=@Nav_Document@&unid=' + _resp.Document.Field.unid );
+                window.history.pushState( '', '', './?unid=' + _resp.Document.Field.unid );
               }
             } else {
               commit ( 'MUTATE_FIELD_RESET' );
@@ -276,10 +276,11 @@ const actions = {
     return new Promise( ( resolve, reject ) => {
       let isNew = payload.unid === '@unid@' ? true : false;
       let _type = isNew ? 'POST' : 'PUT';
-      let url = isNew ? 'http://localhost:3000/documentInfo/' : 'http://localhost:3000/documentInfo?Document.Field.unid=';
+      let url = isNew ? 'http://localhost:3000/documents/' : 'http://localhost:3000/documents/'+payload.unid;
+      let urlDI = 'http://localhost:3000/documentInfo/';
      let fakeresp = _fakeServerResp ( payload );
       $.ajax( {
-        url: 'http://localhost:3000/documents',
+        url: url,
         type: _type,
         data: fakeresp,
         
@@ -289,15 +290,14 @@ const actions = {
           resolve( _resp.unid );
           commit( 'mutateNewUnid', _resp.unid );
           commit ( 'MUTATE_FIELD_SAVE', _resp );
-          let newData = _resp;
-          if ( isNew ){
-            newData = {unid:_resp.unid, Document:{ Field:{...newData} } };
+
+           let newData = {unid:_resp.unid, Document:{ Field:{..._resp} } };
             newData =JSON.stringify( newData );
             //newData = { Document:{...newData} };
-          }
-          url = isNew ? url : url+ _resp.unid,
+          
+          urlDI = isNew ? urlDI : urlDI+ _resp.unid,
                 $.ajax( {
-                url:  url,
+                url:  urlDI,
                 type: _type,
                 contentType: 'application/json; charset=UTF-8',
                 data: newData
