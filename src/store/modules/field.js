@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { fixJSON, fixField } from '../../scripts/shared';
+import { fixField } from '../../scripts/shared';
 import { doAjax }  from '../../scripts/ajax';
 const state = () => ( {
   DocumentInfo: {
@@ -218,58 +218,27 @@ const actions = {
   MUTATE_FIELD_RESET: ( { commit } ) => { 
      commit( 'MUTATE_FIELD_RESET' );
   },
-  // eslint-disable-next-line no-unused-vars
   LOAD_DOCUMENT_INFO: ( { commit }, payload ) => {
     commit( 'CLEAR_ERROR' );
-    commit( 'InProgress_Field' );
-    // eslint-disable-next-line no-unused-vars
     let url = 'http://localhost:3000/fieldFiller';
     if( payload !== '@unid@' ) {
       url  = 'http://localhost:3000/documentInfo?Document.Field.unid='+ payload;
     }
-    return new Promise( function( resolve, reject ) {
-      setTimeout( () => {
-        $.ajax( {
-          /* Only DD list */
-          url: url,
-          /* DD + base info w/t signer, file and onboarding */
-         // url: 'http://localhost:3000/fieldFillerDocument/',
-          /* DD + full document info */
-          //url: 'http://localhost:3000/fieldFillerDocumentFull',
-          type: 'GET',
-          complete ( resp ) {
-            let _resp = fixJSON( resp.responseText );
-            _resp = fixField( _resp[0] );
+    return new Promise( function( resolve ) {
+        doAjax( url, 'GET', '', 'InProgress_Field' ).then( ( result ) => {
+          let _resp = result;
+          _resp = fixField( _resp[0] );
             commit( 'loadField', _resp );
-            if ( typeof _resp.Document.Field !== 'undefined' ) {
-              if ( typeof _resp.Document.Field.unid !== 'undefined' ) {
-                commit( 'mutateNewUnid', _resp.Document.Field.unid );
-                window.history.pushState( '', '', './?unid=' + _resp.Document.Field.unid );
+              if ( typeof _resp.Document.Field !== 'undefined' ) {
+                if ( typeof _resp.Document.Field.unid !== 'undefined' ) {
+                  commit( 'mutateNewUnid', _resp.Document.Field.unid );
+                  window.history.pushState( '', '', './?unid=' + _resp.Document.Field.unid );
+                }
+              } else {
+                commit ( 'MUTATE_FIELD_RESET' );
               }
-            } else {
-              commit ( 'MUTATE_FIELD_RESET' );
-            }
-            commit( 'InProgress_Field' );
-             resolve( _resp );
-          },
-          error ( resp ) {
-            commit( 'SET_ERROR', resp.statusText );
-            reject( resp );
-          }
+              resolve( _resp );
         } );
-      }, 2000 );
-      // const data = { PARAM: 'Document', PARAM2: 'Document_Load', unid: payload };
-      // let result = doAjax( '@Nav_Backend@', 'GET', data, 'InProgress_Field' ).then( ( result ) => {
-      // result = fixField( result );	
-      //   commit( 'loadField', result );
-			// if ( typeof result.Document.Field !== 'undefined' ) {
-			//   if ( typeof result.Document.Field.unid !== 'undefined' ) {
-			// 	commit( 'mutateNewUnid', result.Document.Field.unid );
-			// 	window.history.pushState( '', '', './Default?Id=@Nav_Document@&unid=' + result.Document.Field.unid );
-			//   }
-			// }
-      //   resolve( result );
-      // } );
     } );
   },
   MUTATE_FIELD_SAVE: ( { commit }, payload ) => { 

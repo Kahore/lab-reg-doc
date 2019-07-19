@@ -3,6 +3,7 @@ import 'jquery-ui';
 window.jQuery = $;
 window.$ = $; 
 import { store } from '../store/store';
+import { fixJSON } from './shared';
 export function autocmpl( PARAM2, term ) {
   
   // eslint-disable-next-line no-console
@@ -77,12 +78,13 @@ export function doAjax( url, type, ajaxData, nameLoading ) {
       store.dispatch( 'CLEAR_ERROR' );
       _ajaxLoadingHelper( nameLoading );
       $.ajax( {
-        url: './GetPageText.ashx?Id=' + url,
+        url: url,
         type: type,
+        contentType: 'application/json; charset=UTF-8',
         data: ajaxData,
         complete: function( resp ) {
-          if ( resp.response.length !== 0 && resp.response !== null ) {
-            let _resp = JSON.parse( resp.response );
+          if ( resp.responseText.length !== 0 && resp.responseText !== null ) {
+            let _resp = fixJSON( resp.responseText );
             if ( typeof _resp.ErrorMsg !== 'undefined' ) {
                 store.commit( 'SET_ERROR', _resp.ErrorMsg );
                 reject( _resp.ErrorMsg );
