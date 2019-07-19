@@ -1,833 +1,101 @@
 {
   "documents": [
     {
+      "unid": "b542c61b-ee8a-458a-82aa-0227f9dc7cef",
+      "Location": "Новокузнецк",
+      "DivCode": "div1",
+      "DocumentDate": "01/07/2019",
+      "CanIEditDocument": "true",
+      "DocumentType": "Протокол аттестации испытательного оборудования",
       "DocumentDescribe": "Протокол контрольного испытания полочного барабана КП-123Р",
-      "DocNum": "NK19/RegN0047",
-      "DocType": "Протокол аттестации испытательного оборудования",
-      "DocumentDate": "19/06/2019",
-      "unid": "020BDDF7-594F-41AA-B07A-F2536D1A5C38",
-      "LastChangeInfo": "19.06.2019 10:17 kate_petrova",
-      "RegInfo": "19.06.2019 10:14 kate_petrova"
+      "id": "52",
+      "DocNum": "NK19/RegN0052-230",
+      "RegInfo": "19.07.2019 13:10:56 Test User Name_Surn",
+      "LastChangeInfo": "19.07.2019 13:10:56 Test User Name_Surn"
     },
     {
-      "CanIUploadFileToDocument": "true",
+      "unid": "7ad19325-2809-4ace-8fce-53232bb207c4",
+      "DocNum": "NK19/RegN0038-736",
+      "DocumentDate": "03/07/2019",
+      "DocumentType": "Протокол аттестации испытательного оборудования",
+      "Location": "Новокузнецк",
+      "DivCode": "div2",
       "DocumentDescribe": "Протокол аттестации БРИКЕТ-400 №10",
-      "DocNum": "NK19/RegN0046",
-      "DocType": "Протокол аттестации испытательного оборудования",
-      "DocumentDate": "14/05/2019",
-      "unid": "37CC3A6D-9983-4EAE-87AB-E8BCE059BB01",
-      "LastChangeInfo": "29.05.2019 09:46 ivan_ivanov",
-      "RegInfo": "29.05.2019 09:40 ivan_ivanov"
+      "Note": "Мой комментарий",
+      "RegInfo": "19.07.2019 13:11:56 Test User Name_Surn",
+      "LastChangeInfo": "19.07.2019 13:15:24 Test User Name_Surn",
+      "CanIEditDocument": "true",
+      "id": "38"
     },
     {
-      "CanIUploadFileToDocument": "true",
-      "DocumentDescribe": "Протокол аттестации БРИКЕТ-400 №9",
-      "DocNum": "NK19/RegN0045",
-      "DocType": "Протокол аттестации испытательного оборудования",
-      "DocumentDate": "14/05/2019",
-      "unid": "41D40DB6-5D93-4DF3-8F3E-3427C8C1D72C",
-      "LastChangeInfo": "29.05.2019 09:43 ivan_ivanov",
-      "RegInfo": "29.05.2019 09:42 ivan_ivanov"
-    },
-    {
-      "PARAM": "Document",
-      "PARAM2": "Document_Save",
-      "unid": "aecc640e-003d-4f06-8417-8918d8c1596e",
-      "DocNum": "NK19/RegN0025",
-      "DocumentDate": "22/07/2019",
-      "DocType": "Отчёт",
-      "Location": "Новокузнецк",
-      "DivCode": "div1",
-      "DocumentDescribe": "12123123123",
-      "Note": "",
-      "RegInfo": "08.07.2019 18:58:03 Test User",
-      "LastChangeInfo": "08.07.2019 18:58:03 Test User",
-      "id": "25"
-    },
-    {
-      "PARAM": "Document",
-      "PARAM2": "Document_Save",
-      "unid": "39dba622-9e1e-47c0-9a01-a9b4856ac44d",
-      "DocNum": "NK19/RegN0058",
+      "unid": "53261c11-9c7c-46a5-b955-64251245afe5",
+      "DocNum": "NK19/RegN0074-617",
       "DocumentDate": "10/07/2019",
-      "DocType": "Акт внедрения",
-      "Location": "Новокузнецк",
-      "DivCode": "div1",
-      "DocumentDescribe": "ssddff",
-      "Note": "bfff",
-      "RegInfo": "08.07.2019 19:04:03 Test User",
-      "LastChangeInfo": "08.07.2019 19:04:03 Test User",
-      "id": "58"
-    },
-    {
-      "PARAM": "Document",
-      "PARAM2": "Document_Save",
-      "unid": "5564394d-e1ea-4c97-bf55-fd34d086f865",
-      "DocNum": "NK19/RegN0058",
-      "DocumentDate": "22/07/2019",
-      "DocType": "Протокол проверки",
-      "Location": "Новокузнецк",
-      "DivCode": "div1",
-      "DocumentDescribe": "xxx",
-      "Note": "nnnf",
-      "RegInfo": "08.07.2019 19:16:40 Test User Name&Surn",
-      "LastChangeInfo": "08.07.2019 19:16:40 Test User Name&Surn",
-      "id": "58"
-    },
-    {
-      "PARAM": "Document",
-      "PARAM2": "Document_Save",
-      "unid": "77a1140b-83be-47f0-b906-781f992c71ec",
-      "DocumentDate": "15/07/2019",
-      "DocType": "Протокол совещания",
-      "DivCode": "div2",
-      "Location": "Новокузнецк",
-      "DocumentDescribe": "sss",
-      "Note": "dsx",
-      "id": "11",
-      "DocNum": "NK19/RegN0011",
-      "RegInfo": "08.07.2019 19:40:41 Test User Name&Surn",
-      "LastChangeInfo": "08.07.2019 19:40:41 Test User Name&Surn"
-    },
-    {
-      "PARAM": "Document",
-      "PARAM2": "Document_Save",
-      "unid": "a11a0686-a667-4066-9cf8-651a28296015",
-      "DocumentDate": "02/07/2019",
-      "Location": "Киселевск",
-      "DocType": "Протокол аттестации испытательного оборудования",
-      "DivCode": "div2",
-      "DocumentDescribe": "xcxbbm",
-      "Note": "vh",
-      "id": "77",
-      "DocNum": "NK19/RegN0077",
-      "RegInfo": "08.07.2019 19:42:04 Test User Name&Surn",
-      "LastChangeInfo": "08.07.2019 19:42:04 Test User Name&Surn"
-    },
-    {
-      "PARAM": "Document",
-      "PARAM2": "Document_Save",
-      "unid": "59669140-ba3b-439f-879c-02b21e6f861a",
-      "DivCode": "div2",
-      "DocumentDate": "22/07/2019",
-      "DocType": "Распоряжение начальника лаборатории",
-      "Location": "Черногорск",
-      "DocumentDescribe": "ccc",
-      "id": "83",
-      "DocNum": "NK19/RegN0083",
-      "RegInfo": "08.07.2019 19:44:03 Test User Name&Surn",
-      "LastChangeInfo": "08.07.2019 19:44:03 Test User Name&Surn"
-    },
-    {
-      "PARAM": "Document",
-      "PARAM2": "Document_Save",
-      "unid": "b6c9f85c-6a03-4188-a15e-4712ba44205e",
-      "DocNum": "NK19/RegN0043",
-      "DocumentDate": "24/07/2019",
-      "DocType": "Протокол аттестации испытательного оборудования",
-      "Location": "Киселевск",
-      "DivCode": "div1",
-      "DocumentDescribe": "xx",
-      "Note": "",
-      "RegInfo": "08.07.2019 19:45:54 Test User Name&Surn",
-      "LastChangeInfo": "08.07.2019 19:45:54 Test User Name&Surn",
-      "id": "43"
-    },
-    {
-      "PARAM": "Document",
-      "PARAM2": "Document_Save",
-      "unid": "a0d8cc9c-c39e-418e-981b-37c37dc3b9d4",
-      "DocNum": "NK19/RegN0051",
-      "DocumentDate": "29/07/2019",
-      "DocType": "Протокол совещания",
-      "Location": "Новокузнецк",
-      "DivCode": "div1",
-      "DocumentDescribe": "asdfghjk",
-      "Note": "vvjhghj",
-      "RegInfo": "08.07.2019 19:49:31 Test User Name&Surn",
-      "LastChangeInfo": "08.07.2019 19:49:31 Test User Name&Surn",
-      "id": "51"
-    },
-    {
-      "PARAM": "Document",
-      "PARAM2": "Document_Save",
-      "unid": "dcb827ad-1f41-47f5-9bb9-6e8484cbe5e4",
-      "Location": "Новокузнецк",
-      "DivCode": "div",
-      "DocumentDate": "19/07/2019",
-      "CanIEditDocument": "true",
-      "DocumentType": "Протокол проверки",
-      "DocumentDescribe": "Some desc",
-      "id": "94",
-      "DocNum": "NK19/RegN0094-974",
-      "RegInfo": "19.07.2019 10:47:43 Test User Name&Surn",
-      "LastChangeInfo": "19.07.2019 10:47:43 Test User Name&Surn"
-    },
-    {
-      "PARAM": "Document",
-      "PARAM2": "Document_Save",
-      "unid": "73b304a9-41fd-454f-a760-574ce90bcdc1",
-      "Location": "Новокузнецк",
-      "DivCode": "div1",
-      "DocumentDate": "19/07/2019",
-      "CanIEditDocument": "true",
-      "DocumentDescribe": " Some desc",
-      "DocumentType": "Отчёт",
-      "id": "36",
-      "DocNum": "NK19/RegN0036-996",
-      "RegInfo": "19.07.2019 10:49:58 Test User Name&Surn",
-      "LastChangeInfo": "19.07.2019 10:49:58 Test User Name&Surn"
-    },
-    {
-      "PARAM": "Document",
-      "PARAM2": "Document_Save",
-      "unid": "59f02665-1fa6-47f3-a60e-b366e00798da",
-      "Location": "Новокузнецк",
-      "DivCode": "(020-2010-2002) MIN Laboratory - RU",
-      "DocumentDate": "19/07/2019",
-      "CanIEditDocument": "true",
-      "DocumentType": "Акт внедрения",
-      "DocumentDescribe": "Some desc",
-      "id": "12",
-      "DocNum": "NK19/RegN0012-673",
-      "RegInfo": "19.07.2019 10:54:36 Test User Name&Surn",
-      "LastChangeInfo": "19.07.2019 10:54:36 Test User Name&Surn"
-    },
-    {
-      "PARAM": "Document",
-      "PARAM2": "Document_Save",
-      "unid": "5964e07f-f780-4a86-94c5-b2f4da7e6791",
-      "Location": "Новокузнецк",
-      "DivCode": "div1",
-      "DocumentDate": "19/07/2019",
-      "CanIEditDocument": "true",
-      "DocumentType": "Протокол совещания",
-      "DocumentDescribe": "kkk",
-      "id": "37",
-      "DocNum": "NK19/RegN0037-922",
-      "RegInfo": "19.07.2019 10:55:51 Test User Name&Surn",
-      "LastChangeInfo": "19.07.2019 10:55:51 Test User Name&Surn"
-    },
-    {
-      "PARAM": "Document",
-      "PARAM2": "Document_Save",
-      "unid": "bcfb22c8-3b1d-4f4b-93ed-77329e1d2aae",
-      "Location": "Новокузнецк",
-      "DivCode": "div2",
-      "DocumentDate": "19/07/2019",
-      "CanIEditDocument": "true",
-      "DocumentType": "Распоряжение начальника лаборатории",
-      "DocumentDescribe": "lll",
-      "id": "89",
-      "DocNum": "NK19/RegN0089-102",
-      "RegInfo": "19.07.2019 10:57:26 Test User Name&Surn",
-      "LastChangeInfo": "19.07.2019 10:57:26 Test User Name&Surn"
-    },
-    {
-      "PARAM": "Document",
-      "PARAM2": "Document_Save",
-      "unid": "4fc5e3b4-bbd4-42c8-9dcd-e3a5797d5b3e",
-      "Location": "Новокузнецк",
-      "DivCode": "div1",
-      "DocumentDate": "19/07/2019",
-      "CanIEditDocument": "true",
-      "DocumentType": "Протокол совещания",
-      "DocumentDescribe": "jj",
-      "id": "68",
-      "DocNum": "NK19/RegN0068-512",
-      "RegInfo": "19.07.2019 10:58:05 Test User Name&Surn",
-      "LastChangeInfo": "19.07.2019 10:58:05 Test User Name&Surn"
-    },
-    {
-      "PARAM": "Document",
-      "PARAM2": "Document_Save",
-      "unid": "ea13940a-b50b-470c-9329-72e49ce1a193",
-      "Location": "Новокузнецк",
-      "DivCode": "(020-2010-2002) MIN Laboratory - RU",
-      "DocumentDate": "19/07/2019",
-      "CanIEditDocument": "true",
-      "DocumentType": "Протокол аттестации испытательного оборудования",
-      "DocumentDescribe": "qet",
-      "id": "71",
-      "DocNum": "NK19/RegN0071-32",
-      "RegInfo": "19.07.2019 10:59:31 Test User Name&Surn",
-      "LastChangeInfo": "19.07.2019 10:59:31 Test User Name&Surn"
-    },
-    {
-      "PARAM": "Document",
-      "PARAM2": "Document_Save",
-      "unid": "2b4a996a-aa6d-421b-ae38-8828695fc8f1",
-      "Location": "Новокузнецк",
-      "DivCode": "(020-2010-2002) MIN Laboratory - RU",
-      "DocumentDate": "19/07/2019",
-      "CanIEditDocument": "true",
-      "DocumentType": "Протокол проверки",
-      "DocumentDescribe": "ii",
-      "id": "15",
-      "DocNum": "NK19/RegN0015-38",
-      "RegInfo": "19.07.2019 11:09:29 Test User Name&Surn",
-      "LastChangeInfo": "19.07.2019 11:09:29 Test User Name&Surn"
-    },
-    {
-      "PARAM": "Document",
-      "PARAM2": "Document_Save",
-      "unid": "1a408a61-2779-4797-8e16-f04ebc9e9a1c",
-      "Location": "Новокузнецк",
-      "DivCode": "(020-2010-2002) MIN Laboratory - RU",
-      "DocumentDate": "19/07/2019",
-      "CanIEditDocument": "true",
-      "DocumentType": "Протокол совещания",
-      "DocumentDescribe": "lll",
-      "id": "75",
-      "DocNum": "NK19/RegN0075-369",
-      "RegInfo": "19.07.2019 11:12:01 Test User Name&Surn",
-      "LastChangeInfo": "19.07.2019 11:12:01 Test User Name&Surn"
-    },
-    {
-      "PARAM": "Document",
-      "PARAM2": "Document_Save",
-      "unid": "f54192fe-3de3-48f2-a3e0-559f34c4db2a",
-      "Location": "Новокузнецк",
-      "DivCode": "(020-2010-2002) MIN Laboratory - RU",
-      "DocumentDate": "19/07/2019",
-      "CanIEditDocument": "true",
-      "id": "34",
-      "DocNum": "NK19/RegN0034-651",
-      "RegInfo": "19.07.2019 11:13:19 Test User Name&Surn",
-      "LastChangeInfo": "19.07.2019 11:13:19 Test User Name&Surn"
-    },
-    {
-      "PARAM": "Document",
-      "PARAM2": "Document_Save",
-      "unid": "e0175d09-2cf9-4781-9ce4-171ed5ec5ab6",
-      "Location": "Новокузнецк",
-      "DivCode": "(020-2010-2002) MIN Laboratory - RU",
-      "DocumentDate": "19/07/2019",
-      "CanIEditDocument": "true",
-      "id": "88",
-      "DocNum": "NK19/RegN0088-862",
-      "RegInfo": "19.07.2019 11:15:42 Test User Name&Surn",
-      "LastChangeInfo": "19.07.2019 11:15:42 Test User Name&Surn"
-    },
-    {
-      "PARAM": "Document",
-      "PARAM2": "Document_Save",
-      "unid": "9259d365-d640-40cf-a4a3-d60840ee1a6f",
-      "Location": "Новокузнецк",
-      "DivCode": "(020-2010-2002) MIN Laboratory - RU",
-      "DocumentDate": "19/07/2019",
-      "CanIEditDocument": "true",
-      "id": "32",
-      "DocNum": "NK19/RegN0032-338",
-      "RegInfo": "19.07.2019 11:16:02 Test User Name&Surn",
-      "LastChangeInfo": "19.07.2019 11:16:02 Test User Name&Surn"
-    },
-    {
-      "PARAM": "Document",
-      "PARAM2": "Document_Save",
-      "unid": "971d1ae9-4312-48b5-b8f0-a6b1917a3270",
-      "Location": "Новокузнецк",
-      "DivCode": "(020-2010-2002) MIN Laboratory - RU",
-      "DocumentDate": "19/07/2019",
-      "CanIEditDocument": "true",
-      "id": "98",
-      "DocNum": "NK19/RegN0098-797",
-      "RegInfo": "19.07.2019 11:21:45 Test User Name&Surn",
-      "LastChangeInfo": "19.07.2019 11:21:45 Test User Name&Surn"
-    },
-    {
-      "PARAM": "Document",
-      "PARAM2": "Document_Save",
-      "unid": "67b0884d-a420-4de6-943c-bb3c371fe04d",
-      "Location": "Новокузнецк",
-      "DivCode": "(020-2010-2002) MIN Laboratory - RU",
-      "DocumentDate": "19/07/2019",
-      "CanIEditDocument": "true",
-      "id": "79",
-      "DocNum": "NK19/RegN0079-662",
-      "RegInfo": "19.07.2019 11:24:34 Test User Name&Surn",
-      "LastChangeInfo": "19.07.2019 11:24:34 Test User Name&Surn"
-    },
-    {
-      "PARAM": "Document",
-      "PARAM2": "Document_Save",
-      "unid": "a228035e-481d-4d24-b411-82dc8917520f",
-      "Location": "Новокузнецк",
-      "DivCode": "(020-2010-2002) MIN Laboratory - RU",
-      "DocumentDate": "19/07/2019",
-      "CanIEditDocument": "true",
-      "id": "28",
-      "DocNum": "NK19/RegN0028-303",
-      "RegInfo": "19.07.2019 11:25:31 Test User Name&Surn",
-      "LastChangeInfo": "19.07.2019 11:25:31 Test User Name&Surn"
-    },
-    {
-      "PARAM": "Document",
-      "PARAM2": "Document_Save",
-      "unid": "faeca03b-db8b-4424-bc8a-a1ab72d04ab9",
-      "Location": "Новокузнецк",
-      "DivCode": "(020-2010-2002) MIN Laboratory - RU",
-      "DocumentDate": "19/07/2019",
-      "CanIEditDocument": "true",
-      "id": "62",
-      "DocNum": "NK19/RegN0062-336",
-      "RegInfo": "19.07.2019 11:26:55 Test User Name_Surn",
-      "LastChangeInfo": "19.07.2019 11:26:55 Test User Name_Surn"
-    },
-    {
-      "PARAM": "Document",
-      "PARAM2": "Document_Save",
-      "unid": "4cf8e172-4590-435f-866f-189e42907254",
-      "Location": "Новокузнецк",
-      "DivCode": "(020-2010-2002) MIN Laboratory - RU",
-      "DocumentDate": "19/07/2019",
-      "CanIEditDocument": "true",
-      "id": "13",
-      "DocNum": "NK19/RegN0013-322",
-      "RegInfo": "19.07.2019 11:29:16 Test User Name_Surn",
-      "LastChangeInfo": "19.07.2019 11:29:16 Test User Name_Surn"
-    },
-    {
-      "PARAM": "Document",
-      "PARAM2": "Document_Save",
-      "unid": "77fe345e-39d4-4338-ae64-6ad7325aec6f",
-      "Location": "Новокузнецк",
-      "DivCode": "(020-2010-2002) MIN Laboratory - RU",
-      "DocumentDate": "19/07/2019",
-      "CanIEditDocument": "true",
-      "id": "70",
-      "DocNum": "NK19/RegN0070-696",
-      "RegInfo": "19.07.2019 11:29:59 Test User Name_Surn",
-      "LastChangeInfo": "19.07.2019 11:29:59 Test User Name_Surn"
-    },
-    {
-      "PARAM": "Document",
-      "PARAM2": "Document_Save",
-      "unid": "5ad74947-c025-4c86-89ad-89c69ef095c2",
-      "Location": "Новокузнецк",
-      "DivCode": "(020-2010-2002) MIN Laboratory - RU",
-      "DocumentDate": "19/07/2019",
-      "CanIEditDocument": "true",
-      "id": "37",
-      "DocNum": "NK19/RegN0037-248",
-      "RegInfo": "19.07.2019 11:31:19 Test User Name_Surn",
-      "LastChangeInfo": "19.07.2019 11:31:19 Test User Name_Surn"
-    },
-    {
-      "PARAM": "Document",
-      "PARAM2": "Document_Save",
-      "unid": "f86b4359-e267-4615-ab7c-a7169ef949fb",
-      "Location": "Новокузнецк",
-      "DivCode": "(020-2010-2002) MIN Laboratory - RU",
-      "DocumentDate": "19/07/2019",
-      "CanIEditDocument": "true",
-      "id": "49",
-      "DocNum": "NK19/RegN0049-214",
-      "RegInfo": "19.07.2019 11:36:52 Test User Name_Surn",
-      "LastChangeInfo": "19.07.2019 11:36:52 Test User Name_Surn"
-    },
-    {
-      "PARAM": "Document",
-      "PARAM2": "Document_Save",
-      "unid": "167a2ed7-f229-49d1-8a1f-11effb43b8ca",
-      "Location": "Новокузнецк",
-      "DivCode": "(020-2010-2002) MIN Laboratory - RU",
-      "DocumentDate": "19/07/2019",
-      "CanIEditDocument": "true",
-      "id": "56",
-      "DocNum": "NK19/RegN0056-89",
-      "RegInfo": "19.07.2019 11:39:21 Test User Name_Surn",
-      "LastChangeInfo": "19.07.2019 11:39:21 Test User Name_Surn"
-    },
-    {
-      "unid": "bcf9a53d-f5a2-412d-8c0f-a47454bc528e",
-      "Location": "Новокузнецк",
-      "DivCode": "(020-2010-2002) MIN Laboratory - RU",
-      "DocumentDate": "19/07/2019",
-      "CanIEditDocument": "true",
-      "DocumentType": "Акт внедрения",
-      "DocumentDescribe": "укегшщзх",
-      "id": "68",
-      "DocNum": "NK19/RegN0068-145",
-      "RegInfo": "19.07.2019 11:48:12 Test User Name_Surn",
-      "LastChangeInfo": "19.07.2019 11:48:12 Test User Name_Surn"
-    },
-    {
-      "unid": "584df222-2d8e-4fe6-b933-2997cafa651b",
-      "DocNum": "NK19/RegN0073-918",
-      "DocumentDate": "",
-      "DocumentType": "Акт внедрения",
-      "Location": "Новокузнецк",
-      "DivCode": "div2",
-      "DocumentDescribe": "ццц",
-      "Note": "",
-      "RegInfo": "19.07.2019 11:49:17 Test User Name_Surn",
-      "LastChangeInfo": "19.07.2019 11:49:17 Test User Name_Surn",
-      "CanIEditDocument": "true",
-      "id": "73"
-    },
-    {
-      "unid": "d1619898-0ea7-4146-9497-1e31bfc949e9",
-      "Location": "Новокузнецк",
-      "DivCode": "(020-2010-2002) MIN Laboratory - RU",
-      "DocumentDate": "19/07/2019",
-      "CanIEditDocument": "true",
-      "DocumentType": "Протокол аттестации испытательного оборудования",
-      "DocumentDescribe": "ддддд",
-      "id": "16",
-      "DocNum": "NK19/RegN0016-284",
-      "RegInfo": "19.07.2019 11:50:18 Test User Name_Surn",
-      "LastChangeInfo": "19.07.2019 11:50:18 Test User Name_Surn"
-    },
-    {
-      "unid": "7f8e6b7d-e779-4b89-86db-2d8960473989",
-      "Location": "Новокузнецк",
-      "DivCode": "(020-2010-2002) MIN Laboratory - RU",
-      "DocumentDate": "19/07/2019",
-      "CanIEditDocument": "true",
-      "DocumentType": "Акт внедрения",
-      "DocumentDescribe": "lll",
-      "id": "79",
-      "DocNum": "NK19/RegN0079-199",
-      "RegInfo": "19.07.2019 11:53:21 Test User Name_Surn",
-      "LastChangeInfo": "19.07.2019 11:53:21 Test User Name_Surn"
-    },
-    {
-      "unid": "b7574a3d-ef9b-4b30-8fe4-7d8394d93d1e",
-      "Location": "Новокузнецк",
-      "DivCode": "(020-2010-2002) MIN Laboratory - RU",
-      "DocumentDate": "19/07/2019",
-      "CanIEditDocument": "true",
-      "DocumentType": "Отчёт",
-      "id": "18",
-      "DocNum": "NK19/RegN0018-269",
-      "RegInfo": "19.07.2019 11:53:55 Test User Name_Surn",
-      "LastChangeInfo": "19.07.2019 11:53:55 Test User Name_Surn"
-    },
-    {
-      "unid": "2cd4b965-8722-45f5-9fd2-c8598566b071",
-      "Location": "Новокузнецк",
-      "DivCode": "(020-2010-2002) MIN Laboratory - RU",
-      "DocumentDate": "19/07/2019",
-      "CanIEditDocument": "true",
       "DocumentType": "Распоряжение директора ЛК",
-      "id": "47",
-      "DocNum": "NK19/RegN0047-83",
-      "RegInfo": "19.07.2019 11:55:13 Test User Name_Surn",
-      "LastChangeInfo": "19.07.2019 11:55:13 Test User Name_Surn"
-    },
-    {
-      "unid": "c7c3a6b5-ffe4-4471-920d-2f70ba157934",
       "Location": "Новокузнецк",
-      "DivCode": "(020-2010-2002) MIN Laboratory - RU",
-      "DocumentDate": "19/07/2019",
+      "DivCode": "div2",
+      "DocumentDescribe": "О назначении лиц, ответственных за эксплуатацию стеллажей",
+      "Note": "Мой комментарий",
+      "RegInfo": "19.07.2019 13:13:50 Test User Name_Surn",
+      "LastChangeInfo": "19.07.2019 13:13:50 Test User Name_Surn",
       "CanIEditDocument": "true",
-      "id": "75",
-      "DocNum": "NK19/RegN0075-683",
-      "RegInfo": "19.07.2019 11:56:00 Test User Name_Surn",
-      "LastChangeInfo": "19.07.2019 11:56:00 Test User Name_Surn"
-    },
-    {
-      "unid": "4190315b-a3ae-405d-b2ef-c53632c34ac0",
-      "DocNum": "NK19/RegN0084-412",
-      "DocumentDate": "17/07/2019",
-      "DocumentType": "Акт внедрения",
-      "Location": "Новокузнецк",
-      "DivCode": "div",
-      "DocumentDescribe": "kkkkkkkkkkkk",
-      "Note": "",
-      "RegInfo": "19.07.2019 11:59:25 Test User Name_Surn",
-      "LastChangeInfo": "19.07.2019 11:59:25 Test User Name_Surn",
-      "CanIEditDocument": "true",
-      "id": "84"
-    },
-    {
-      "unid": "80e6478c-8c24-418d-bb02-6334fd56eb6d",
-      "DocNum": "NK19/RegN0028-82",
-      "DocumentDate": "",
-      "DocumentType": "",
-      "Location": "",
-      "DivCode": "",
-      "DocumentDescribe": "",
-      "Note": "",
-      "RegInfo": "19.07.2019 12:00:06 Test User Name_Surn",
-      "LastChangeInfo": "19.07.2019 12:00:06 Test User Name_Surn",
-      "CanIEditDocument": "true",
-      "id": "28"
-    },
-    {
-      "unid": "9f95c325-4a25-4156-9d44-bffeaedc6001",
-      "Location": "Новокузнецк",
-      "DivCode": "(020-2010-2002) MIN Laboratory - RU",
-      "DocumentDate": "19/07/2019",
-      "CanIEditDocument": "true",
-      "id": "96",
-      "DocNum": "NK19/RegN0096-217",
-      "RegInfo": "19.07.2019 12:02:33 Test User Name_Surn",
-      "LastChangeInfo": "19.07.2019 12:02:33 Test User Name_Surn"
+      "id": "74"
     }
   ],
   "documentInfo": [
     {
+      "unid": "b542c61b-ee8a-458a-82aa-0227f9dc7cef",
       "Document": {
         "Field": {
-          "DocumentDescribe": "Протокол контрольного испытания полочного барабана КП-123Р",
-          "DocNum": "NK19/RegN0047",
-          "DocumentType": "Протокол аттестации испытательного оборудования",
-          "DocumentDate": "19/06/2019",
+          "unid": "b542c61b-ee8a-458a-82aa-0227f9dc7cef",
           "Location": "Новокузнецк",
           "DivCode": "div1",
-          "unid": "020BDDF7-594F-41AA-B07A-F2536D1A5C38",
-          "LastChangeInfo": "19/06/2019 10:17 kate_petrova",
-          "RegInfo": "19/06/2019 10:14 kate_petrova",
-          "CanIEditDocument": "true"
-        },
-        "DataFiles": [
-          {
-            "DocFileId": "987654",
-            "FileName": "FileName1",
-            "UploadedInfo": "29/05/2019 09:59 ivan_ivanov",
-            "onAction": "false",
-            "linkToDoc": "./FileDownload.ashx?Id=987654"
-          }
-        ],
-        "SignerData": [
-          {
-            "ID": "134567",
-            "SignerName": "Name1",
-            "onAction": "false",
-            "AddBy": "29/05/2019 09:48 ivan_ivanov"
-          },
-          {
-            "ID": "13456788",
-            "SignerName": "Name2",
-            "onAction": "false",
-            "AddBy": "29/05/2019 09:50 ivan_ivanov"
-          }
-        ],
-        "OnboardingData": [
-          {
-            "ID": "234567",
-            "PersonName": "John_Doe",
-            "OnboardingState": "approved",
-            "onAction": "false",
-            "IsDisabledChb": "true",
-            "IsDisabledBtnDel": "true",
-            "LastChanged": "29/05/2019 09:58 John_Doe"
-          },
-          {
-            "ID": "224567",
-            "PersonName": "Name7",
-            "OnboardingState": "pendingApproveByUser",
-            "onAction": "false",
-            "IsDisabledChb": "false",
-            "IsDisabledBtnDel": "false",
-            "LastChanged": ""
-          }
-        ]
-      }
-    },
-    {
-      "Document": {
-        "Field": {
-          "CanIUploadFileToDocument": "true",
-          "DocumentDescribe": "Протокол аттестации БРИКЕТ-400 №10",
-          "DocNum": "NK19/RegN0046",
+          "DocumentDate": "01/07/2019",
+          "CanIEditDocument": "true",
           "DocumentType": "Протокол аттестации испытательного оборудования",
-          "DocumentDate": "14/05/2019",
-          "Location": "Чита",
-          "DivCode": "div1",
-          "unid": "37CC3A6D-9983-4EAE-87AB-E8BCE059BB01",
-          "LastChangeInfo": "29/05/2019 09:46 ivan_ivanov",
-          "RegInfo": "29/05/2019 09:40 ivan_ivanov",
-          "CanIEditDocument": "false",
-          "Note": "Эмуляция отсутствия прав"
+          "DocumentDescribe": "Протокол контрольного испытания полочного барабана КП-123Р",
+          "id": "52",
+          "DocNum": "NK19/RegN0052-230",
+          "RegInfo": "19.07.2019 13:10:56 Test User Name_Surn",
+          "LastChangeInfo": "19.07.2019 13:10:56 Test User Name_Surn"
         }
       }
     },
     {
+      "unid": "7ad19325-2809-4ace-8fce-53232bb207c4",
       "Document": {
         "Field": {
-          "DocumentDescribe": "Протокол аттестации БРИКЕТ-400 №9",
-          "DocNum": "NK19/RegN0045",
-          "DocType": "Протокол аттестации испытательного оборудования",
-          "DocumentDate": "14/05/2019",
+          "unid": "7ad19325-2809-4ace-8fce-53232bb207c4",
+          "DocNum": "NK19/RegN0038-736",
+          "DocumentDate": "03/07/2019",
+          "DocumentType": "Протокол аттестации испытательного оборудования",
           "Location": "Новокузнецк",
           "DivCode": "div2",
-          "unid": "41D40DB6-5D93-4DF3-8F3E-3427C8C1D72C",
-          "LastChangeInfo": "29/05/2019 09:43 ivan_ivanov",
-          "RegInfo": "29/05/2019 09:42 ivan_ivanov",
-          "CanIEditDocument": "true"
-        },
-        "OnboardingData": [
-          {
-            "ID": "98515174",
-            "PersonName": "John_Doe",
-            "OnboardingState": "approved",
-            "onAction": "false",
-            "IsDisabledChb": "true",
-            "IsDisabledBtnDel": "true",
-            "LastChanged": "29/05/2019 09:58 John_Doe"
-          }
-        ]
-      }
-    },
-    {
-      "unid": "167a2ed7-f229-49d1-8a1f-11effb43b8ca",
-      "Document": {
-        "unid": "167a2ed7-f229-49d1-8a1f-11effb43b8ca",
-        "Field": {
-          "PARAM": "Document",
-          "PARAM2": "Document_Save",
-          "unid": "167a2ed7-f229-49d1-8a1f-11effb43b8ca",
-          "Location": "Новокузнецк",
-          "DivCode": "(020-2010-2002) MIN Laboratory - RU",
-          "DocumentDate": "19/07/2019",
+          "DocumentDescribe": "Протокол аттестации БРИКЕТ-400 №10",
+          "Note": "Мой комментарий",
+          "RegInfo": "19.07.2019 13:11:56 Test User Name_Surn",
+          "LastChangeInfo": "19.07.2019 13:15:24 Test User Name_Surn",
           "CanIEditDocument": "true",
-          "id": "56",
-          "DocNum": "NK19/RegN0056-89",
-          "RegInfo": "19.07.2019 11:39:21 Test User Name_Surn",
-          "LastChangeInfo": "19.07.2019 11:39:21 Test User Name_Surn"
+          "id": "38"
         }
       }
     },
     {
-      "unid": "bcf9a53d-f5a2-412d-8c0f-a47454bc528e",
+      "unid": "53261c11-9c7c-46a5-b955-64251245afe5",
       "Document": {
         "Field": {
-          "unid": "bcf9a53d-f5a2-412d-8c0f-a47454bc528e",
-          "Location": "Новокузнецк",
-          "DivCode": "(020-2010-2002) MIN Laboratory - RU",
-          "DocumentDate": "19/07/2019",
-          "CanIEditDocument": "true",
-          "DocumentType": "Акт внедрения",
-          "DocumentDescribe": "укегшщзх",
-          "id": "68",
-          "DocNum": "NK19/RegN0068-145",
-          "RegInfo": "19.07.2019 11:48:12 Test User Name_Surn",
-          "LastChangeInfo": "19.07.2019 11:48:12 Test User Name_Surn"
-        }
-      }
-    },
-    {
-      "unid": "7f8e6b7d-e779-4b89-86db-2d8960473989",
-      "Document": {
-        "Field": {
-          "unid": "7f8e6b7d-e779-4b89-86db-2d8960473989",
-          "Location": "Новокузнецк",
-          "DivCode": "(020-2010-2002) MIN Laboratory - RU",
-          "DocumentDate": "19/07/2019",
-          "CanIEditDocument": "true",
-          "DocumentType": "Акт внедрения",
-          "DocumentDescribe": "lll",
-          "id": "79",
-          "DocNum": "NK19/RegN0079-199",
-          "RegInfo": "19.07.2019 11:53:21 Test User Name_Surn",
-          "LastChangeInfo": "19.07.2019 11:53:21 Test User Name_Surn"
-        }
-      }
-    },
-    {
-      "unid": "b7574a3d-ef9b-4b30-8fe4-7d8394d93d1e",
-      "Document": {
-        "Field": {
-          "unid": "b7574a3d-ef9b-4b30-8fe4-7d8394d93d1e",
-          "Location": "Новокузнецк",
-          "DivCode": "(020-2010-2002) MIN Laboratory - RU",
-          "DocumentDate": "19/07/2019",
-          "CanIEditDocument": "true",
-          "DocumentType": "Отчёт",
-          "id": "18",
-          "DocNum": "NK19/RegN0018-269",
-          "RegInfo": "19.07.2019 11:53:55 Test User Name_Surn",
-          "LastChangeInfo": "19.07.2019 11:53:55 Test User Name_Surn"
-        }
-      }
-    },
-    {
-      "unid": "2cd4b965-8722-45f5-9fd2-c8598566b071",
-      "Document": {
-        "Field": {
-          "unid": "2cd4b965-8722-45f5-9fd2-c8598566b071",
-          "Location": "Новокузнецк",
-          "DivCode": "(020-2010-2002) MIN Laboratory - RU",
-          "DocumentDate": "19/07/2019",
-          "CanIEditDocument": "true",
+          "unid": "53261c11-9c7c-46a5-b955-64251245afe5",
+          "DocNum": "NK19/RegN0074-617",
+          "DocumentDate": "10/07/2019",
           "DocumentType": "Распоряжение директора ЛК",
-          "id": "47",
-          "DocNum": "NK19/RegN0047-83",
-          "RegInfo": "19.07.2019 11:55:13 Test User Name_Surn",
-          "LastChangeInfo": "19.07.2019 11:55:13 Test User Name_Surn"
-        }
-      }
-    },
-    {
-      "unid": "c7c3a6b5-ffe4-4471-920d-2f70ba157934",
-      "Document": {
-        "Field": {
-          "unid": "c7c3a6b5-ffe4-4471-920d-2f70ba157934",
-          "Location": "Новокузнецк",
-          "DivCode": "(020-2010-2002) MIN Laboratory - RU",
-          "DocumentDate": "19/07/2019",
-          "CanIEditDocument": "true",
-          "id": "75",
-          "DocNum": "NK19/RegN0075-683",
-          "RegInfo": "19.07.2019 11:56:00 Test User Name_Surn",
-          "LastChangeInfo": "19.07.2019 11:56:00 Test User Name_Surn"
-        }
-      }
-    },
-    {
-      "unid": "4190315b-a3ae-405d-b2ef-c53632c34ac0",
-      "Document": {
-        "Field": {
-          "unid": "4190315b-a3ae-405d-b2ef-c53632c34ac0",
-          "DocNum": "NK19/RegN0084-412",
-          "DocumentDate": "17/07/2019",
-          "DocumentType": "Акт внедрения",
-          "Location": "Новокузнецк",
-          "DivCode": "div",
-          "DocumentDescribe": "kkkkkkkkkkkk",
-          "Note": "",
-          "RegInfo": "19.07.2019 11:59:25 Test User Name_Surn",
-          "LastChangeInfo": "19.07.2019 11:59:25 Test User Name_Surn",
-          "CanIEditDocument": "true",
-          "id": "84"
-        }
-      }
-    },
-    {
-      "unid": "80e6478c-8c24-418d-bb02-6334fd56eb6d",
-      "Document": {
-        "Field": {
-          "unid": "80e6478c-8c24-418d-bb02-6334fd56eb6d",
-          "DocNum": "NK19/RegN0028-82",
-          "DocumentDate": "",
-          "DocumentType": "",
-          "Location": "",
-          "DivCode": "",
-          "DocumentDescribe": "",
-          "Note": "",
-          "RegInfo": "19.07.2019 12:00:06 Test User Name_Surn",
-          "LastChangeInfo": "19.07.2019 12:00:06 Test User Name_Surn",
-          "CanIEditDocument": "true",
-          "id": "28"
-        }
-      }
-    },
-    {
-      "unid": "9f95c325-4a25-4156-9d44-bffeaedc6001",
-      "Document": {
-        "Field": {
-          "unid": "9f95c325-4a25-4156-9d44-bffeaedc6001",
-          "Location": "Новокузнецк",
-          "DivCode": "(020-2010-2002) MIN Laboratory - RU",
-          "DocumentDate": "19/07/2019",
-          "CanIEditDocument": "true",
-          "id": "96",
-          "DocNum": "NK19/RegN0096-217",
-          "RegInfo": "19.07.2019 12:02:33 Test User Name_Surn",
-          "LastChangeInfo": "19.07.2019 12:02:33 Test User Name_Surn"
+          "Location": "Чита",
+          "DivCode": "div2",
+          "DocumentDescribe": "О назначении лиц, ответственных за эксплуатацию стеллажей",
+          "Note": "Эмуляция отсутствия прав на редактирование некоторых документов",
+          "RegInfo": "19.07.2019 13:13:50 Test User Name_Surn",
+          "LastChangeInfo": "19.07.2019 13:13:50 Test User Name_Surn",
+          "CanIEditDocument": "false",
+          "id": "74"
         }
       }
     }
