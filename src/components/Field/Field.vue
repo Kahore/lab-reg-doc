@@ -185,7 +185,7 @@
 
         dataField = Object.assign( { unid }, fieldPrep );
 
-        dataField = Object.assign( { PARAM: 'Document', PARAM2: 'Document_Save' }, dataField );
+        // dataField = Object.assign( { PARAM: 'Document', PARAM2: 'Document_Save' }, dataField );
         /*
         console.log( 'TCL: saveAction -> unid', unid );
         */
@@ -197,7 +197,7 @@
           PARAM: 'Document',
           PARAM2: 'Document_Data',
           PARAM3: 'Document_SingleData',
-          DocumentNum: response.DocNum,
+          unid: response,
           } );
         } );
       },

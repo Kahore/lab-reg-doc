@@ -22,15 +22,15 @@
       </div> <!-- protocolTableHeaderRow -->
       <div
         v-for="document in documents" 
-        :key="document.ID"
-        :id="document.ID"
+        :key="document.unid"
+        :id="document.unid"
         class="tbl-row"
       >  
         <div class="tbl-block">
           <a 
             class="myLink nowrapWhiteSpace"
             href="#" 
-            @click="fieldFiller( document.ID ); return false;"> {{ document.DocNum }} </a>
+            @click="fieldFiller( document.unid ); return false;"> {{ document.DocNum }} </a>
         </div>
         <div class="tbl-block tbl-block_sm"> {{ document.DocumentDate }} </div>	 
         <div class="tbl-block tbl-block_huge tbl-noCenter"> {{ document.DocumentType }} </div>

@@ -223,27 +223,38 @@ const actions = {
     commit( 'CLEAR_ERROR' );
     commit( 'InProgress_Field' );
     // eslint-disable-next-line no-unused-vars
+    let url = 'http://localhost:3000/fieldFiller';
+    if( payload !== '@unid@' ) {
+      url  = 'http://localhost:3000/documentInfo?Document.Field.unid='+ payload;
+    }
     return new Promise( function( resolve, reject ) {
       setTimeout( () => {
         $.ajax( {
           /* Only DD list */
-          //url: 'http://localhost:3000/fieldFiller',
+          url: url,
           /* DD + base info w/t signer, file and onboarding */
-          url: 'http://localhost:3000/fieldFillerDocument/',
+         // url: 'http://localhost:3000/fieldFillerDocument/',
           /* DD + full document info */
           //url: 'http://localhost:3000/fieldFillerDocumentFull',
           type: 'GET',
           complete ( resp ) {
             let _resp = fixJSON( resp.responseText );
-            _resp = fixField( _resp );
+            _resp = fixField( _resp[0] );
             commit( 'loadField', _resp );
-            if ( typeof _resp[0].Document !== 'undefined' ) {
-              commit( 'mutateNewUnid', _resp[0].Document[0].Field.unid );
+            if ( typeof _resp.Document.Field !== 'undefined' ) {
+              if ( typeof _resp.Document.Field.unid !== 'undefined' ) {
+                commit( 'mutateNewUnid', _resp.Document.Field.unid );
+                window.history.pushState( '', '', './Default?Id=@Nav_Document@&unid=' + _resp.Document.Field.unid );
+              }
             } else {
               commit ( 'MUTATE_FIELD_RESET' );
             }
             commit( 'InProgress_Field' );
              resolve( _resp );
+          },
+          error ( resp ) {
+            commit( 'SET_ERROR', resp.statusText );
+            reject( resp );
           }
         } );
       }, 2000 );
@@ -263,24 +274,41 @@ const actions = {
   },
   MUTATE_FIELD_SAVE: ( { commit }, payload ) => { 
     return new Promise( ( resolve, reject ) => {
-      let _type = payload.unid === '@unid@' ? 'POST' : 'PUT';
-      payload = _fakeServerResp ( payload );
+      let isNew = payload.unid === '@unid@' ? true : false;
+      let _type = isNew ? 'POST' : 'PUT';
+      let url = isNew ? 'http://localhost:3000/documentInfo/' : 'http://localhost:3000/documentInfo?Document.Field.unid=';
+     let fakeresp = _fakeServerResp ( payload );
       $.ajax( {
         url: 'http://localhost:3000/documents',
         type: _type,
-        data: payload,  
+        data: fakeresp,
+        
         complete ( resp ) {
           let _resp = JSON.parse( resp.responseText );
           //let _resp = resp;
-          resolve( resp.DocNum );
-          commit( 'mutateNewUnid', resp.unid );
+          resolve( _resp.unid );
+          commit( 'mutateNewUnid', _resp.unid );
           commit ( 'MUTATE_FIELD_SAVE', _resp );
+          let newData = _resp;
+          if ( isNew ){
+            newData = {unid:_resp.unid, Document:{ Field:{...newData} } };
+            newData =JSON.stringify( newData );
+            //newData = { Document:{...newData} };
+          }
+          url = isNew ? url : url+ _resp.unid,
+                $.ajax( {
+                url:  url,
+                type: _type,
+                contentType: 'application/json; charset=UTF-8',
+                data: newData
+                } );
         },
         error ( resp ) {
           reject();
           commit( 'SET_ERROR', resp.statusText );
         }
       } );
+
     } );
     /*
     return new Promise( ( resolve, reject ) => {
@@ -415,7 +443,7 @@ const actions = {
                 'ID': _generateUNID(),
                 'SignerName': payload.EmployeeName,
                 'onAction': 'false',
-                'AddBy': getDate() + ' Test User Name&Surn'
+                'AddBy': getDate() + ' Test User Name_Surn'
               };
     commit ( 'MUTATE_SIGNER_ADD', resp );
   },
@@ -460,7 +488,7 @@ const actions = {
                 'IsDisabledChb': 'false',
                 'onAction': 'false',
                 'OnboardingState': 'approved',
-                'LastChanged': getDate() + ' Test User Name&Surn'
+                'LastChanged': getDate() + ' Test User Name_Surn'
               };
     commit ( 'MUTATE_ONBOARDING_UPDATE', resp );
   },
@@ -491,13 +519,16 @@ function _fakeServerResp ( payload ) {
       let min = 10; 
       let max = 99;  
       let random = Math.floor( Math.random() * ( +max - +min ) ) + +min;
+      let dmin = 1; 
+      let dmax = 1000;  
+      let drandom = Math.floor( Math.random() * ( +dmax - +dmin ) ) + +dmin;
       payload.id = random;
       payload.unid = _generateUNID();
-      payload.DocNum = 'NK19/RegN00'+random;
-      payload.RegInfo = getDate() + ' Test User Name&Surn';
-      payload.LastChangeInfo = getDate() + ' Test User Name&Surn';
+      payload.DocNum = 'NK19/RegN00'+random+'-'+drandom;
+      payload.RegInfo = getDate() + ' Test User Name_Surn';
+      payload.LastChangeInfo = getDate() + ' Test User Name_Surn';
   } else {
-      payload.LastChangeInfo = getDate() + ' Test User Name&Surn';
+      payload.LastChangeInfo = getDate() + ' Test User Name_Surn';
   }
   return payload;
 }
