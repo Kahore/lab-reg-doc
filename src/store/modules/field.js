@@ -247,7 +247,7 @@ const actions = {
       let _type = isNew ? 'POST' : 'PUT';
       let url = isNew ? 'http://localhost:3000/documents/' : 'http://localhost:3000/documents/'+payload.unid;
       let urlDI = 'http://localhost:3000/documentInfo/';
-     let fakeresp = _fakeServerResp ( payload );
+      let fakeresp = _fakeServerResp_OnFieldSave ( payload );
       $.ajax( {
         url: url,
         type: _type,
@@ -483,7 +483,10 @@ function getDate() {
 function _generateUNID() {
   return ( [1e7]+-1e3+-4e3+-8e3+-1e11 ).replace( /[018]/g,c=>( c^crypto.getRandomValues( new Uint8Array( 1 ) )[0]&15 >> c/4 ).toString( 16 ) );
 }
-function _fakeServerResp ( payload ) {
+/*
+ * Imitate  server
+ */ 
+function _fakeServerResp_OnFieldSave ( payload ) {
   if ( payload.unid === '@unid@' ) {
       let min = 10; 
       let max = 99;  
