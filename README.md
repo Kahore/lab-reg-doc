@@ -1,12 +1,15 @@
 # lab-reg-doc
 
-> A Vue.js project
+> This demo service documents allows to register documents and add users for 2 difference group.
 
 ## Build Setup
 
 ``` bash
 # install dependencies
 npm install
+
+# if json-server doesn't install globally
+npm i json-server -g
 
 # fake server at localhost:3000
 npm run serv 
