@@ -4,8 +4,8 @@
       :id="selectId"
       v-model="currentItem"
       :required="required"
-      class="field-block__wrapper_item"
       :name ="'Field_'+selectId"
+      class="field-block__wrapper_item"
       @focus="toggleLabel($event)"
       @blur="toggleLabel($event)">
       <option 

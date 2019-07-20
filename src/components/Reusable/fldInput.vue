@@ -5,8 +5,8 @@
       v-model="inputVal"
       :readonly="isReadonly"
       :required="required"
-      class="field-block__wrapper_item"
       :name ="'Field_'+inputId"
+      class="field-block__wrapper_item"
       @focus="toggleLabel($event)"
       @blur="toggleLabel($event)"
       @keyup="searchData($event)">

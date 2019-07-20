@@ -4,9 +4,9 @@
       :id="inputId"
       v-model="inputVal"
       :required="required"
+      :name ="'Field_'+inputId"
       class="field-block__wrapper_item" 
       row="1"
-      :name ="'Field_'+inputId"
       @focus="toggleLabel($event)"
       @blur="toggleLabel($event)"
       @keyup="searchData($event)"/>

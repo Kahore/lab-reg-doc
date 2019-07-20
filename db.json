@@ -53,6 +53,21 @@
           "CanIEditDocument": "false"
         }
       }
+    },
+    {
+      "id": "f58f85ad-7cfa-41ef-b804-d22826fd66dc",
+      "Document": {
+        "Field": {
+          "id": "f58f85ad-7cfa-41ef-b804-d22826fd66dc",
+          "Location": "Новокузнецк",
+          "DivCode": "(020-2010-2002) MIN Laboratory - RU",
+          "DocumentDate": "19/07/2019",
+          "CanIEditDocument": "true",
+          "DocNum": "NK19/RegN72-99",
+          "RegInfo": "20.07.2019 14:29:51 Test User Name_Surn",
+          "LastChangeInfo": "20.07.2019 14:29:51 Test User Name_Surn"
+        }
+      }
     }
   ],
   "SignerData": [
@@ -76,7 +91,7 @@
       "LastChanged": "20.07.2019 13:53:29 Test User Name_Surn"
     }
   ],
-  "DataFiles" : [],
+  "DataFiles": [],
   "ListData": {
     "DocumentTypes": "Акт внедрения;Отчёт;Протокол аттестации испытательного оборудования;Протокол проверки;Протокол совещания;Распоряжение директора ЛК;Распоряжение начальника лаборатории;",
     "Locations": "Новокузнецк;",

@@ -4,9 +4,9 @@
       :id ="inputId"
       :required="required"
       v-model="inputVal"
+      :name ="'Field_'+inputId"
       autocomplete="off"
       class="field-block__wrapper_item"
-      :name ="'Field_'+inputId"
       @focus="toggleLabel($event)"
       @blur="toggleLabel($event)">
     <div
