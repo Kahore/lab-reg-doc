@@ -46,6 +46,7 @@
     {
       "unid": "b542c61b-ee8a-458a-82aa-0227f9dc7cef",
       "Document": {
+        "unid": "b542c61b-ee8a-458a-82aa-0227f9dc7cef",
         "Field": {
           "unid": "b542c61b-ee8a-458a-82aa-0227f9dc7cef",
           "Location": "Новокузнецк",
@@ -58,7 +59,10 @@
           "DocNum": "NK19/RegN52-230",
           "RegInfo": "19.07.2019 13:10:56 Test User Name_Surn",
           "LastChangeInfo": "19.07.2019 13:10:56 Test User Name_Surn"
-        }
+        },
+        "SignerData":[
+          
+        ]
       }
     },
     {

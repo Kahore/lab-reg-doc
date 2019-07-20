@@ -408,13 +408,17 @@ const actions = {
     // doAjax( '@Nav_Backend@', 'POST', data ).then( ( result ) => {
     //   commit ( 'MUTATE_SIGNER_ADD', result );
     // }, error => { commit( 'SET_ERROR', error );} );
-    let resp = {
-                'ID': _generateUNID(),
+    let resp = { 
+                'unid': _generateUNID(),
                 'SignerName': payload.EmployeeName,
                 'onAction': 'false',
                 'AddBy': getDate() + ' Test User Name_Surn'
               };
+           let  rsp2 = JSON.stringify( resp );
+      let url = 'http://localhost:3000/documentInfo/?unid=b542c61b-ee8a-458a-82aa-0227f9dc7cef&Document.SignerData';
+              doAjax( url, 'PUT', rsp2, 'InProgress_Field' ).then( () => {
     commit ( 'MUTATE_SIGNER_ADD', resp );
+              } );
   },
   MUTATE_SIGNER_DELETE: ( { commit }, payload ) => { 
     commit( 'OnProgress_Signer_Single', payload );

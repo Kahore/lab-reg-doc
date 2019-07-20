@@ -31,6 +31,7 @@ export function autocmpl( PARAM2, term ) {
   } );
     } );	
   */
+  return new Promise( function( resolve ) {
  let data;
   if ( PARAM2 === 'EmployeeEmail' ) {
     data = ['ksenia_kolomenko:ksenia.kolomenko@sgs.com',
@@ -69,7 +70,8 @@ export function autocmpl( PARAM2, term ) {
         ];
  }
 
-        return data;
+        resolve( data );
+} );
 }
 
 export function doAjax( url, type, ajaxData, nameLoading ) {
