@@ -107,7 +107,7 @@ const mutations = {
   },
   OnProgress_Signer_Single: ( state, payload ) => {
     let index = state.DocumentInfo.SignerData.findIndex( function ( block ) {
-      return block.ID === payload.SignerID;
+      return block.id === payload.id;
     } ); 
     if( index !== -1 ) {
       if( state.DocumentInfo.SignerData[index].onAction === 'true' ) {
@@ -182,7 +182,7 @@ const mutations = {
   },
   MUTATE_SIGNER_DELETE: ( state, payload ) => {
     let _index =  state.DocumentInfo.SignerData.findIndex( function ( block ) {
-      return block.ID === payload.SignerID;
+      return block.id === payload.id;
     } );
     if ( _index !== -1 ) {
       state.DocumentInfo.SignerData.splice( _index, 1 );
@@ -261,7 +261,7 @@ const actions = {
       let url = isNew ? 'http://localhost:3000/documents/' : 'http://localhost:3000/documents/'+payload.id;
      // let urlDI = 'http://localhost:3000/documentInfo/';
       let fakeresp = _fakeServerResp_OnFieldSave ( payload );
-        let newData = {id:fakeresp.id, Document:{ Field:{...fakeresp} } };
+        let newData = { id:fakeresp.id, Document:{ Field:{...fakeresp} } };
            newData =JSON.stringify( newData );
       $.ajax( {
         url: url,
@@ -401,39 +401,32 @@ const actions = {
         commit( 'OnProgress_Attachment_Single', payload );
         commit( 'MUTATE_FILE_DELETE', payload );
       }, error => { commit( 'SET_ERROR', error );} );
-    /*TEST*/
-    /*
-      commit( 'MUTATE_FILE_DELETE', payload );
-    */
   },
   MUTATE_SIGNER_ADD: ( { commit }, payload ) => {
-    // const data = payload;
-    // doAjax( '@Nav_Backend@', 'POST', data ).then( ( result ) => {
-    //   commit ( 'MUTATE_SIGNER_ADD', result );
-    // }, error => { commit( 'SET_ERROR', error );} );
     let resp = { 
                 'id': _generateUNID(),
+                'documentId': payload.documentId,
                 'SignerName': payload.EmployeeName,
                 'onAction': 'false',
                 'AddBy': getDate() + ' Test User Name_Surn'
               };
-           let  rsp2 = JSON.stringify( resp );
-      let url = 'http://localhost:3000/documentInfo/?unid=b542c61b-ee8a-458a-82aa-0227f9dc7cef&Document.SignerData';
-              doAjax( url, 'PUT', rsp2, 'InProgress_Field' ).then( () => {
-    commit ( 'MUTATE_SIGNER_ADD', resp );
-              } );
+    const data = JSON.stringify( resp );
+    let url = 'http://localhost:3000/SignerData';
+    doAjax( url, 'POST', data, 'InProgress_Field' ).then( () => {
+      commit ( 'MUTATE_SIGNER_ADD', resp );
+    } );
   },
   MUTATE_SIGNER_DELETE: ( { commit }, payload ) => { 
     commit( 'OnProgress_Signer_Single', payload );
-    // const data = payload;
-    // doAjax( '@Nav_Backend@', 'POST', data ).then( ( result ) => {
-    //   commit ( 'MUTATE_SIGNER_DELETE', data );
-    //   commit( 'OnProgress_Signer_Single', data );
-    // }, error => { commit( 'SET_ERROR', error );} );
-        
     setTimeout( () => {
-      commit( 'OnProgress_Signer_Single', payload );
-      commit( 'MUTATE_SIGNER_DELETE', payload );
+      $.ajax( {
+        url: 'http://localhost:3000/SignerData/'+ payload.id,
+        method: 'DELETE',
+        success ( ) {
+          commit( 'OnProgress_Signer_Single', payload );
+          commit( 'MUTATE_SIGNER_DELETE', payload );
+        }
+      } );
     }, 2000 );
   },
   MUTATE_ONBOARDING_ADD: ( { commit }, payload ) => { 

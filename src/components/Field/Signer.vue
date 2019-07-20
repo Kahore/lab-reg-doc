@@ -58,7 +58,7 @@
               <template v-else>
                 <input
                   :disabled="signer.IsNotDisabledBtnDel === 'false' "
-                  :id="signer.ID" 
+                  :id="signer.id" 
                   :class ="{'disabled': signer.IsNotDisabledBtnDel === 'false' }"
                   class="button"
                   type="button"
@@ -139,11 +139,8 @@ import { autocmpl } from '../../scripts/ajax';
         if ( idx === -1 ){
           let documentId = self.$store.getters.getCurrentUnid;
           self.$store.dispatch( 'MUTATE_SIGNER_ADD', {
-                                                        PARAM: 'Document',
-                                                        PARAM2: 'Document_Signer_Change',
-                                                        PARAM3: 'Document_Signer_Add',
                                                         EmployeeName: employee[0],
-                                                        documentId
+                                                        documentId: documentId
                                                       } );
         } else {
             self.$store.dispatch( 'SET_ERROR', 'Подписант уже выбран' );
@@ -157,11 +154,8 @@ import { autocmpl } from '../../scripts/ajax';
       delSigner( e ) {
           let documentId = this.$store.getters.getCurrentUnid;
           this.$store.dispatch( 'MUTATE_SIGNER_DELETE', {
-                                                          PARAM: 'Document',
-                                                          PARAM2: 'Document_Signer_Change',
-                                                          PARAM3: 'Document_Signer_Delete',
-                                                          SignerID: e.target.id,
-                                                          documentId
+                                                          id: e.target.id,
+                                                          documentId : documentId
                                                         } );
       }
     }
