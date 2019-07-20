@@ -65,7 +65,9 @@
           "CanIEditDocument": "true",
           "DocNum": "NK19/RegN72-99",
           "RegInfo": "20.07.2019 14:29:51 Test User Name_Surn",
-          "LastChangeInfo": "20.07.2019 14:29:51 Test User Name_Surn"
+          "LastChangeInfo": "20.07.2019 14:33:12 Test User Name_Surn",
+          "DocumentType": "Акт внедрения",
+          "DocumentDescribe": "Some description"
         }
       }
     }

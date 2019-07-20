@@ -48,7 +48,7 @@ const mutations = {
 const actions = {
   LOAD_DOCUMENTS( { commit }, payload ) {
   commit( 'InProgress_Table' );
-  let url = 'http://localhost:3000/documents';
+  let url = 'http://localhost:3000/documents?_sort=Document.Field.DocumentDate&_order=desc';
     if ( payload.PARAM3 !== 'Document_MultiData' ) {
       url = 'http://localhost:3000/documents/'+payload.id;
     }
