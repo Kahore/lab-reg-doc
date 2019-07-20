@@ -137,13 +137,13 @@ import { autocmpl } from '../../scripts/ajax';
           return block.SignerName === employee[0];
         } );
         if ( idx === -1 ){
-          let unid = self.$store.getters.getCurrentUnid;
+          let documentId = self.$store.getters.getCurrentUnid;
           self.$store.dispatch( 'MUTATE_SIGNER_ADD', {
                                                         PARAM: 'Document',
                                                         PARAM2: 'Document_Signer_Change',
                                                         PARAM3: 'Document_Signer_Add',
                                                         EmployeeName: employee[0],
-                                                        unid
+                                                        documentId
                                                       } );
         } else {
             self.$store.dispatch( 'SET_ERROR', 'Подписант уже выбран' );
@@ -155,13 +155,13 @@ import { autocmpl } from '../../scripts/ajax';
     },
     methods: {
       delSigner( e ) {
-          let unid = this.$store.getters.getCurrentUnid;
+          let documentId = this.$store.getters.getCurrentUnid;
           this.$store.dispatch( 'MUTATE_SIGNER_DELETE', {
                                                           PARAM: 'Document',
                                                           PARAM2: 'Document_Signer_Change',
                                                           PARAM3: 'Document_Signer_Delete',
                                                           SignerID: e.target.id,
-                                                          unid
+                                                          documentId
                                                         } );
       }
     }

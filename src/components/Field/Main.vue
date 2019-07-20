@@ -7,7 +7,7 @@
     </div>
     <div :class="{ 'field-wrapper__disabled': loading }"/>
     <field-field 
-      :field="fieldPrep.Field"
+      :field="fieldPrep.Document.Field"
       :editable="canIEdit"/>
     <section v-if="!isANewDoc">
       <field-uploader 
@@ -45,7 +45,7 @@ import fieldSigner from './Signer';
             return this.$store.getters.documentInfo;
           }   
         } else {
-          return {};
+          return this.$store.getters.defaultInfo;
         } 
       },
       loading () {
@@ -57,9 +57,9 @@ import fieldSigner from './Signer';
       canIEdit () {
         let aclEgit;
         if ( !this.$store.getters.isFieldLoading ) {
-          aclEgit = this.$store.getters.documentInfo.Field.CanIEditDocument;
+          aclEgit = this.$store.getters.documentInfo.Document.Field.CanIEditDocument;
           if ( Object.keys( this.$store.getters.documentInfo ).length === 0 ) {
-            aclEgit = this.$store.getters.defaultInfo.Field.CanIEditDocument;
+            aclEgit = this.$store.getters.defaultInfo.Document.defaultInfoField.CanIEditDocument;
           }
           if ( aclEgit === 'true' ) {
             return true;
@@ -71,8 +71,9 @@ import fieldSigner from './Signer';
       }
     },
     created() {
-       let unid = this.$store.getters.getCurrentUnid;
-       this.$store.dispatch( 'LOAD_DOCUMENT_INFO', unid );
+       let id = this.$store.getters.getCurrentUnid;
+       this.$store.dispatch ( 'LOAD_DD_LIST' );
+       this.$store.dispatch( 'LOAD_DOCUMENT_INFO', id );
      },
   };
 </script>

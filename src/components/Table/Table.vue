@@ -17,20 +17,19 @@
           <div 
             id="liftUpImg" 
             onclick="$(window).scrollTop(0)"/>
-
         </div>
       </div> <!-- protocolTableHeaderRow -->
       <div
         v-for="document in documents" 
-        :key="document.unid"
-        :id="document.unid"
+        :key="document.id"
+        :id="document.id"
         class="tbl-row"
       >  
         <div class="tbl-block">
           <a 
             class="myLink nowrapWhiteSpace"
-            href="#" 
-            @click="fieldFiller( document.unid ); return false;"> {{ document.DocNum }} </a>
+            href="#"
+            @click="fieldFiller( document.id ); return false;"> {{ document.DocNum }} </a>
         </div>
         <div class="tbl-block tbl-block_sm"> {{ document.DocumentDate }} </div>	 
         <div class="tbl-block tbl-block_huge tbl-noCenter"> {{ document.DocumentType }} </div>
@@ -61,7 +60,12 @@ import { CONST_COUNT, CONST_BEGIN } from '../../scripts/shared';
     computed: {
       documents() {
         if ( this.$store.getters.GET_DOCUMENTS.length !== 0 ) {
-          return this.$store.getters.GET_DOCUMENTS;
+          let _tmpArr=[];
+            let _arr = this.$store.getters.GET_DOCUMENTS;
+          for ( let index = 0; index < _arr.length; index++ ) {
+           _tmpArr.push( _arr[index].Document.Field );
+          }
+          return _tmpArr;
         }
       },
       loading(){

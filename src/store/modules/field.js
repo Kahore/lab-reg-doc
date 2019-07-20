@@ -6,8 +6,9 @@ const state = () => ( {
     Field: {}
   },
   DefaultInfo: {
+   Document: {
     Field: {
-      unid: '@' + 'unid' + '@',
+      id: '@' + 'id' + '@',
       DocNum: '',
       DocumentDate: '',
       DocumentType: '',
@@ -18,7 +19,8 @@ const state = () => ( {
       RegInfo: '',
       LastChangeInfo: '',
       CanIEditDocument: 'true'
-    },
+    }  
+   },
     DataFiles:[],
     SignerData:[],
     OnboardingData:[],
@@ -127,21 +129,23 @@ const mutations = {
       }
     }
   },
-	loadField: ( state, payload ) => {
-    if ( typeof payload.ListData !== 'undefined' ) {
-      state.Lists = payload.ListData;
+  LOAD_DD_LIST: ( state, payload ) => {
+    if ( typeof payload !== 'undefined' ) {
+      state.Lists = payload;
     }
+  },
+	loadField: ( state, payload ) => {
     if ( typeof payload.Document !== 'undefined' ) {
-      state.DocumentInfo = payload.Document;
+      state.DocumentInfo = payload;
       if ( typeof payload.Document.Field !== 'undefined' ) {
-        if ( typeof payload.Document.Field.unid !== 'undefined' ) {
-          window.history.pushState( '', '', './?unid=' + payload.Document.Field.unid );
+        if ( typeof payload.Document.Field.id !== 'undefined' ) {
+          window.history.pushState( '', '', './?id=' + payload.Document.Field.id );
         }
       }
-      if ( typeof payload.Document.OnboardingData !== 'undefined' ) {
-        for ( let i = 0; i < payload.Document.OnboardingData.length; i++ ) {
-          if ( payload.Document.OnboardingData[i].OnboardingState === 'approved' ) {
-            state.DocumentInfo.OnboardingWhoChecked = state.DocumentInfo.OnboardingWhoChecked.concat( payload.Document.OnboardingData[i].ID );
+      if ( typeof payload.OnboardingData !== 'undefined' ) {
+        for ( let i = 0; i < payload.OnboardingData.length; i++ ) {
+          if ( payload.OnboardingData[i].OnboardingState === 'approved' ) {
+            state.DocumentInfo.OnboardingWhoChecked = state.DocumentInfo.OnboardingWhoChecked.concat( payload.OnboardingData[i].ID );
           }
         }
       }
@@ -150,7 +154,7 @@ const mutations = {
   MUTATE_FIELD_SAVE: ( state, payload ) => { 
     state.DocumentInfo.Field = { ...state.DocumentInfo.Field, LastChangeInfo: payload.LastChangeInfo };
     if ( typeof state.DocumentInfo.Field.RegInfo === 'undefined' || state.DocumentInfo.Field.RegInfo === '' ) {
-      window.history.pushState( '', '', './?unid=' + payload.unid );
+      window.history.pushState( '', '', './?id=' + payload.id );
       let newVal = { RegInfo: payload.RegInfo, DocNum:payload.DocNum };
       state.DocumentInfo.Field = { ...state.DocumentInfo.Field, ...newVal };
     }
@@ -218,21 +222,30 @@ const actions = {
   MUTATE_FIELD_RESET: ( { commit } ) => { 
      commit( 'MUTATE_FIELD_RESET' );
   },
+  LOAD_DD_LIST: ( { commit } ) => { 
+     doAjax( 'http://localhost:3000/ListData', 'GET', '' ).then( ( result ) => { 
+        commit( 'LOAD_DD_LIST', result );
+     } );
+  },
   LOAD_DOCUMENT_INFO: ( { commit }, payload ) => {
     commit( 'CLEAR_ERROR' );
     let url = 'http://localhost:3000/fieldFiller';
-    if( payload !== '@unid@' ) {
-      url  = 'http://localhost:3000/documentInfo?Document.Field.unid='+ payload;
+    if( payload !== '@id@' ) {
+      url  = 'http://localhost:3000/docInfo/'+ payload;
     }
     return new Promise( function( resolve ) {
         doAjax( url, 'GET', '', 'InProgress_Field' ).then( ( result ) => {
           let _resp = result;
-          _resp = fixField( _resp[0] );
+          
+          // eslint-disable-next-line no-console
+          console.log( 'TCL: result', result );
+          
+          _resp = fixField( _resp );
             commit( 'loadField', _resp );
               if ( typeof _resp.Document.Field !== 'undefined' ) {
-                if ( typeof _resp.Document.Field.unid !== 'undefined' ) {
-                  commit( 'mutateNewUnid', _resp.Document.Field.unid );
-                  window.history.pushState( '', '', './?unid=' + _resp.Document.Field.unid );
+                if ( typeof _resp.Document.Field.id !== 'undefined' ) {
+                  commit( 'mutateNewUnid', _resp.Document.Field.id );
+                  window.history.pushState( '', '', './?id=' + _resp.Document.Field.id );
                 }
               } else {
                 commit ( 'MUTATE_FIELD_RESET' );
@@ -243,34 +256,24 @@ const actions = {
   },
   MUTATE_FIELD_SAVE: ( { commit }, payload ) => { 
     return new Promise( ( resolve, reject ) => {
-      let isNew = payload.unid === '@unid@' ? true : false;
+      let isNew = payload.id === '@id@' ? true : false;
       let _type = isNew ? 'POST' : 'PUT';
-      let url = isNew ? 'http://localhost:3000/documents/' : 'http://localhost:3000/documents/'+payload.unid;
-      let urlDI = 'http://localhost:3000/documentInfo/';
+      let url = isNew ? 'http://localhost:3000/documents/' : 'http://localhost:3000/documents/'+payload.id;
+     // let urlDI = 'http://localhost:3000/documentInfo/';
       let fakeresp = _fakeServerResp_OnFieldSave ( payload );
+        let newData = {id:fakeresp.id, Document:{ Field:{...fakeresp} } };
+           newData =JSON.stringify( newData );
       $.ajax( {
         url: url,
         type: _type,
-        data: fakeresp,
-        
+        data: newData,
+        contentType: 'application/json; charset=UTF-8',
         complete ( resp ) {
           let _resp = JSON.parse( resp.responseText );
           //let _resp = resp;
-          resolve( _resp.unid );
-          commit( 'mutateNewUnid', _resp.unid );
-          commit ( 'MUTATE_FIELD_SAVE', _resp );
-
-           let newData = {unid:_resp.unid, Document:{ Field:{..._resp} } };
-            newData =JSON.stringify( newData );
-            //newData = { Document:{...newData} };
-          
-          urlDI = isNew ? urlDI : urlDI+ _resp.unid,
-                $.ajax( {
-                url:  urlDI,
-                type: _type,
-                contentType: 'application/json; charset=UTF-8',
-                data: newData
-                } );
+          resolve( _resp.id );
+          commit( 'mutateNewUnid', _resp.id );
+          commit ( 'MUTATE_FIELD_SAVE', _resp.Document.Field );
         },
         error ( resp ) {
           reject();
@@ -345,7 +348,7 @@ const actions = {
           }
         } );
         */
-      const data = { PARAM: 'Document', PARAM2: 'Document_UploadingFile_Load', unid: payload };
+      const data = { PARAM: 'Document', PARAM2: 'Document_UploadingFile_Load', id: payload };
       doAjax( '@Nav_Backend@', 'GET', data, 'OnProgress_Attachment' ).then( ( result ) => {
         commit( 'MUTATE_FILE_LOADNEW', result );
       }, error => { commit( 'SET_ERROR', error );} );
@@ -392,7 +395,7 @@ const actions = {
               PARAM2: 'Document_UploadingFile_Change', 
               PARAM3: 'Document_UploadingFile_Delete', 
               FileID: payload.DocFileId,
-              unid: payload.unid
+              id: payload.id
             };
       doAjax( '@Nav_Backend@', 'POST', data ).then( () => {
         commit( 'OnProgress_Attachment_Single', payload );
@@ -409,7 +412,7 @@ const actions = {
     //   commit ( 'MUTATE_SIGNER_ADD', result );
     // }, error => { commit( 'SET_ERROR', error );} );
     let resp = { 
-                'unid': _generateUNID(),
+                'id': _generateUNID(),
                 'SignerName': payload.EmployeeName,
                 'onAction': 'false',
                 'AddBy': getDate() + ' Test User Name_Surn'
@@ -439,7 +442,7 @@ const actions = {
     //   commit ( 'MUTATE_ONBOARDING_ADD', result );
     // }, error => { commit( 'SET_ERROR', error );} );
     let resp = {
-                'ID': _generateUNID(),
+                'id': _generateUNID(),
                 'PersonName': payload.EmployeeName,
                 'IsDisabledBtnDel': 'false',
                 'IsDisabledChb': 'false',
@@ -491,15 +494,14 @@ function _generateUNID() {
  * Imitate  server
  */ 
 function _fakeServerResp_OnFieldSave ( payload ) {
-  if ( payload.unid === '@unid@' ) {
+  if ( payload.id === '@id@' ) {
       let min = 10; 
       let max = 99;  
       let random = Math.floor( Math.random() * ( +max - +min ) ) + +min;
       let dmin = 1; 
       let dmax = 999;  
       let drandom = Math.floor( Math.random() * ( +dmax - +dmin ) ) + +dmin;
-      payload.id = random;
-      payload.unid = _generateUNID();
+      payload.id = _generateUNID();
       payload.DocNum = 'NK19/RegN'+random+'-'+drandom;
       payload.RegInfo = getDate() + ' Test User Name_Surn';
       payload.LastChangeInfo = getDate() + ' Test User Name_Surn';

@@ -27,38 +27,38 @@ export function fixField ( parsedData ) {
   if ( typeof parsedData.Document.Field.Note !== 'undefined' ) {
     parsedData.Document.Field.Note = parsedData.Document.Field.Note.replace( /\\n/g, '\n' );
   }
-  if ( typeof parsedData.Document.DataFiles === 'undefined' ) {
-    parsedData.Document.DataFiles = [];
+  if ( typeof parsedData.DataFiles === 'undefined' ) {
+    parsedData.DataFiles = [];
   } else {
     /* MEMO: Expected array, not object */
-      if ( typeof parsedData.Document.DataFiles[0] === 'undefined' ) {
+      if ( typeof parsedData.DataFiles[0] === 'undefined' ) {
         _tmpArray.push( parsedData.Document.DataFiles );
         parsedData.Document.DataFiles = _tmpArray;
         _tmpArray = [];
       }
   }
-  if ( typeof parsedData.Document.SignerData === 'undefined' ) {
-    parsedData.Document.SignerData = [];
+  if ( typeof parsedData.SignerData === 'undefined' ) {
+    parsedData.SignerData = [];
   } else {
     /* MEMO: Expected array, not object */
-      if ( typeof parsedData.Document.SignerData[0] === 'undefined' ) {
-        _tmpArray.push( parsedData.Document.SignerData );
-        parsedData.Document.SignerData = _tmpArray;
+      if ( typeof parsedData.SignerData[0] === 'undefined' ) {
+        _tmpArray.push( parsedData.SignerData );
+        parsedData.SignerData = _tmpArray;
         _tmpArray = [];
       }
   }
-  if ( typeof parsedData.Document.OnboardingData === 'undefined' ) {
-    parsedData.Document.OnboardingData = [];
+  if ( typeof parsedData.OnboardingData === 'undefined' ) {
+    parsedData.OnboardingData = [];
   } else {
     /* MEMO: Expected array, not object */
-      if ( typeof parsedData.Document.OnboardingData[0] === 'undefined' ) {
-        _tmpArray.push( parsedData.Document.OnboardingData );
-        parsedData.Document.OnboardingData = _tmpArray;
+      if ( typeof parsedData.OnboardingData[0] === 'undefined' ) {
+        _tmpArray.push( parsedData.OnboardingData );
+        parsedData.OnboardingData = _tmpArray;
         _tmpArray = [];
       }
   }
-  if ( typeof parsedData.Document.OnboardingWhoChecked === 'undefined' ) {
-    parsedData.Document.OnboardingWhoChecked = [];
+  if ( typeof parsedData.OnboardingWhoChecked === 'undefined' ) {
+    parsedData.OnboardingWhoChecked = [];
   }
   return parsedData;
 }

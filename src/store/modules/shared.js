@@ -1,17 +1,16 @@
 const state = () => ( {
-  // unid: '@unid@',
-  unid: _defUNID(),
-  error_Msg: 'error',
-  info_Msg: 'bff'
+  id: _defUNID(),
+  error_Msg: '',
+  info_Msg: ''
 } );
 
 const getters = {
   getCurrentUnid: state => {
-    return state.unid;
+    return state.id;
   },
   isANewDoc: state => {
-    let unid = state.unid;
-    if ( unid === '@' + 'unid' + '@' ) {
+    let id = state.id;
+    if ( id === '@' + 'id' + '@' ) {
       return true;
     } else {
       return false;
@@ -31,7 +30,7 @@ const getters = {
 
 const mutations = {
   mutateNewUnid: ( state, payload ) => {
-    state.unid = payload;
+    state.id = payload;
   },
   SET_ERROR: ( state, payload ) => {
     state.error_Msg = payload;
@@ -69,9 +68,9 @@ const actions = {
 };
 function _defUNID(){
   let url = new URL( window.location.href );
-  let unid = url.searchParams.get( 'unid' );
-  unid === null ? unid = '@'+'unid'+'@' : unid;
-  return unid;
+  let id = url.searchParams.get( 'id' );
+  id === null ? id = '@'+'id'+'@' : id;
+  return id;
 }
 export default {
   state,

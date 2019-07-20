@@ -177,13 +177,13 @@
     methods : {
       clearAction () {
         this.$store.dispatch( 'MUTATE_FIELD_RESET' );
-        this.$store.dispatch( 'mutateNewUnid', '@'+'unid'+'@' );
+        this.$store.dispatch( 'mutateNewUnid', '@'+'id'+'@' );
       },
       saveAction ( fieldPrep ) {
-        let unid = this.$store.getters.getCurrentUnid;
+        let id = this.$store.getters.getCurrentUnid;
         let dataField;
 
-        dataField = Object.assign( { unid }, fieldPrep );
+        dataField = Object.assign( { id }, fieldPrep );
 
         // dataField = Object.assign( { PARAM: 'Document', PARAM2: 'Document_Save' }, dataField );
         /*
@@ -197,7 +197,7 @@
           PARAM: 'Document',
           PARAM2: 'Document_Data',
           PARAM3: 'Document_SingleData',
-          unid: response,
+          id: response,
           } );
         } );
       },

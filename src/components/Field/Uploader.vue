@@ -101,7 +101,7 @@
       this.$store.commit( 'CLEAR_ERROR' );
       const filesCollection = document.querySelector( 'input[type=file]' ).files;
       if ( filesCollection.length !== 0 ) {
-        let _unid = this.$store.getters.getCurrentUnid;
+        let documentId = this.$store.getters.getCurrentUnid;
         let _index;
         let uploadedFiles = this.$store.getters.GET_DataFiles;
         for ( let i = 0; i < filesCollection.length; i++ ) {
@@ -125,13 +125,13 @@
               );
               formData.append( 'PARAM', 'Document' );
               formData.append( 'PARAM2', 'Document_UploadingFile_Change' );
-              formData.append( 'unid', _unid );
+              formData.append( 'unid', documentId );
               formData.append( 'PARAM3', 'Document_UploadingFile_Upload' );
               formData.append( 'Id', '@Nav_Backend@' );
               this.$store
                 .dispatch( 'MUTATE_FILE_UPLOAD', formData )
                 .then( () => {
-                  this.$store.dispatch( 'MUTATE_FILE_LOADNEW', _unid );
+                  this.$store.dispatch( 'MUTATE_FILE_LOADNEW', documentId );
                 } );
             } catch ( e ) {
               this.$store.commit( 'SET_ERROR', 'Произошла ошибка ' + e );
@@ -150,10 +150,10 @@
     },
     delDataFile( e ) {
       this.$store.commit( 'CLEAR_ERROR' );
-      let _unid = this.$store.getters.getCurrentUnid;
+      let documentId = this.$store.getters.getCurrentUnid;
       this.$store.dispatch( 'MUTATE_FILE_DELETE', {
-        DocFileId: e.target.id,
-        unid: _unid
+        id: e.target.id,
+        documentId
       } );
     }
   },

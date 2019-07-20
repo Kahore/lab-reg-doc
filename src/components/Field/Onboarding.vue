@@ -148,14 +148,14 @@ import { transliteration } from '../../scripts/shared';
           return block.PersonName === employee[0];
         } );
         if ( idx === -1 ){
-          let unid = self.$store.getters.getCurrentUnid;
+          let documentId = self.$store.getters.getCurrentUnid;
           self.$store.dispatch( 'MUTATE_ONBOARDING_ADD', {
                                                         PARAM: 'Document',
                                                         PARAM2: 'Document_Onboarding_Change',
                                                         PARAM3: 'Document_Onboarding_Add',
                                                         EmployeeName: employee[0],
                                                         EmployeeMail: employee[1],
-                                                        unid
+                                                        documentId
                                                       } );
         } else {
             self.$store.dispatch( 'SET_ERROR', 'Уже выбран для ознакомления' );
@@ -167,23 +167,23 @@ import { transliteration } from '../../scripts/shared';
     },
     methods: {
       check ( e ) {
-        let unid = this.$store.getters.getCurrentUnid;
+        let documentId = this.$store.getters.getCurrentUnid;
         this.$store.dispatch( 'MUTATE_ONBOARDING_UPDATE', {
                                                           PARAM: 'Document',
                                                           PARAM2: 'Document_Onboarding_Change',
                                                           PARAM3: 'Document_Onboarding_UpdateState',
-                                                          OnboardingID: e.target.value,
-                                                          unid
+                                                          id: e.target.value,
+                                                          documentId
                                                         } );
       },
       delOnboardingPerson( e ) {
-          let unid = this.$store.getters.getCurrentUnid;
+          let documentId = this.$store.getters.getCurrentUnid;
           this.$store.dispatch( 'MUTATE_ONBOARDING_DELETE', {
                                                           PARAM: 'Document',
                                                           PARAM2: 'Document_Onboarding_Change',
                                                           PARAM3: 'Document_Onboarding_Delete',
-                                                          OnboardingID: e.target.id,
-                                                          unid
+                                                          id: e.target.id,
+                                                          documentId
                                                         } );
       }
     }
