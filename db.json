@@ -1,124 +1,55 @@
-{
-  "documents": [
-    {
-      "unid": "b542c61b-ee8a-458a-82aa-0227f9dc7cef",
-      "Location": "Новокузнецк",
-      "DivCode": "div1",
-      "DocumentDate": "01/07/2019",
-      "CanIEditDocument": "true",
-      "DocumentType": "Протокол аттестации испытательного оборудования",
-      "DocumentDescribe": "Протокол контрольного испытания полочного барабана КП-123Р",
-      "id": "52",
-      "DocNum": "NK19/RegN52-230",
-      "RegInfo": "19.07.2019 13:10:56 Test User Name_Surn",
-      "LastChangeInfo": "19.07.2019 13:10:56 Test User Name_Surn"
-    },
-    {
-      "unid": "7ad19325-2809-4ace-8fce-53232bb207c4",
-      "DocNum": "NK19/RegN38-736",
-      "DocumentDate": "03/07/2019",
-      "DocumentType": "Протокол аттестации испытательного оборудования",
-      "Location": "Новокузнецк",
-      "DivCode": "div2",
-      "DocumentDescribe": "Протокол аттестации БРИКЕТ-400 №10",
-      "Note": "Мой комментарий",
-      "RegInfo": "19.07.2019 13:11:56 Test User Name_Surn",
-      "LastChangeInfo": "19.07.2019 13:15:24 Test User Name_Surn",
-      "CanIEditDocument": "true",
-      "id": "38"
-    },
-    {
-      "unid": "53261c11-9c7c-46a5-b955-64251245afe5",
-      "DocNum": "NK19/RegN74-617",
-      "DocumentDate": "10/07/2019",
-      "DocumentType": "Распоряжение директора ЛК",
-      "Location": "Новокузнецк",
-      "DivCode": "div2",
-      "DocumentDescribe": "О назначении лиц, ответственных за эксплуатацию стеллажей",
-      "Note": "Мой комментарий",
-      "RegInfo": "19.07.2019 13:13:50 Test User Name_Surn",
-      "LastChangeInfo": "19.07.2019 13:13:50 Test User Name_Surn",
-      "CanIEditDocument": "true",
-      "id": "74"
-    }
-  ],
-  "documentInfo": [
-    {
-      "unid": "b542c61b-ee8a-458a-82aa-0227f9dc7cef",
-      "Document": {
-        "unid": "b542c61b-ee8a-458a-82aa-0227f9dc7cef",
-        "Field": {
-          "unid": "b542c61b-ee8a-458a-82aa-0227f9dc7cef",
-          "Location": "Новокузнецк",
-          "DivCode": "div1",
-          "DocumentDate": "01/07/2019",
-          "CanIEditDocument": "true",
-          "DocumentType": "Протокол аттестации испытательного оборудования",
-          "DocumentDescribe": "Протокол контрольного испытания полочного барабана КП-123Р",
-          "id": "52",
-          "DocNum": "NK19/RegN52-230",
-          "RegInfo": "19.07.2019 13:10:56 Test User Name_Surn",
-          "LastChangeInfo": "19.07.2019 13:10:56 Test User Name_Surn"
-        },
-        "SignerData":[
-          
-        ]
-      }
-    },
-    {
-      "unid": "7ad19325-2809-4ace-8fce-53232bb207c4",
-      "Document": {
-        "Field": {
-          "unid": "7ad19325-2809-4ace-8fce-53232bb207c4",
-          "DocNum": "NK19/RegN38-736",
-          "DocumentDate": "03/07/2019",
-          "DocumentType": "Протокол аттестации испытательного оборудования",
-          "Location": "Новокузнецк",
-          "DivCode": "div2",
-          "DocumentDescribe": "Протокол аттестации БРИКЕТ-400 №10",
-          "Note": "Мой комментарий",
-          "RegInfo": "19.07.2019 13:11:56 Test User Name_Surn",
-          "LastChangeInfo": "19.07.2019 13:15:24 Test User Name_Surn",
-          "CanIEditDocument": "true",
-          "id": "38"
-        }
-      }
-    },
-    {
-      "unid": "53261c11-9c7c-46a5-b955-64251245afe5",
-      "Document": {
-        "Field": {
-          "unid": "53261c11-9c7c-46a5-b955-64251245afe5",
-          "DocNum": "NK19/RegN74-617",
-          "DocumentDate": "10/07/2019",
-          "DocumentType": "Распоряжение директора ЛК",
-          "Location": "Чита",
-          "DivCode": "div2",
-          "DocumentDescribe": "О назначении лиц, ответственных за эксплуатацию стеллажей",
-          "Note": "Эмуляция отсутствия прав на редактирование некоторых документов",
-          "RegInfo": "19.07.2019 13:13:50 Test User Name_Surn",
-          "LastChangeInfo": "19.07.2019 13:13:50 Test User Name_Surn",
-          "CanIEditDocument": "false",
-          "id": "74"
-        }
-      }
-    }
-  ],
-  "fieldFiller": [
-    {
-      "Document": {
-        "Field": {
-          "Location": "Новокузнецк",
-          "DivCode": "(020-2010-2002) MIN Laboratory - RU",
-          "DocumentDate": "19/07/2019",
-          "CanIEditDocument": "true"
-        }
+{  
+   "users":[  
+      {  
+         "id":1,
+         "unm":"sean"
       },
-      "ListData": {
-        "DocumentTypes": "Акт внедрения;Отчёт;Протокол аттестации испытательного оборудования;Протокол проверки;Протокол совещания;Распоряжение директора ЛК;Распоряжение начальника лаборатории;",
-        "Locations": "Новокузнецк;",
-        "DivCodes": "div1;div2;div3"
+      {  
+         "id":2,
+         "unm":"john"
       }
-    }
-  ]
+   ],
+   "todos":[  
+      {  
+         "id":1,
+         "name":"list1",
+         "items":[  
+            {  
+               "title":"asd",
+               "descrp":"asd"
+            }
+         ],
+         "userId":1
+      },
+     {  
+         "id":2,
+         "name":"list2",
+         "items":[  
+            {  
+               "title":"Book",
+               "descrp":"Read Outliers"
+            },
+            {  
+               "title":"sadasd",
+               "descrp":"Reassasdasdasdssliers"
+            }
+         ],
+         "userId":1
+      },
+        {  
+         "id":3,
+         "name":"list3",
+         "items":[  
+            {  
+               "title":"Book",
+               "descrp":"Read Outliers"
+            },
+            {  
+               "title":"sadasd",
+               "descrp":"Reassasdasdasdssliers"
+            }
+         ],
+         "userId":2
+      }
+   ]
 }
