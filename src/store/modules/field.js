@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import { fixField } from '../../scripts/shared';
-import { doAjax }  from '../../scripts/ajax';
+import { doAjax, doAjax_delete }  from '../../scripts/ajax';
 const state = () => ( {
   DocumentInfo: {
     Field: {}
@@ -145,7 +145,7 @@ const mutations = {
       if ( typeof payload.OnboardingData !== 'undefined' ) {
         for ( let i = 0; i < payload.OnboardingData.length; i++ ) {
           if ( payload.OnboardingData[i].OnboardingState === 'approved' ) {
-            state.DocumentInfo.OnboardingWhoChecked = state.DocumentInfo.OnboardingWhoChecked.concat( payload.OnboardingData[i].ID );
+            state.DocumentInfo.OnboardingWhoChecked = state.DocumentInfo.OnboardingWhoChecked.concat( payload.OnboardingData[i].id );
           }
         }
       }
@@ -419,23 +419,16 @@ const actions = {
   MUTATE_SIGNER_DELETE: ( { commit }, payload ) => { 
     commit( 'OnProgress_Signer_Single', payload );
     setTimeout( () => {
-      $.ajax( {
-        url: 'http://localhost:3000/SignerData/'+ payload.id,
-        method: 'DELETE',
-        success ( ) {
-          commit( 'OnProgress_Signer_Single', payload );
-          commit( 'MUTATE_SIGNER_DELETE', payload );
-        }
+      doAjax_delete( 'http://localhost:3000/SignerData/', payload.id ).then( () => {
+        commit( 'OnProgress_Signer_Single', payload );
+        commit( 'MUTATE_SIGNER_DELETE', payload );
       } );
     }, 2000 );
   },
   MUTATE_ONBOARDING_ADD: ( { commit }, payload ) => { 
-    // const data = payload;
-    // doAjax( '@Nav_Backend@', 'POST', data ).then( ( result ) => {
-    //   commit ( 'MUTATE_ONBOARDING_ADD', result );
-    // }, error => { commit( 'SET_ERROR', error );} );
     let resp = {
                 'id': _generateUNID(),
+                'documentId': payload.documentId,
                 'PersonName': payload.EmployeeName,
                 'IsDisabledBtnDel': 'false',
                 'IsDisabledChb': 'false',
@@ -443,35 +436,44 @@ const actions = {
                 'OnboardingState': 'pendingApproveByUser',
                 'LastChanged': ''
               };
-    commit ( 'MUTATE_ONBOARDING_ADD', resp );
+    const data = JSON.stringify( resp );
+    let url = 'http://localhost:3000/OnboardingData';
+    doAjax( url, 'POST', data, 'InProgress_Field' ).then( () => {
+      commit ( 'MUTATE_ONBOARDING_ADD', resp );
+    } );
   },
   MUTATE_ONBOARDING_UPDATE: ( { commit }, payload ) => { 
-    // const data = payload;
-    // doAjax( '@Nav_Backend@', 'POST', data ).then( ( result ) => {
-    //   commit ( 'MUTATE_ONBOARDING_ADD', result );
-    // }, error => { commit( 'SET_ERROR', error );} );
         let resp = {
-                'ID': payload.OnboardingID,
+                'id': payload.id,
+                'documentId': payload.documentId,
                 'PersonName': payload.EmployeeName,
                 'IsDisabledBtnDel': 'false',
                 'IsDisabledChb': 'false',
                 'onAction': 'false',
                 'OnboardingState': 'approved',
                 'LastChanged': getDate() + ' Test User Name_Surn'
-              };
-    commit ( 'MUTATE_ONBOARDING_UPDATE', resp );
+              };    
+      const data = JSON.stringify( resp );
+    setTimeout( () => {
+      $.ajax( {
+        url: 'http://localhost:3000/OnboardingData/'+ payload.id,
+        method: 'PUT',
+        contentType: 'application/json; charset=UTF-8',
+        data: data,
+        success ( ) {
+          commit( 'MUTATE_ONBOARDING_UPDATE', resp );
+        }
+      } );
+    }, 2000 );
+    
   },
   MUTATE_ONBOARDING_DELETE: ( { commit }, payload ) => { 
     commit( 'OnProgress_Onboarding_Single', payload );
-    // const data = payload;
-    // doAjax( '@Nav_Backend@', 'POST', data ).then( ( result ) => {
-    //   commit ( 'MUTATE_ONBOARDING_DELETE', data );
-    //   commit( 'OnProgress_Onboarding_Single', data );
-    // }, error => { commit( 'SET_ERROR', error );} );
-        
     setTimeout( () => {
-      commit( 'OnProgress_Onboarding_Single', payload );
-      commit( 'MUTATE_ONBOARDING_DELETE', payload );
+      doAjax_delete( 'http://localhost:3000/OnboardingData/', payload.id ).then( () => {
+        commit( 'OnProgress_Onboarding_Single', payload );
+        commit( 'MUTATE_ONBOARDING_DELETE', payload );
+      } );
     }, 2000 );
   },
 };

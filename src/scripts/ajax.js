@@ -119,3 +119,19 @@ function _ajaxLoadingHelper( nameLoading ) {
     store.commit( nameLoading );
   }
 }
+
+export function doAjax_delete( url, id ) {
+   return new Promise( function( resolve, reject ) { 
+     $.ajax( {
+        url: url + id,
+        method: 'DELETE',
+        success ( ) {
+         resolve ();
+        },
+        error ( resp ) {
+          reject ( resp );
+           store.commit( 'SET_ERROR', resp );
+        }
+      } );
+   } );
+}

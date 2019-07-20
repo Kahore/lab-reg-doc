@@ -57,30 +57,30 @@
   ],
   "SignerData": [
     {
-      "id": "8428832b-762d-408d-b732-5d3744893ed1",
-      "documentId": "b542c61b-ee8a-458a-82aa-0227f9dc7cef",
-      "SignerName": "Колов Михаил Григорьевич",
-      "onAction": "false",
-      "AddBy": "20.07.2019 13:07:52 Test User Name_Surn"
-    },
-    {
       "id": "ff2e8e09-a063-4d96-a5fa-2f16b548e2f7",
       "documentId": "b542c61b-ee8a-458a-82aa-0227f9dc7cef",
       "SignerName": "Коломейцев Владимир Андреевич",
       "onAction": "false",
       "AddBy": "20.07.2019 13:15:26 Test User Name_Surn"
+    },
+    {
+      "id": "8cc94713-c812-4db0-9e78-022eb376d380",
+      "documentId": "b542c61b-ee8a-458a-82aa-0227f9dc7cef",
+      "SignerName": "Колодезнов Владимир Владимирович",
+      "onAction": "false",
+      "AddBy": "20.07.2019 13:42:41 Test User Name_Surn"
     }
   ],
   "OnboardingData": [
     {
+      "id": "7bedc324-e71c-4978-93a5-f403d72cdde3",
       "documentId": "b542c61b-ee8a-458a-82aa-0227f9dc7cef",
-      "id": 1,
-      "PersonName": "Ivan",
+      "PersonName": "ksenia_kolomenko",
       "IsDisabledBtnDel": "false",
       "IsDisabledChb": "false",
       "onAction": "false",
-      "OnboardingState": "pendingApproveByUser",
-      "LastChanged": ""
+      "OnboardingState": "approved",
+      "LastChanged": "20.07.2019 13:35:10 Test User Name_Surn"
     }
   ],
   "ListData": {
