@@ -9,7 +9,7 @@
     "start": "npm run dev",
     "lint": "eslint --ext .js,.vue src",
     "build": "node build/build.js",
-    "serv" : "json-server --id unid --watch db.json"
+    "serv" : "json-server --routes routes.json --watch db.json"
   },
   "dependencies": {
     "jquery-ui-bundle": "^1.12.1-migrate",
