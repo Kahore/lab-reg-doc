@@ -123,11 +123,7 @@
                 'documentFile',
                 filesCollection[i]
               );
-              formData.append( 'PARAM', 'Document' );
-              formData.append( 'PARAM2', 'Document_UploadingFile_Change' );
-              formData.append( 'unid', documentId );
-              formData.append( 'PARAM3', 'Document_UploadingFile_Upload' );
-              formData.append( 'Id', '@Nav_Backend@' );
+              formData.append( 'id', documentId );
               this.$store
                 .dispatch( 'MUTATE_FILE_UPLOAD', formData )
                 .then( () => {
@@ -153,7 +149,7 @@
       let documentId = this.$store.getters.getCurrentUnid;
       this.$store.dispatch( 'MUTATE_FILE_DELETE', {
         id: e.target.id,
-        documentId
+        documentId: documentId
       } );
     }
   },

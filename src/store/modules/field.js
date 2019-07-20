@@ -236,10 +236,6 @@ const actions = {
     return new Promise( function( resolve ) {
         doAjax( url, 'GET', '', 'InProgress_Field' ).then( ( result ) => {
           let _resp = result;
-          
-          // eslint-disable-next-line no-console
-          console.log( 'TCL: result', result );
-          
           _resp = fixField( _resp );
             commit( 'loadField', _resp );
               if ( typeof _resp.Document.Field !== 'undefined' ) {
@@ -259,7 +255,6 @@ const actions = {
       let isNew = payload.id === '@id@' ? true : false;
       let _type = isNew ? 'POST' : 'PUT';
       let url = isNew ? 'http://localhost:3000/documents/' : 'http://localhost:3000/documents/'+payload.id;
-     // let urlDI = 'http://localhost:3000/documentInfo/';
       let fakeresp = _fakeServerResp_OnFieldSave ( payload );
         let newData = { id:fakeresp.id, Document:{ Field:{...fakeresp} } };
            newData =JSON.stringify( newData );
@@ -270,7 +265,6 @@ const actions = {
         contentType: 'application/json; charset=UTF-8',
         complete ( resp ) {
           let _resp = JSON.parse( resp.responseText );
-          //let _resp = resp;
           resolve( _resp.id );
           commit( 'mutateNewUnid', _resp.id );
           commit ( 'MUTATE_FIELD_SAVE', _resp.Document.Field );
@@ -282,72 +276,14 @@ const actions = {
       } );
 
     } );
-    /*
-    return new Promise( ( resolve, reject ) => {
-      const data = payload;
-		  const result = doAjax( '@Nav_Backend@', 'GET', data, 'InProgress_Field' ).then( ( result ) => {
-			commit( 'mutateNewUnid', result.unid );
-      commit ( 'MUTATE_FIELD_SAVE', result );
-      resolve(result);
-      } );
-    } );   
-    */
   },
-  MUTATE_FILE_UPLOAD: ( { commit }, payload ) => {
-    return new Promise( function ( resolve, reject ) {
-      var httpRequest = new XMLHttpRequest();
-      httpRequest.onreadystatechange = function () {
-        if ( httpRequest.readyState === 4 && httpRequest.status === 200 ) {
-          /* MEMO: reset selected files */
-          document.querySelector( 'input[type=file]' ).value = '';
-        } else if (
-          httpRequest.readyState === 4 &&
-          httpRequest.status === 500
-        ) {
-          commit( 'SET_ERROR', httpRequest.status + ' ' + httpRequest.statusText + '(Внутренняя ошибка сервера)' );
-        } else if (
-          httpRequest.readyState === 4 &&
-          httpRequest.status === 401
-        ) {
-          commit( 'SET_ERROR', httpRequest.status + ' ' + httpRequest.statusText + '(Внутренняя ошибка сервера)' );
-          reject();
-        }
-      };
-      httpRequest.open( 'POST', './GetPageText.ashx', true );
-      httpRequest.send( payload );
-      resolve();
-      /*TEST*/
-        /*
-        resolve();
-        */
-    } );
+  MUTATE_FILE_UPLOAD: ( { commit } ) => {
+     commit( 'SET_INFO', 'Same action as signer, but with downloading link' );
+     document.querySelector( 'input[type=file]' ).value = '';
   },
   MUTATE_FILE_LOADNEW: ( { commit }, payload ) => {
     commit( 'OnProgress_Attachment' );
     setTimeout( () => {
-      /* AJAX tested in NKReports */
-      /*
-        $.ajax( {
-          url: './GetPageText.ashx?Id=@Nav_Backend@',
-          type: 'GET',
-          data: { PARAM: 'Document', PARAM2: 'Document_UploadingFile_Load', unid: payload },
-          complete: function ( resp ) {
-            if ( resp.response.length !== 0 ) {
-              let newline = String.fromCharCode( 13, 10 );
-              resp.response = resp.response.replace( /'\\n'/g, newline );
-              let myDataParse = JSON.parse( resp.response );
-              commit( 'MUTATE_FILE_LOADNEW', myDataParse );
-            }
-            commit( 'OnProgress_Attachment' );
-            resolve( resp );
-          },
-          error: function ( resp ) {
-            commit( 'SET_ERROR', resp.statusText );
-            commit( 'OnProgress_Attachment' );
-            reject();
-          }
-        } );
-        */
       const data = { PARAM: 'Document', PARAM2: 'Document_UploadingFile_Load', id: payload };
       doAjax( '@Nav_Backend@', 'GET', data, 'OnProgress_Attachment' ).then( ( result ) => {
         commit( 'MUTATE_FILE_LOADNEW', result );
@@ -365,37 +301,12 @@ const actions = {
   MUTATE_FILE_DELETE: ( { commit }, payload ) => {
     /* AJAX tested in NKReports */
     commit( 'OnProgress_Attachment_Single', payload );
-    /* v1 */
-    // $.ajax( {
-    //   type: 'POST',
-    //   url: './GetPageText.ashx?Id=@Nav_Backend@',
-    //   data: { 
-    //           PARAM: 'Document', 
-    //           PARAM2: 'Document_UploadingFile_Change', 
-    //           PARAM3: 'Document_UploadingFile_Delete', 
-    //           FileID: payload.DocFileId,
-    //           unid: payload.unid
-    //         },
-    //   success: function ( resp ) {
-    //     if ( resp.length === 0 ) {
-    //       commit( 'MUTATE_FILE_DELETE', payload );
-    //     } else {
-    //       commit( 'SET_ERROR', JSON.parse( resp )[0].ErrorMsg );
-    //       commit( 'OnProgress_Attachment_Single', payload );
-    //     }
-    //   },
-    //   error: function ( resp ) {
-    //     commit( 'SET_ERROR', resp.statusText );
-    //     commit( 'OnProgress_Attachment_Single', payload );
-    //   }
-    // } );
-    /* v2 */
     const data = { 
               PARAM: 'Document', 
               PARAM2: 'Document_UploadingFile_Change', 
               PARAM3: 'Document_UploadingFile_Delete', 
-              FileID: payload.DocFileId,
-              id: payload.id
+              id: payload.DocFileId,
+              documentId: payload.id
             };
       doAjax( '@Nav_Backend@', 'POST', data ).then( () => {
         commit( 'OnProgress_Attachment_Single', payload );
