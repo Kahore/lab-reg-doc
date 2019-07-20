@@ -447,8 +447,8 @@ const actions = {
                 'id': payload.id,
                 'documentId': payload.documentId,
                 'PersonName': payload.EmployeeName,
-                'IsDisabledBtnDel': 'false',
-                'IsDisabledChb': 'false',
+                'IsDisabledBtnDel': 'true',
+                'IsDisabledChb': 'true',
                 'onAction': 'false',
                 'OnboardingState': 'approved',
                 'LastChanged': getDate() + ' Test User Name_Surn'

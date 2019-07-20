@@ -20,7 +20,6 @@ export function fixJSON ( resp ) {
  *  Add missed arrays if they no exist in object
  */
 export function fixField ( parsedData ) {
-  let _tmpArray = [];
   if ( typeof parsedData.Document.Field.DocumentDescribe !== 'undefined' ) {
     parsedData.Document.Field.DocumentDescribe = parsedData.Document.Field.DocumentDescribe.replace( /\\n/g, '\n' );
   }
@@ -29,33 +28,12 @@ export function fixField ( parsedData ) {
   }
   if ( typeof parsedData.DataFiles === 'undefined' ) {
     parsedData.DataFiles = [];
-  } else {
-    /* MEMO: Expected array, not object */
-      if ( typeof parsedData.DataFiles[0] === 'undefined' ) {
-        _tmpArray.push( parsedData.Document.DataFiles );
-        parsedData.Document.DataFiles = _tmpArray;
-        _tmpArray = [];
-      }
   }
   if ( typeof parsedData.SignerData === 'undefined' ) {
     parsedData.SignerData = [];
-  } else {
-    /* MEMO: Expected array, not object */
-      if ( typeof parsedData.SignerData[0] === 'undefined' ) {
-        _tmpArray.push( parsedData.SignerData );
-        parsedData.SignerData = _tmpArray;
-        _tmpArray = [];
-      }
-  }
+  } 
   if ( typeof parsedData.OnboardingData === 'undefined' ) {
     parsedData.OnboardingData = [];
-  } else {
-    /* MEMO: Expected array, not object */
-      if ( typeof parsedData.OnboardingData[0] === 'undefined' ) {
-        _tmpArray.push( parsedData.OnboardingData );
-        parsedData.OnboardingData = _tmpArray;
-        _tmpArray = [];
-      }
   }
   if ( typeof parsedData.OnboardingWhoChecked === 'undefined' ) {
     parsedData.OnboardingWhoChecked = [];

@@ -41,7 +41,7 @@
             :key="index"
             class="tbl-row">
             <div 
-              class="tbl-3Block tbl-noCenter"
+              class="tbl-3Block tbl-noCenterBlock"
               v-text="onboardingPerson.PersonName"/>
             <div class="tbl-3Block tbl-noCenter">
               <input

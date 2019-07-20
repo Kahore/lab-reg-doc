@@ -57,30 +57,23 @@
   ],
   "SignerData": [
     {
-      "id": "ff2e8e09-a063-4d96-a5fa-2f16b548e2f7",
+      "id": "281750a7-dc38-489d-80e3-bc56a36077ea",
       "documentId": "b542c61b-ee8a-458a-82aa-0227f9dc7cef",
-      "SignerName": "Коломейцев Владимир Андреевич",
+      "SignerName": "Ahsan Moran",
       "onAction": "false",
-      "AddBy": "20.07.2019 13:15:26 Test User Name_Surn"
-    },
-    {
-      "id": "8cc94713-c812-4db0-9e78-022eb376d380",
-      "documentId": "b542c61b-ee8a-458a-82aa-0227f9dc7cef",
-      "SignerName": "Колодезнов Владимир Владимирович",
-      "onAction": "false",
-      "AddBy": "20.07.2019 13:42:41 Test User Name_Surn"
+      "AddBy": "20.07.2019 13:52:38 Test User Name_Surn"
     }
   ],
   "OnboardingData": [
     {
-      "id": "7bedc324-e71c-4978-93a5-f403d72cdde3",
+      "id": "16c38335-d8f1-4073-897f-50092051e113",
       "documentId": "b542c61b-ee8a-458a-82aa-0227f9dc7cef",
-      "PersonName": "ksenia_kolomenko",
-      "IsDisabledBtnDel": "false",
-      "IsDisabledChb": "false",
+      "PersonName": "Mikey_Simon",
+      "IsDisabledBtnDel": "true",
+      "IsDisabledChb": "true",
       "onAction": "false",
       "OnboardingState": "approved",
-      "LastChanged": "20.07.2019 13:35:10 Test User Name_Surn"
+      "LastChanged": "20.07.2019 13:53:29 Test User Name_Surn"
     }
   ],
   "ListData": {

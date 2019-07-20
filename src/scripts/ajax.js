@@ -34,39 +34,24 @@ export function autocmpl( PARAM2, term ) {
   return new Promise( function( resolve ) {
  let data;
   if ( PARAM2 === 'EmployeeEmail' ) {
-    data = ['ksenia_kolomenko:ksenia.kolomenko@sgs.com',
-            'andrey_sokolov:andrey.sokolov@sgs.com',
-            'Tatyana_Kolomina:Tatyana.Kolomina@sgs.com',
-            'mikhail_kolov:mikhail.kolov@sgs.com',
-            'alexander_kolobov:alexander.kolobov@sgs.com',
-            'julia_kolomenko:julia.kolomenko@sgs.com'
+    data = ['Ammarah_Woodcock:Ammarah.Woodcock@example.com',
+            'Cindy_Lott:Cindy.Lott@example.com',
+            'Mikey_Simon:Mikey.Simon@example.com',
+            'Raheem_Wolf:Raheem.Wolf@example.com',
+            'Derek_Redfern:Derek.Redfern@example.com',
+            'Stephanie_Corona:Stephanie.Corona@example.com'
           ];
   } else {
    data = [
-          'Колосов Михаил Александрович',
-          'Колодезнов Владимир Владимирович',
-          'Колос Анна Александровна',
-          'Колов Михаил Григорьевич',
-          'Колотовкин Владимир Анатольевич',
-          'Колосков Юрий Юрьевич',
-          'Коломиец Ирина Андреевна',
-          'Колобов Степан Александрович',
-          'Коломенко Юлия Владимировна',
-          'Колобов Александр Викторович',
-          'Колоскова Ольга Вениаминовна',
-          'Коломиец Руслан Владимирович',
-          'Коломейцев Владимир Андреевич',
-          'Колобылин Юрий Михайлович',
-          'Колотов Денис Васильевич',
-          'Колосов Артем Андреевич',
-          'Коломина Татьяна Николаевна',
-          'Коломоец Артем Владимирович',
-          'Колосовская Наталья Николаевна',
-          'Коломин Александр Сергеевич',
-          'Колотов Максим Владимирович',
-          'Коломенко Ксения Евгеньевна',
-          'Колодрубский Олег Вильевич',
-          'Колова Светлана Геннадьевна'
+          'Elissa Freeman',
+          'Ahsan Moran',
+          'Fatma Paterson',
+          'Killian Medina',
+          'Samad Wilks',
+          'Aadil Jacobson',
+          'Woody Swift',
+          'Brendon Riddle',
+          'James Gilmore'
         ];
  }
 
